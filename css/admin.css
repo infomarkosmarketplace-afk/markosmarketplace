@@ -1,0 +1,413 @@
+/* ===========================
+ADMIN PAGE STYLE
+Marko's Marketplace
+=========================== */
+
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+
+body{
+
+    background:#f5f5f5;
+    color:#222;
+
+}
+
+
+
+
+
+/* ===========================
+ADMIN LAYOUT
+=========================== */
+
+
+.admin-container{
+
+    display:flex;
+    gap:25px;
+    margin:30px 5%;
+
+}
+
+
+
+
+/* ===========================
+SIDEBAR
+=========================== */
+
+
+.admin-sidebar{
+
+    width:260px;
+    background:white;
+    padding:25px;
+    border-radius:10px;
+    height:fit-content;
+
+}
+
+
+
+.admin-sidebar h2{
+
+    margin-bottom:20px;
+
+}
+
+
+
+.admin-tab{
+
+    width:100%;
+    padding:15px;
+    margin:8px 0;
+    border:none;
+    background:#f5f5f5;
+    cursor:pointer;
+    text-align:left;
+    border-radius:5px;
+
+}
+
+
+
+.admin-tab.active{
+
+    background:#131921;
+    color:white;
+
+}
+
+
+
+
+
+/* ===========================
+CONTENT
+=========================== */
+
+
+.admin-content{
+
+    flex:1;
+
+}
+
+
+
+.admin-section{
+
+    display:none;
+    background:white;
+    padding:30px;
+    border-radius:10px;
+
+}
+
+
+
+.admin-section.active{
+
+    display:block;
+
+}
+
+
+
+
+
+/* ===========================
+STATISTICS
+=========================== */
+
+
+.admin-stats{
+
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:20px;
+    margin-top:25px;
+
+}
+
+
+
+.admin-card{
+
+    background:#f8f8f8;
+    padding:25px;
+    text-align:center;
+    border-radius:10px;
+
+}
+
+
+
+.admin-card i{
+
+    font-size:35px;
+    margin-bottom:15px;
+
+}
+
+
+
+.admin-card span{
+
+    display:block;
+    font-size:25px;
+    font-weight:bold;
+
+}
+
+
+
+
+
+/* ===========================
+TABLES
+=========================== */
+
+
+.admin-table{
+
+    width:100%;
+    border-collapse:collapse;
+    margin-top:20px;
+
+}
+
+
+
+.admin-table th,
+.admin-table td{
+
+    padding:15px;
+    border-bottom:1px solid #ddd;
+    text-align:left;
+
+}
+
+
+
+.admin-table th{
+
+    background:#f5f5f5;
+
+}
+
+
+
+
+
+/* ===========================
+REVENUE
+=========================== */
+
+
+.revenue-summary{
+
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:20px;
+
+}
+
+
+
+.revenue-card{
+
+    background:#f8f8f8;
+    padding:25px;
+    border-radius:10px;
+    text-align:center;
+
+}
+
+
+
+.revenue-card strong{
+
+    display:block;
+    margin-top:15px;
+    font-size:22px;
+
+}
+
+
+
+
+
+/* ===========================
+EXCHANGE RATES
+=========================== */
+
+
+.exchange-card{
+
+    max-width:500px;
+
+}
+
+
+
+.input-group{
+
+    margin-bottom:20px;
+
+}
+
+
+
+.input-group label{
+
+    display:block;
+    margin-bottom:5px;
+
+}
+
+
+
+.input-group input{
+
+    width:100%;
+    padding:12px;
+    border:1px solid #ccc;
+    border-radius:5px;
+
+}
+
+
+
+#saveRatesBtn{
+
+    padding:12px 25px;
+    border:none;
+    background:#131921;
+    color:white;
+    cursor:pointer;
+    border-radius:5px;
+
+}
+
+
+
+
+
+/* ===========================
+FOOTER
+=========================== */
+
+
+.footer{
+
+    background:#131921;
+    color:white;
+    padding:40px 5%;
+
+}
+
+
+
+.footer-container{
+
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:30px;
+
+}
+
+
+
+.footer a{
+
+    display:block;
+    color:white;
+    text-decoration:none;
+    margin:10px 0;
+
+}
+
+
+
+.copyright{
+
+    text-align:center;
+    margin-top:20px;
+
+}
+
+
+
+
+
+/* ===========================
+MOBILE
+=========================== */
+
+
+@media(max-width:900px){
+
+
+.admin-container{
+
+    flex-direction:column;
+
+}
+
+
+
+.admin-sidebar{
+
+    width:100%;
+
+}
+
+
+
+.admin-stats{
+
+    grid-template-columns:repeat(2,1fr);
+
+}
+
+
+
+.revenue-summary{
+
+    grid-template-columns:1fr;
+
+}
+
+
+
+.footer-container{
+
+    grid-template-columns:1fr;
+
+}
+
+
+}
+
+
+
+@media(max-width:500px){
+
+
+.admin-stats{
+
+    grid-template-columns:1fr;
+
+}
+
+
+}

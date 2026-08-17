@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>login</title>
+<style>
+    body{font-family:Ariel;background: #f3f3f3;display: flex;justify-content: center;align-items: center;height: 100vh;}
+    .box{width: 350px;background: white;padding: 20px;border: 1px solid #ddd;}
+    input{width: 100%;padding: 10px;margin: 8px 0;}
+    button{width: 100%;background: #f0c14b;padding: 10px;border: 1px solid #a88734;}
+</style>
+</head>
+<body>
+
+    <div class="box">
+        <h2>Login</h2>
+
+        <form id="loginForm">
+            <!-- EMAIL -->
+            <div class="form-group">
+                <label for="email">Email</label>
+
+                <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    placeholder="Enter your email"
+                    required
+                >
+            </div>
+
+             <!-- PASSWORD -->
+            <div class="form-group">
+                <label for="password">Password</label>
+
+                <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    placeholder="At least 6 characters"
+                    required
+                >
+
+                <div class="password-help">
+                    Password must be at least 6 characters.
+                </div>
+                
+            <button type="submit">Login</button>
+        </form>
+
+    </div>
+    <script src="js/login.js"></script>
+
+</body>
+</html>

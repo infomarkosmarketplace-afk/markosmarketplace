@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Seller Settings - Marko's Marketplace</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f9;
+            color: #222;
+            min-height: 100vh;
+        }
+
+        .header {
+            background: #111827;
+            color: white;
+            padding: 18px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand {
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .back-btn {
+            color: white;
+            text-decoration: none;
+            background: #2563eb;
+            padding: 10px 16px;
+            border-radius: 8px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .page-title {
+            margin-bottom: 25px;
+        }
+
+        .page-title h1 {
+            font-size: 30px;
+            margin-bottom: 8px;
+        }
+
+        .page-title p {
+            color: #666;
+        }
+
+        .card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+
+        .card h2 {
+            margin-bottom: 8px;
+        }
+
+        .card-description {
+            color: #777;
+            margin-bottom: 22px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 18px;
+        }
+
+        .field {
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+        }
+
+        .field.full {
+            grid-column: 1 / -1;
+        }
+
+        label {
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 13px;
+            border: 1px solid #d1d5db;
+            border-radius: 9px;
+            font-size: 15px;
+            outline: none;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            border-color: #2563eb;
+        }
+
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .currency-box {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            padding: 15px;
+            background: #f8fafc;
+            border-radius: 10px;
+        }
+
+        .currency-option {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+        }
+
+        .currency-option input {
+            width: auto;
+        }
+
+        .toggle-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 15px;
+            background: #f8fafc;
+            border-radius: 10px;
+            margin-bottom: 18px;
+        }
+
+        .toggle-row input {
+            width: 20px;
+            height: 20px;
+        }
+
+        .save-btn {
+            margin-top: 20px;
+            width: 100%;
+            border: none;
+            background: #2563eb;
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .save-btn:hover {
+            background: #1d4ed8;
+        }
+
+        .message {
+            display: none;
+            padding: 13px;
+            border-radius: 8px;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+
+        .success {
+            display: block;
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .error {
+            display: block;
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .security-note {
+            background: #eff6ff;
+            border-left: 4px solid #2563eb;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 700px) {
+
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            .field.full {
+                grid-column: auto;
+            }
+
+            .header {
+                gap: 10px;
+                flex-direction: column;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<header class="header">
+
+    <div class="brand">
+        Marko's Marketplace
+    </div>
+
+    <a
+        href="seller-dashboard.html"
+        class="back-btn"
+    >
+        ← Dashboard
+    </a>
+
+</header>
+
+
+<main class="container">
+
+
+    <div class="page-title">
+
+        <h1>
+            Seller Payment & Delivery
+        </h1>
+
+        <p>
+            Manage how buyers pay you and how you deliver their orders.
+        </p>
+
+    </div>
+
+
+    <div class="security-note">
+
+        🔒 <strong>Keep your information accurate.</strong>
+
+        Your banking information is used to provide payment
+        instructions to buyers after they place an order.
+
+    </div>
+
+
+    <!-- =====================================================
+         PAYMENT DETAILS
+    ====================================================== -->
+
+    <section class="card">
+
+        <h2>
+            💳 Payment Details
+        </h2>
+
+        <p class="card-description">
+            Enter the bank account where buyers should send payment.
+        </p>
+
+
+        <form id="paymentForm">
+
+
+            <div class="grid">
+
+
+                <div class="field">
+
+                    <label>
+                        Country
+                    </label>
+
+                    <input
+                        type="text"
+                        id="countryCode"
+                        placeholder="e.g. NA"
+                    >
+
+                </div>
+
+
+                <div class="field">
+
+                    <label>
+                        Payment Method
+                    </label>
+
+                    <select id="paymentMethod">
+
+                        <option value="Bank Transfer">
+                            Bank Transfer
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="field">
+
+                    <label>
+                        Account Holder Name *
+                    </label>
+
+                    <input
+                        type="text"
+                        id="accountHolderName"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="field">
+
+                    <label>
+                        Bank Name *
+                    </label>
+
+                    <input
+                        type="text"
+                        id="bankName"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="field">
+
+                    <label>
+                        Account Number *
+                    </label>
+
+                    <input
+                        type="text"
+                        id="accountNumber"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="field">
+
+                    <label>
+                        Branch Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="branchName"
+                    >
+
+                </div>
+
+
+                <div class="field">
+
+                    <label>
+                        Routing Number
+                    </label>
+
+                    <input
+                        type="text"
+                        id="routingNumber"
+                    >
+
+                </div>
+
+
+                <div class="field">
+
+                    <label>
+                        Sort Code
+                    </label>
+
+                    <input
+                        type="text"
+                        id="sortCode"
+                    >
+
+                </div>
+
+
+                <div class="field">
+
+                    <label>
+                        IBAN
+                    </label>
+
+                    <input
+                        type="text"
+                        id="iban"
+                    >
+
+                </div>
+
+
+                <div class="field">
+
+                    <label>
+                        SWIFT / BIC
+                    </label>
+
+                    <input
+                        type="text"
+                        id="swiftBic"
+                    >
+
+                </div>
+
+
+                <div class="field full">
+
+                    <label>
+                        Accepted Currencies
+                    </label>
+
+                    <div class="currency-box">
+
+
+                        <label class="currency-option">
+
+                            <input
+                                type="checkbox"
+                                value="NAD"
+                                class="currency"
+                                checked
+                            >
+
+                            NAD
+
+                        </label>
+
+
+                        <label class="currency-option">
+
+                            <input
+                                type="checkbox"
+                                value="USD"
+                                class="currency"
+                                checked
+                            >
+
+                            USD
+
+                        </label>
+
+
+                        <label class="currency-option">
+
+                            <input
+                                type="checkbox"
+                                value="EUR"
+                                class="currency"
+                                checked
+                            >
+
+                            EUR
+
+                        </label>
+
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+            <button
+                type="submit"
+                class="save-btn"
+            >
+                Save Payment Details
+            </button>
+
+
+            <div
+                id="paymentMessage"
+                class="message"
+            ></div>
+
+
+        </form>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         DELIVERY DETAILS
+    ====================================================== -->
+
+    <section class="card">
+
+        <h2>
+            🚚 Delivery & Pickup
+        </h2>
+
+        <p class="card-description">
+            Tell buyers how they can receive their purchases.
+        </p>
+
+
+        <form id="deliveryForm">
+
+
+            <div class="toggle-row">
+
+                <input
+                    type="checkbox"
+                    id="deliveryAvailable"
+                >
+
+                <label for="deliveryAvailable">
+                    I offer delivery
+                </label>
+
+            </div>
+
+
+            <div class="grid">
+
+
+                <div class="field">
+
+                    <label>
+                        Delivery Fee
+                    </label>
+
+                    <input
+                        type="number"
+                        id="deliveryFee"
+                        min="0"
+                        step="0.01"
+                        value="0"
+                        placeholder="0.00"
+                    >
+
+                </div>
+
+
+                <div class="field">
+
+                    <label>
+                        Estimated Delivery Time
+                    </label>
+
+                    <input
+                        type="text"
+                        id="estimatedDeliveryTime"
+                        placeholder="e.g. 1-2 business days"
+                    >
+
+                </div>
+
+
+                <div class="field full">
+
+                    <label>
+                        Delivery Areas
+                    </label>
+
+                    <textarea
+                        id="deliveryAreas"
+                        placeholder="e.g. Windhoek, Khomas Region"
+                    ></textarea>
+
+                </div>
+
+
+            </div>
+
+
+            <div class="toggle-row">
+
+                <input
+                    type="checkbox"
+                    id="pickupAvailable"
+                >
+
+                <label for="pickupAvailable">
+                    I offer customer pickup
+                </label>
+
+            </div>
+
+
+            <div class="field">
+
+                <label>
+                    Pickup Location
+                </label>
+
+                <input
+                    type="text"
+                    id="pickupLocation"
+                    placeholder="e.g. Windhoek"
+                >
+
+            </div>
+
+
+            <button
+                type="submit"
+                class="save-btn"
+            >
+                Save Delivery Settings
+            </button>
+
+
+            <div
+                id="deliveryMessage"
+                class="message"
+            ></div>
+
+
+        </form>
+
+    </section>
+
+
+</main>
+
+
+<script src="js/seller-settings.js"></script>
+
+
+</body>
+
+</html>

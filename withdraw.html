@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Withdraw Money</title>
+
+<style>
+
+body{
+    font-family:Arial,sans-serif;
+    background:#f4f4f4;
+    margin:0;
+}
+
+.container{
+    max-width:700px;
+    margin:40px auto;
+    background:white;
+    padding:25px;
+    border-radius:10px;
+    box-shadow:0 0 10px #ccc;
+}
+
+h2{
+    text-align:center;
+}
+
+.balance{
+    background:#111827;
+    color:white;
+    padding:20px;
+    border-radius:10px;
+    font-size:20px;
+    margin-bottom:20px;
+}
+
+input,select{
+    width:100%;
+    padding:12px;
+    margin:8px 0;
+    border:1px solid #ccc;
+    border-radius:5px;
+}
+
+button{
+    width:100%;
+    padding:14px;
+    background:#ff9900;
+    border:none;
+    border-radius:5px;
+    font-size:18px;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#e68a00;
+}
+
+.section{
+    margin-top:20px;
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+<h2>Withdraw Funds</h2>
+
+
+<div class="balance">
+Available Balance:
+<br>
+<span id="balance">Loading...</span>
+</div>
+
+
+
+<div class="section">
+
+<h3>Bank Transfer Details</h3>
+
+
+<input id="holder"
+placeholder="Account Holder Name">
+
+
+<input id="bank"
+placeholder="Bank Name">
+
+
+<input id="country"
+placeholder="Bank Country">
+
+
+<input id="account"
+placeholder="Account Number">
+
+
+<input id="iban"
+placeholder="IBAN (if required)">
+
+
+<input id="swift"
+placeholder="SWIFT / BIC Code">
+
+
+
+<select id="currency">
+
+<option value="USD">
+USD - US Dollar
+</option>
+
+<option value="EUR">
+EUR - Euro
+</option>
+
+<option value="GBP">
+GBP - British Pound
+</option>
+
+<option value="NAD">
+NAD - Namibian Dollar
+</option>
+
+</select>
+
+
+<input id="amount"
+type="number"
+placeholder="Amount to withdraw">
+
+
+<button onclick="withdraw()">
+Request Bank Transfer
+</button>
+
+
+</div>
+
+
+</div>
+
+
+
+
+<script>
+
+const token = localStorage.getItem("token");
+
+
+// =====================================================
+// CHECK LOGIN
+// =====================================================
+
+if (!token) {
+
+    document.getElementById("balance").textContent =
+        "Please log in again.";
+
+}
+
+
+// =====================================================
+// LOAD SELLER BALANCE
+// =====================================================
+
+async function loadBalance() {
+
+    const balanceElement =
+        document.getElementById("balance");
+
+
+    try {
+
+        const response = await fetch(
+            "/withdrawal_request/info",
+            {
+                method: "GET",
+
+                headers: {
+                    "Authorization": "Bearer " + token
+                }
+            }
+        );
+
+
+        const data =
+            await response.json();
+
+
+        console.log(
+            "BALANCE RESPONSE:",
+            data
+        );
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                data.message ||
+                "Unable to load balance."
+            );
+
+        }
+
+
+        balanceElement.textContent =
+            Number(data.balance || 0).toFixed(2) +
+            " USD";
+
+
+    } catch (error) {
+
+        console.error(
+            "BALANCE ERROR:",
+            error
+        );
+
+
+        balanceElement.textContent =
+            "Unable to load balance";
+
+    }
+
+}
+
+
+// =====================================================
+// REQUEST WITHDRAWAL
+// =====================================================
+
+async function withdraw() {
+
+    if (!token) {
+
+        alert(
+            "Please log in again."
+        );
+
+        window.location.href =
+            "/login.html";
+
+        return;
+
+    }
+
+
+    const data = {
+
+        account_holder:
+            document.getElementById("holder").value.trim(),
+
+        bank_name:
+            document.getElementById("bank").value.trim(),
+
+        country:
+            document.getElementById("country").value.trim(),
+
+        account_number:
+            document.getElementById("account").value.trim(),
+
+        iban:
+            document.getElementById("iban").value.trim(),
+
+        swift:
+            document.getElementById("swift").value.trim(),
+
+        currency:
+            document.getElementById("currency").value,
+
+        amount:
+            document.getElementById("amount").value
+
+    };
+
+
+    if (!data.amount || Number(data.amount) <= 0) {
+
+        alert(
+            "Enter a valid withdrawal amount."
+        );
+
+        return;
+
+    }
+
+
+    try {
+
+        const response = await fetch(
+            "/withdrawal_request/request",
+            {
+                method: "POST",
+
+                headers: {
+
+                    "Content-Type":
+                        "application/json",
+
+                    "Authorization":
+                        "Bearer " + token
+
+                },
+
+                body:
+                    JSON.stringify(data)
+
+            }
+        );
+
+
+        const result =
+            await response.json();
+
+
+        console.log(
+            "WITHDRAWAL RESPONSE:",
+            result
+        );
+
+
+        if (!response.ok || !result.success) {
+
+            throw new Error(
+                result.message ||
+                "Withdrawal request failed."
+            );
+
+        }
+
+
+        alert(
+            result.message ||
+            "Bank withdrawal request submitted successfully."
+        );
+
+
+        document.getElementById(
+            "amount"
+        ).value = "";
+
+
+        // Reload balance
+
+        loadBalance();
+
+
+    } catch (error) {
+
+        console.error(
+            "WITHDRAWAL ERROR:",
+            error
+        );
+
+
+        alert(
+            error.message ||
+            "Withdrawal request failed."
+        );
+
+    }
+
+}
+
+
+// =====================================================
+// START
+// =====================================================
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+        if (token) {
+
+            loadBalance();
+
+        }
+
+    }
+);
+
+</script>
+
+
+</body>
+
+</html>

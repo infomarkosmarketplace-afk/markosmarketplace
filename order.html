@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Your Orders - Marko's Marketplace</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
+
+body{
+    background:#eaeded;
+}
+
+/* Amazon Header */
+.header{
+    background:#131921;
+    color:white;
+    padding:18px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.logo{
+    font-size:24px;
+    font-weight:bold;
+}
+
+.search{
+    width:40%;
+    padding:10px;
+    border-radius:5px;
+    border:none;
+}
+
+
+/* Page */
+.container{
+    width:95%;
+    max-width:1200px;
+    margin:25px auto;
+}
+
+
+h1{
+    margin-bottom:20px;
+}
+
+
+/* Order box */
+
+.order-box{
+
+    background:white;
+    border-radius:8px;
+    margin-bottom:25px;
+    overflow:hidden;
+    box-shadow:0 2px 5px rgba(0,0,0,.15);
+
+}
+
+
+.order-header{
+
+    background:#f7f7f7;
+    padding:15px;
+    display:flex;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    border-bottom:1px solid #ddd;
+
+}
+
+
+.order-header p{
+
+    color:#555;
+    font-size:14px;
+
+}
+
+
+/* Product */
+
+.product{
+
+    padding:20px;
+    display:flex;
+    gap:20px;
+
+}
+
+
+.product img{
+
+    width:150px;
+    height:150px;
+    object-fit:cover;
+    border:1px solid #ddd;
+
+}
+
+
+.info h2{
+
+    margin-bottom:10px;
+
+}
+
+
+.info p{
+
+    margin:7px 0;
+
+}
+
+
+/* Currency */
+
+.price{
+
+    font-size:18px;
+    font-weight:bold;
+    color:#b12704;
+
+}
+
+
+.currency{
+
+    color:#555;
+}
+
+
+/* Status */
+
+.status{
+
+    color:#007600;
+    font-weight:bold;
+
+}
+
+
+/* Buttons */
+
+button{
+
+    background:#ffd814;
+    border:1px solid #fcd200;
+    padding:10px 20px;
+    border-radius:20px;
+    margin-top:10px;
+    cursor:pointer;
+
+}
+
+
+button:hover{
+
+    background:#f7ca00;
+
+}
+
+
+/* Mobile */
+
+@media(max-width:700px){
+
+.product{
+
+    flex-direction:column;
+
+}
+
+.search{
+
+    display:none;
+
+}
+
+.order-header{
+
+    flex-direction:column;
+    gap:10px;
+
+}
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="header">
+
+<div class="logo">
+Marko's Marketplace
+</div>
+
+<input class="search" placeholder="Search orders">
+
+</div>
+
+
+
+<div class="container">
+
+
+<h1>Your Orders</h1>
+
+
+
+<div class="order-box">
+
+
+<div class="order-header">
+
+<div>
+<p>ORDER PLACED</p>
+<strong>16 July 2026</strong>
+</div>
+
+
+<div>
+<p>TOTAL</p>
+<strong>N$ 2,650.00</strong>
+</div>
+
+
+<div>
+<p>ORDER NUMBER</p>
+<strong>#MK10001</strong>
+</div>
+
+
+</div>
+
+
+
+<div class="product">
+
+
+<img src="uploads/product.jpg">
+
+
+<div class="info">
+
+<h2>Samsung Galaxy Phone</h2>
+
+
+<p>
+Quantity: 1
+</p>
+
+
+<p class="price">
+Paid: N$2,650.00
+</p>
+
+
+<p class="currency">
+Original price: US$145.00
+</p>
+
+
+<p class="currency">
+Currency: NAD
+</p>
+
+
+<p class="currency">
+Exchange rate: 1 USD = 18.27 NAD
+</p>
+
+
+<p class="status">
+Delivered
+</p>
+
+
+<button>
+Buy Again
+</button>
+
+
+<button>
+View Details
+</button>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+<div class="order-box">
+
+
+<div class="order-header">
+
+
+<div>
+<p>ORDER PLACED</p>
+<strong>14 July 2026</strong>
+</div>
+
+
+<div>
+<p>TOTAL</p>
+<strong>€120.50</strong>
+</div>
+
+
+<div>
+<p>ORDER NUMBER</p>
+<strong>#MK10002</strong>
+</div>
+
+
+</div>
+
+
+
+<div class="product">
+
+
+<img src="uploads/headphones.jpg">
+
+
+<div class="info">
+
+
+<h2>Wireless Headphones</h2>
+
+
+<p>
+Quantity: 1
+</p>
+
+
+<p class="price">
+Paid: €120.50
+</p>
+
+
+<p class="currency">
+Original price: US$140.00
+</p>
+
+
+<p class="currency">
+Currency: EUR
+</p>
+
+
+<p class="currency">
+Exchange rate: 1 USD = 0.86 EUR
+</p>
+
+
+<p class="status">
+Shipped
+</p>
+
+
+<button>
+Track Package
+</button>
+
+
+<button>
+View Details
+</button>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+</div>
+
+
+</body>
+</html>

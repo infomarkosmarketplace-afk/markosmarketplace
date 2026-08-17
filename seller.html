@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Seller Store | Marko's Marketplace</title>
+
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="seller.css">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+</head>
+
+
+<body>
+
+
+<!-- =========================
+HEADER
+========================= -->
+
+<header class="header">
+
+
+<div class="logo">
+
+<a href="index.html">
+
+<h2>
+Marko's Marketplace
+</h2>
+
+</a>
+
+</div>
+
+
+
+<div class="search-bar">
+
+<input 
+type="search"
+placeholder="Search products...">
+
+
+<button>
+
+<i class="fas fa-search"></i>
+
+</button>
+
+</div>
+
+
+
+<nav>
+
+<ul>
+
+<li>
+<a href="index.html">
+Home
+</a>
+</li>
+
+
+<li>
+<a href="categories.html">
+Categories
+</a>
+</li>
+
+
+<li>
+<a href="deal.html">
+Deals
+</a>
+</li>
+
+
+<li>
+<a href="upload.html">
+Become a Seller
+</a>
+</li>
+
+</ul>
+
+</nav>
+
+
+
+<div class="header-icons">
+
+
+<a href="cart.html">
+
+<i class="fas fa-shopping-cart"></i>
+
+</a>
+
+
+<a href="account.html">
+
+<i class="fas fa-user"></i>
+
+</a>
+
+
+</div>
+
+
+</header>
+
+
+
+<!-- =========================
+SELLER PROFILE HEADER
+========================= -->
+
+
+<section class="seller-profile">
+
+
+<div class="seller-cover">
+
+
+</div>
+
+
+
+<div class="seller-info">
+
+
+<img
+
+src="images/default-profile.png"
+
+id="sellerProfileImage"
+
+alt="Seller Profile">
+
+
+<div>
+
+
+<h1 id="sellerName">
+
+Seller Name
+
+</h1>
+
+
+<p id="sellerDescription">
+
+Seller description
+
+</p>
+
+
+<div class="seller-rating">
+
+
+⭐
+
+<span id="sellerRating">
+
+0.0
+
+</span>
+
+
+(
+
+<span id="sellerReviews">
+
+0 Reviews
+
+</span>
+
+)
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+</section>
+
+<!-- =========================
+SELLER STATISTICS
+========================= -->
+
+<section class="seller-stats">
+
+
+<div class="stat-card">
+
+<i class="fas fa-box"></i>
+
+<h3>
+Products
+</h3>
+
+<span id="totalProducts">
+0
+</span>
+
+</div>
+
+
+
+<div class="stat-card">
+
+<i class="fas fa-shopping-bag"></i>
+
+<h3>
+Sales
+</h3>
+
+<span id="totalSales">
+0
+</span>
+
+</div>
+
+
+
+<div class="stat-card">
+
+<i class="fas fa-star"></i>
+
+<h3>
+Rating
+</h3>
+
+<span id="averageRating">
+0.0
+</span>
+
+</div>
+
+
+
+<div class="stat-card">
+
+<i class="fas fa-calendar"></i>
+
+<h3>
+Member Since
+</h3>
+
+<span id="memberSince">
+--
+</span>
+
+</div>
+
+
+</section>
+
+
+
+
+
+<!-- =========================
+SELLER ACTIONS
+========================= -->
+
+
+<section class="seller-actions">
+
+
+<button id="contactSellerBtn">
+
+<i class="fas fa-message"></i>
+
+Contact Seller
+
+</button>
+
+
+
+<button id="followSellerBtn">
+
+<i class="fas fa-user-plus"></i>
+
+Follow Seller
+
+</button>
+
+
+
+<button id="shareStoreBtn">
+
+<i class="fas fa-share"></i>
+
+Share Store
+
+</button>
+
+
+</section>
+
+
+
+
+
+<!-- =========================
+SELLER STORE DETAILS
+========================= -->
+
+
+<section class="store-details">
+
+
+<h2>
+About This Store
+</h2>
+
+
+<p id="storeDescription">
+
+Store information will appear here.
+
+</p>
+
+
+
+<div class="store-info">
+
+
+<div>
+
+<h4>
+Location
+</h4>
+
+<p id="sellerLocation">
+--
+</p>
+
+</div>
+
+
+
+<div>
+
+<h4>
+Response Time
+</h4>
+
+<p id="responseTime">
+--
+</p>
+
+</div>
+
+
+
+<div>
+
+<h4>
+Delivery Options
+</h4>
+
+<p id="deliveryOptions">
+--
+</p>
+
+</div>
+
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+<!-- =========================
+SELLER PRODUCTS
+========================= -->
+
+
+<section class="seller-products">
+
+
+<h2>
+
+Products From This Seller
+
+</h2>
+
+
+
+<div 
+class="product-grid"
+id="sellerProducts">
+
+
+<!-- Products loaded dynamically -->
+
+
+</div>
+
+
+</section>
+
+<!-- =========================
+SELLER REVIEWS
+========================= -->
+
+<section class="seller-reviews">
+
+
+<h2>
+Customer Reviews About This Seller
+</h2>
+
+
+<div class="review-summary">
+
+
+<div class="rating-number">
+
+<h1 id="sellerAverageRating">
+
+0.0
+
+</h1>
+
+
+<p>
+Seller Rating
+</p>
+
+</div>
+
+
+
+<div class="rating-bars">
+
+
+<div class="rating-row">
+
+<span>
+5 ★
+</span>
+
+<div class="bar">
+
+<div 
+class="fill"
+id="fiveStar">
+</div>
+
+</div>
+
+</div>
+
+
+
+<div class="rating-row">
+
+<span>
+4 ★
+</span>
+
+<div class="bar">
+
+<div 
+class="fill"
+id="fourStar">
+</div>
+
+</div>
+
+</div>
+
+
+
+<div class="rating-row">
+
+<span>
+3 ★
+</span>
+
+<div class="bar">
+
+<div 
+class="fill"
+id="threeStar">
+</div>
+
+</div>
+
+</div>
+
+
+
+<div class="rating-row">
+
+<span>
+2 ★
+</span>
+
+<div class="bar">
+
+<div 
+class="fill"
+id="twoStar">
+</div>
+
+</div>
+
+</div>
+
+
+
+<div class="rating-row">
+
+<span>
+1 ★
+</span>
+
+<div class="bar">
+
+<div 
+class="fill"
+id="oneStar">
+</div>
+
+</div>
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+
+<div 
+id="sellerReviewList">
+
+<!-- Reviews loaded dynamically -->
+
+</div>
+
+
+
+</section>
+
+
+
+
+
+
+<!-- =========================
+SELLER TRUST BADGES
+========================= -->
+
+
+<section class="seller-trust">
+
+
+<h2>
+Why Buy From This Seller?
+</h2>
+
+
+
+<div class="trust-grid">
+
+
+<div class="trust-card">
+
+<i class="fas fa-check-circle"></i>
+
+<h3>
+Verified Seller
+</h3>
+
+<p>
+Seller identity verified by Marko's Marketplace.
+</p>
+
+</div>
+
+
+
+
+<div class="trust-card">
+
+<i class="fas fa-shipping-fast"></i>
+
+<h3>
+Reliable Delivery
+</h3>
+
+<p>
+Seller provides delivery options.
+</p>
+
+</div>
+
+
+
+
+
+<div class="trust-card">
+
+<i class="fas fa-comments"></i>
+
+<h3>
+Fast Response
+</h3>
+
+<p>
+Seller responds quickly to customers.
+</p>
+
+</div>
+
+
+
+
+
+<div class="trust-card">
+
+<i class="fas fa-shield-alt"></i>
+
+<h3>
+Buyer Protection
+</h3>
+
+<p>
+Transactions are protected.
+</p>
+
+</div>
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+
+<!-- =========================
+OTHER SELLERS
+========================= -->
+
+
+<section class="other-sellers">
+
+
+<h2>
+Other Sellers You May Like
+</h2>
+
+
+
+<div 
+class="seller-grid"
+id="otherSellers">
+
+
+<!-- Sellers loaded dynamically -->
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+
+<!-- =========================
+FOOTER
+========================= -->
+
+
+<footer class="footer">
+
+
+<div class="footer-container">
+
+
+<div>
+
+<h3>
+Marko's Marketplace
+</h3>
+
+
+<p>
+Connecting buyers and sellers worldwide.
+</p>
+
+
+</div>
+
+
+
+
+<div>
+
+<h3>
+Marketplace
+</h3>
+
+
+<a href="index.html">
+Home
+</a>
+
+
+<a href="categories.html">
+Categories
+</a>
+
+
+<a href="upload.html">
+Become a Seller
+</a>
+
+
+</div>
+
+
+
+
+<div>
+
+<h3>
+Support
+</h3>
+
+
+<a href="help.html">
+Help Center
+</a>
+
+
+<a href="privacy.html">
+Privacy Policy
+</a>
+
+
+<a href="terms.html">
+Terms
+</a>
+
+
+</div>
+
+
+
+
+<div>
+
+<h3>
+Social
+</h3>
+
+
+<a href="#">
+Facebook
+</a>
+
+
+<a href="#">
+Instagram
+</a>
+
+
+<a href="#">
+LinkedIn
+</a>
+
+
+</div>
+
+
+
+</div>
+
+
+
+<p class="copyright">
+
+© 2026 Marko's Marketplace. All rights reserved.
+
+</p>
+
+
+</footer>
+
+
+
+
+
+<script src="js/seller.js"></script>
+
+
+</body>
+
+</html>

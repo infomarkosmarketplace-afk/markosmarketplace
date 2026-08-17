@@ -1,0 +1,1137 @@
+<!DOCTYPE html><html lang="en">
+<head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"><title>MarketHub Admin Withdrawals</title><style>
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #eaeded;
+    color: #172133;
+}
+
+.header {
+    background: #131921;
+    color: white;
+    padding: 16px 22px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.logo span {
+    color: #ff9900;
+}
+
+.back {
+    color: white;
+    text-decoration: none;
+    background: #232f3e;
+    padding: 9px 14px;
+    border-radius: 5px;
+}
+
+.container {
+    max-width: 1250px;
+    margin: auto;
+    padding: 25px;
+}
+
+.top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.top h1 {
+    margin: 0 0 5px;
+}
+
+.refresh {
+    border: none;
+    background: #ff9900;
+    padding: 11px 18px;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.refresh:hover {
+    background: #f08800;
+}
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.stat {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    box-shadow: 0 1px 4px rgba(0,0,0,.08);
+}
+
+.stat-title {
+    color: #666;
+    font-size: 14px;
+    margin-bottom: 8px;
+}
+
+.stat-value {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.card {
+    background: white;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    box-shadow: 0 1px 4px rgba(0,0,0,.08);
+    overflow: hidden;
+}
+
+.card-header {
+    padding: 18px 20px;
+    border-bottom: 1px solid #ddd;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.table-container {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 1100px;
+}
+
+th {
+    background: #f7f7f7;
+    padding: 14px;
+    text-align: left;
+    font-size: 14px;
+}
+
+td {
+    padding: 14px;
+    border-top: 1px solid #eee;
+    vertical-align: top;
+}
+
+.status {
+    display: inline-block;
+    padding: 6px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.status-pending {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.status-processing {
+    background: #cfe2ff;
+    color: #084298;
+}
+
+.status-completed {
+    background: #d1e7dd;
+    color: #0f5132;
+}
+
+.status-rejected {
+    background: #f8d7da;
+    color: #842029;
+}
+
+.actions {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    min-width: 130px;
+}
+
+button {
+    font-family: inherit;
+}
+
+.action-btn {
+    border: none;
+    padding: 9px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.process-btn {
+    background: #0d6efd;
+    color: white;
+}
+
+.process-btn:hover {
+    background: #0b5ed7;
+}
+
+.paid-btn {
+    background: #198754;
+    color: white;
+}
+
+.paid-btn:hover {
+    background: #157347;
+}
+
+.reject-btn {
+    background: #dc3545;
+    color: white;
+}
+
+.reject-btn:hover {
+    background: #bb2d3b;
+}
+
+.action-btn:disabled {
+    opacity: .6;
+    cursor: not-allowed;
+}
+
+.reference {
+    font-size: 13px;
+    margin-top: 7px;
+    color: #555;
+}
+
+.note {
+    font-size: 13px;
+    margin-top: 7px;
+    color: #555;
+}
+
+.message {
+    padding: 30px;
+    text-align: center;
+    color: #666;
+}
+
+.notice {
+    margin-bottom: 20px;
+    padding: 14px;
+    background: #fff8e1;
+    border: 1px solid #ffe082;
+    border-radius: 7px;
+    color: #6d5700;
+}
+
+@media (max-width: 800px) {
+
+    .container {
+        padding: 15px;
+    }
+
+    .stats {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .top {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 15px;
+    }
+}
+
+@media (max-width: 500px) {
+
+    .stats {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+</style></head><body><header class="header"><div class="logo">
+    Market<span>Hub</span>
+</div>
+
+<a href="/admin.html" class="back">
+    ← Dashboard
+</a>
+
+</header><div class="container"><div class="top">
+
+    <div>
+
+        <h1>Admin Withdrawals</h1>
+
+        <p>
+            Manage marketplace commission payouts.
+        </p>
+
+    </div>
+
+    <button
+        id="refreshButton"
+        class="refresh"
+    >
+        ↻ Refresh
+    </button>
+
+</div>
+
+
+<div class="notice">
+    <strong>Important:</strong>
+    Mark a withdrawal as paid only after the actual bank transfer
+    has been completed. Enter the bank transfer reference when
+    completing the payout.
+</div>
+
+
+<!-- ============================
+     STATISTICS
+============================= -->
+
+<div class="stats">
+
+    <div class="stat">
+
+        <div class="stat-title">
+            Total Requests
+        </div>
+
+        <div
+            id="totalRequests"
+            class="stat-value"
+        >
+            0
+        </div>
+
+    </div>
+
+
+    <div class="stat">
+
+        <div class="stat-title">
+            Pending
+        </div>
+
+        <div
+            id="pendingRequests"
+            class="stat-value"
+        >
+            0
+        </div>
+
+    </div>
+
+
+    <div class="stat">
+
+        <div class="stat-title">
+            Processing
+        </div>
+
+        <div
+            id="processingRequests"
+            class="stat-value"
+        >
+            0
+        </div>
+
+    </div>
+
+
+    <div class="stat">
+
+        <div class="stat-title">
+            Pending Amount
+        </div>
+
+        <div
+            id="pendingAmount"
+            class="stat-value"
+        >
+            N$0.00
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ============================
+     WITHDRAWAL TABLE
+============================= -->
+
+<div class="card">
+
+    <div class="card-header">
+        Withdrawal Requests
+    </div>
+
+    <div class="table-container">
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>ID</th>
+                    <th>Amount</th>
+                    <th>Bank</th>
+                    <th>Account Holder</th>
+                    <th>Account Number</th>
+                    <th>Status</th>
+                    <th>Details</th>
+                    <th>Actions</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody id="withdrawalTable">
+
+                <tr>
+
+                    <td
+                        colspan="8"
+                        class="message"
+                    >
+                        Loading withdrawals...
+                    </td>
+
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+</div><script>
+
+// =====================================================
+// AUTHENTICATION
+// =====================================================
+
+const token =
+    localStorage.getItem("token");
+
+
+if (!token) {
+
+    window.location.href =
+        "/login.html";
+
+}
+
+
+// =====================================================
+// ELEMENTS
+// =====================================================
+
+const table =
+    document.getElementById(
+        "withdrawalTable"
+    );
+
+
+const refreshButton =
+    document.getElementById(
+        "refreshButton"
+    );
+
+
+// =====================================================
+// LOAD WITHDRAWALS
+// =====================================================
+
+async function loadWithdrawals() {
+
+    table.innerHTML = `
+        <tr>
+            <td
+                colspan="8"
+                class="message"
+            >
+                Loading withdrawals...
+            </td>
+        </tr>
+    `;
+
+    try {
+
+        const response =
+            await fetch(
+                "/admin/admin-withdrawals",
+                {
+                    method: "GET",
+
+                    headers: {
+                        "Authorization":
+                            "Bearer " + token
+                    }
+                }
+            );
+
+
+        const data =
+            await response.json();
+
+
+        if (!response.ok ||
+            !data.success) {
+
+            throw new Error(
+                data.message ||
+                "Unable to load withdrawals."
+            );
+
+        }
+
+
+        const withdrawals =
+            data.withdrawals || [];
+
+
+        updateStats(
+            withdrawals
+        );
+
+
+        renderWithdrawals(
+            withdrawals
+        );
+
+
+    } catch (error) {
+
+        console.error(
+            "LOAD WITHDRAWALS ERROR:",
+            error
+        );
+
+
+        table.innerHTML = `
+            <tr>
+                <td
+                    colspan="8"
+                    class="message"
+                >
+                    ${escapeHtml(
+                        error.message ||
+                        "Unable to load withdrawals."
+                    )}
+                </td>
+            </tr>
+        `;
+
+    }
+
+}
+
+
+// =====================================================
+// UPDATE STATS
+// =====================================================
+
+function updateStats(withdrawals) {
+
+    const pending =
+        withdrawals.filter(
+            item =>
+                String(item.status)
+                    .toLowerCase() === "pending"
+        );
+
+
+    const processing =
+        withdrawals.filter(
+            item =>
+                String(item.status)
+                    .toLowerCase() === "processing"
+        );
+
+
+    const pendingAmount =
+        pending.reduce(
+            (total, item) =>
+                total +
+                Number(item.amount || 0),
+            0
+        );
+
+
+    document.getElementById(
+        "totalRequests"
+    ).textContent =
+        withdrawals.length;
+
+
+    document.getElementById(
+        "pendingRequests"
+    ).textContent =
+        pending.length;
+
+
+    document.getElementById(
+        "processingRequests"
+    ).textContent =
+        processing.length;
+
+
+    document.getElementById(
+        "pendingAmount"
+    ).textContent =
+        "N$" +
+        pendingAmount.toFixed(2);
+
+}
+
+
+// =====================================================
+// RENDER
+// =====================================================
+
+function renderWithdrawals(withdrawals) {
+
+    if (!withdrawals.length) {
+
+        table.innerHTML = `
+            <tr>
+                <td
+                    colspan="8"
+                    class="message"
+                >
+                    No withdrawal requests found.
+                </td>
+            </tr>
+        `;
+
+        return;
+    }
+
+
+    table.innerHTML = "";
+
+
+    withdrawals.forEach(
+        withdrawal => {
+
+            const status =
+                String(
+                    withdrawal.status ||
+                    "Pending"
+                );
+
+
+            const normalized =
+                status.toLowerCase();
+
+
+            let statusClass =
+                "status-pending";
+
+
+            if (
+                normalized ===
+                "processing"
+            ) {
+
+                statusClass =
+                    "status-processing";
+
+            } else if (
+                normalized ===
+                "completed"
+            ) {
+
+                statusClass =
+                    "status-completed";
+
+            } else if (
+                normalized ===
+                "rejected"
+            ) {
+
+                statusClass =
+                    "status-rejected";
+
+            }
+
+
+            const row =
+                document.createElement(
+                    "tr"
+                );
+
+
+            let actions = "";
+
+
+            if (
+                normalized ===
+                "pending"
+            ) {
+
+                actions = `
+
+                    <button
+                        class="action-btn process-btn"
+                        onclick="processWithdrawal(${withdrawal.id})"
+                    >
+                        Process
+                    </button>
+
+                    <button
+                        class="action-btn reject-btn"
+                        onclick="rejectWithdrawal(${withdrawal.id})"
+                    >
+                        Reject
+                    </button>
+
+                `;
+
+            } else if (
+                normalized ===
+                "processing"
+            ) {
+
+                actions = `
+
+                    <button
+                        class="action-btn paid-btn"
+                        onclick="completeWithdrawal(${withdrawal.id})"
+                    >
+                        Mark as Paid
+                    </button>
+
+                    <button
+                        class="action-btn reject-btn"
+                        onclick="rejectProcessingWithdrawal(${withdrawal.id})"
+                    >
+                        Reject
+                    </button>
+
+                `;
+
+            } else {
+
+                actions = `
+                    <span>
+                        No actions
+                    </span>
+                `;
+
+            }
+
+
+            row.innerHTML = `
+
+                <td>
+                    #${escapeHtml(
+                        withdrawal.id
+                    )}
+                </td>
+
+
+                <td>
+                    <strong>
+                        N$${Number(
+                            withdrawal.amount || 0
+                        ).toFixed(2)}
+                    </strong>
+                </td>
+
+
+                <td>
+                    ${escapeHtml(
+                        withdrawal.bank_name ||
+                        "-"
+                    )}
+                </td>
+
+
+                <td>
+                    ${escapeHtml(
+                        withdrawal.account_name ||
+                        "-"
+                    )}
+                </td>
+
+
+                <td>
+                    ${escapeHtml(
+                        withdrawal.account_number ||
+                        "-"
+                    )}
+                </td>
+
+
+                <td>
+
+                    <span
+                        class="status ${statusClass}"
+                    >
+                        ${escapeHtml(
+                            status
+                        )}
+                    </span>
+
+                </td>
+
+
+                <td>
+
+                    ${
+                        withdrawal.provider_reference
+
+                        ? `
+                            <div class="reference">
+                                <strong>Reference:</strong>
+                                ${escapeHtml(
+                                    withdrawal.provider_reference
+                                )}
+                            </div>
+                        `
+                        : ""
+                    }
+
+
+                    ${
+                        withdrawal.admin_note
+
+                        ? `
+                            <div class="note">
+                                <strong>Note:</strong>
+                                ${escapeHtml(
+                                    withdrawal.admin_note
+                                )}
+                            </div>
+                        `
+                        : ""
+                    }
+
+
+                    ${
+                        withdrawal.failure_reason
+
+                        ? `
+                            <div class="note">
+                                <strong>Reason:</strong>
+                                ${escapeHtml(
+                                    withdrawal.failure_reason
+                                )}
+                            </div>
+                        `
+                        : ""
+                    }
+
+                </td>
+
+
+                <td>
+
+                    <div class="actions">
+                        ${actions}
+                    </div>
+
+                </td>
+
+            `;
+
+
+            table.appendChild(row);
+
+        }
+    );
+
+}
+
+
+// =====================================================
+// PROCESS WITHDRAWAL
+// =====================================================
+
+async function processWithdrawal(id) {
+
+    const note =
+        prompt(
+            "Optional processing note:"
+        );
+
+
+    if (note === null) {
+        return;
+    }
+
+
+    await sendAction(
+        `/admin/admin-withdrawals/${id}/process`,
+        {
+            admin_note:
+                note.trim() ||
+                "Withdrawal is being processed."
+        },
+        "Withdrawal moved to processing."
+    );
+
+}
+
+
+// =====================================================
+// COMPLETE WITHDRAWAL
+// =====================================================
+
+async function completeWithdrawal(id) {
+
+    const reference =
+        prompt(
+            "Enter the bank transfer reference:"
+        );
+
+
+    if (
+        reference === null ||
+        !reference.trim()
+    ) {
+
+        alert(
+            "A bank transfer reference is required."
+        );
+
+        return;
+    }
+
+
+    const note =
+        prompt(
+            "Optional completion note:"
+        );
+
+
+    if (note === null) {
+        return;
+    }
+
+
+    await sendAction(
+        `/admin/admin-withdrawals/${id}/complete`,
+        {
+            provider_reference:
+                reference.trim(),
+
+            admin_note:
+                note.trim() ||
+                "Bank transfer completed."
+        },
+        "Withdrawal marked as completed."
+    );
+
+}
+
+
+// =====================================================
+// REJECT PENDING WITHDRAWAL
+// =====================================================
+
+async function rejectWithdrawal(id) {
+
+    const reason =
+        prompt(
+            "Why are you rejecting this withdrawal?"
+        );
+
+
+    if (
+        reason === null ||
+        !reason.trim()
+    ) {
+
+        alert(
+            "A rejection reason is required."
+        );
+
+        return;
+    }
+
+
+    await sendAction(
+        `/admin/admin-withdrawals/${id}/reject`,
+        {
+            reason:
+                reason.trim(),
+
+            admin_note:
+                reason.trim()
+        },
+        "Withdrawal rejected and balance restored."
+    );
+
+}
+
+
+// =====================================================
+// REJECT PROCESSING WITHDRAWAL
+// =====================================================
+
+async function rejectProcessingWithdrawal(id) {
+
+    alert(
+        "A processing withdrawal cannot be rejected with the current backend workflow. Complete the transfer or contact support before changing it."
+    );
+
+}
+
+
+// =====================================================
+// SEND ACTION
+// =====================================================
+
+async function sendAction(
+    url,
+    body,
+    successMessage
+) {
+
+    try {
+
+        const response =
+            await fetch(
+                url,
+                {
+                    method: "PUT",
+
+                    headers: {
+
+                        "Authorization":
+                            "Bearer " + token,
+
+                        "Content-Type":
+                            "application/json"
+
+                    },
+
+                    body:
+                        JSON.stringify(body)
+
+                }
+            );
+
+
+        const data =
+            await response.json();
+
+
+        if (
+            !response.ok ||
+            !data.success
+        ) {
+
+            throw new Error(
+                data.message ||
+                "Request failed."
+            );
+
+        }
+
+
+        alert(
+            data.message ||
+            successMessage
+        );
+
+
+        await loadWithdrawals();
+
+
+    } catch (error) {
+
+        console.error(
+            "WITHDRAWAL ACTION ERROR:",
+            error
+        );
+
+
+        alert(
+            error.message ||
+            "Unable to complete request."
+        );
+
+    }
+
+}
+
+
+// =====================================================
+// ESCAPE HTML
+// =====================================================
+
+function escapeHtml(value) {
+
+    return String(value)
+
+        .replaceAll(
+            "&",
+            "&amp;"
+        )
+
+        .replaceAll(
+            "<",
+            "&lt;"
+        )
+
+        .replaceAll(
+            ">",
+            "&gt;"
+        )
+
+        .replaceAll(
+            '"',
+            "&quot;"
+        )
+
+        .replaceAll(
+            "'",
+            "&#039;"
+        );
+
+}
+
+
+// =====================================================
+// REFRESH
+// =====================================================
+
+refreshButton.addEventListener(
+    "click",
+    loadWithdrawals
+);
+
+
+// =====================================================
+// INITIAL LOAD
+// =====================================================
+
+loadWithdrawals();
+
+</script></body>
+</html>

@@ -1,0 +1,736 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8">
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+><title>Payment Proof - Marko's Marketplace</title><style>
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+
+body{
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    min-height:100vh;
+
+    padding:20px;
+
+    background:
+        radial-gradient(
+            circle at top left,
+            #ffffff,
+            transparent 35%
+        ),
+        linear-gradient(
+            135deg,
+            #eef2f7,
+            #f8fafc
+        );
+
+    color:#172033;
+
+}
+
+
+/* =====================================
+   CONTAINER
+===================================== */
+
+.container{
+
+    max-width:680px;
+
+    margin:30px auto;
+
+    background:#ffffff;
+
+    padding:32px;
+
+    border-radius:22px;
+
+    border:1px solid #e5e9ef;
+
+    box-shadow:
+        0 20px 55px
+        rgba(20,30,50,.10);
+
+}
+
+
+/* =====================================
+   BRAND
+===================================== */
+
+.brand{
+
+    text-align:center;
+
+    margin-bottom:25px;
+
+}
+
+
+.logo{
+
+    font-size:24px;
+
+    font-weight:900;
+
+}
+
+
+.logo span{
+
+    color:#ffb703;
+
+}
+
+
+/* =====================================
+   HEADER
+===================================== */
+
+.icon{
+
+    width:62px;
+
+    height:62px;
+
+    margin:20px auto 15px;
+
+    border-radius:18px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:30px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ffd43b,
+            #ffb703
+        );
+
+}
+
+
+h1{
+
+    text-align:center;
+
+    font-size:29px;
+
+    letter-spacing:-.5px;
+
+}
+
+
+.subtitle{
+
+    text-align:center;
+
+    color:#727d8c;
+
+    line-height:1.5;
+
+    margin-top:8px;
+
+}
+
+
+/* =====================================
+   ORDER CARD
+===================================== */
+
+.order-card{
+
+    margin-top:25px;
+
+    padding:18px;
+
+    border-radius:15px;
+
+    background:#f7f9fb;
+
+    border:1px solid #e3e8ee;
+
+}
+
+
+.order-title{
+
+    font-size:12px;
+
+    font-weight:900;
+
+    text-transform:uppercase;
+
+    color:#7b8492;
+
+    margin-bottom:10px;
+
+}
+
+
+.order-row{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    gap:15px;
+
+    padding:8px 0;
+
+}
+
+
+.order-row span:first-child{
+
+    color:#6f7887;
+
+}
+
+
+.order-row span:last-child{
+
+    font-weight:900;
+
+    text-align:right;
+
+    word-break:break-word;
+
+}
+
+
+/* =====================================
+   INSTRUCTIONS
+===================================== */
+
+.instructions{
+
+    margin-top:22px;
+
+    padding:18px;
+
+    border-radius:15px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #fffdf2,
+            #fff8d8
+        );
+
+    border:1px solid #f0d778;
+
+}
+
+
+.instructions h2{
+
+    font-size:17px;
+
+    margin-bottom:10px;
+
+}
+
+
+.instructions ol{
+
+    padding-left:20px;
+
+    color:#596373;
+
+    line-height:1.7;
+
+    font-size:14px;
+
+}
+
+
+/* =====================================
+   FORM
+===================================== */
+
+.form-card{
+
+    margin-top:22px;
+
+    padding:20px;
+
+    border-radius:16px;
+
+    border:1px solid #e3e8ee;
+
+    background:#ffffff;
+
+}
+
+
+.form-label{
+
+    display:block;
+
+    font-size:14px;
+
+    font-weight:900;
+
+    margin-bottom:8px;
+
+}
+
+
+.file-wrapper{
+
+    border:2px dashed #cfd6df;
+
+    border-radius:14px;
+
+    padding:25px 15px;
+
+    text-align:center;
+
+    background:#fafbfc;
+
+    transition:.2s;
+
+}
+
+
+.file-wrapper:hover{
+
+    border-color:#ffb703;
+
+    background:#fffdf3;
+
+}
+
+
+input[type="file"]{
+
+    width:100%;
+
+    font-size:13px;
+
+}
+
+
+.file-note{
+
+    margin-top:10px;
+
+    color:#7a8492;
+
+    font-size:12px;
+
+    line-height:1.5;
+
+}
+
+
+/* =====================================
+   BUTTON
+===================================== */
+
+button{
+
+    width:100%;
+
+    padding:16px;
+
+    margin-top:20px;
+
+    border:none;
+
+    border-radius:13px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ffd43b,
+            #ffb703
+        );
+
+    color:#172033;
+
+    font-size:16px;
+
+    font-weight:900;
+
+    cursor:pointer;
+
+    transition:.25s;
+
+    box-shadow:
+        0 8px 20px
+        rgba(255,183,3,.25);
+
+}
+
+
+button:hover{
+
+    transform:translateY(-2px);
+
+    box-shadow:
+        0 12px 25px
+        rgba(255,183,3,.35);
+
+}
+
+
+button:active{
+
+    transform:scale(.98);
+
+}
+
+
+button:disabled{
+
+    background:#d5d9df;
+
+    color:#89909b;
+
+    cursor:not-allowed;
+
+    transform:none;
+
+    box-shadow:none;
+
+}
+
+
+/* =====================================
+   MESSAGE
+===================================== */
+
+#message{
+
+    margin-top:18px;
+
+    padding:12px;
+
+    border-radius:10px;
+
+    text-align:center;
+
+    font-size:13px;
+
+    line-height:1.5;
+
+}
+
+
+#message:empty{
+
+    display:none;
+
+}
+
+
+/* =====================================
+   SECURITY
+===================================== */
+
+.security{
+
+    margin-top:18px;
+
+    text-align:center;
+
+    color:#788291;
+
+    font-size:12px;
+
+    line-height:1.5;
+
+}
+
+
+/* =====================================
+   MOBILE
+===================================== */
+
+@media(max-width:600px){
+
+    body{
+
+        padding:10px;
+
+    }
+
+
+    .container{
+
+        margin:10px auto;
+
+        padding:22px 17px;
+
+        border-radius:17px;
+
+    }
+
+
+    h1{
+
+        font-size:24px;
+
+    }
+
+
+    .order-row{
+
+        flex-direction:column;
+
+        gap:3px;
+
+        font-size:13px;
+
+    }
+
+
+    .order-row span:last-child{
+
+        text-align:left;
+
+    }
+
+}
+
+</style></head><body><div class="container"><!-- =====================================
+     BRAND
+====================================== -->
+
+<div class="brand">
+
+    <div class="logo">
+
+        Marko's
+        <span>Marketplace</span>
+
+    </div>
+
+
+    <div class="icon">
+        📄
+    </div>
+
+
+    <h1>
+        Upload Payment Proof
+    </h1>
+
+
+    <p class="subtitle">
+
+        Upload your payment receipt so the seller
+        and MarketHub can verify your payment.
+
+    </p>
+
+</div>
+
+
+<!-- =====================================
+     ORDER INFORMATION
+====================================== -->
+
+<div class="order-card">
+
+    <div class="order-title">
+
+        Order Information
+
+    </div>
+
+
+    <div class="order-row">
+
+        <span>
+            Order ID
+        </span>
+
+        <span id="orderId">
+            Loading...
+        </span>
+
+    </div>
+
+
+    <div class="order-row">
+
+        <span>
+            Payment Status
+        </span>
+
+        <span>
+            Awaiting Verification
+        </span>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================
+     INSTRUCTIONS
+====================================== -->
+
+<div class="instructions">
+
+    <h2>
+        Before uploading
+    </h2>
+
+
+    <ol>
+
+        <li>
+            Make sure you paid the seller using
+            the payment details shown on the previous page.
+        </li>
+
+        <li>
+            Make sure the payment amount is correct.
+        </li>
+
+        <li>
+            Make sure your receipt clearly shows
+            the transaction details.
+        </li>
+
+        <li>
+            Upload a clear screenshot or photo
+            of the payment receipt.
+        </li>
+
+    </ol>
+
+</div>
+
+
+<!-- =====================================
+     FORM
+====================================== -->
+
+<div class="form-card">
+
+    <form
+        id="proofForm"
+        enctype="multipart/form-data"
+    >
+
+
+        <label
+            class="form-label"
+            for="receipt"
+        >
+
+            Payment Receipt
+
+        </label>
+
+
+        <div class="file-wrapper">
+
+            <input
+                type="file"
+                id="receipt"
+                name="receipt"
+                accept="image/*,.pdf"
+                required
+            >
+
+
+            <div class="file-note">
+
+                Accepted formats:
+                JPG, JPEG, PNG or PDF.
+
+                <br>
+
+                Upload a clear and readable receipt.
+
+            </div>
+
+        </div>
+
+
+        <button
+            type="submit"
+            id="submitButton"
+        >
+
+            📤 Submit Payment Proof
+
+        </button>
+
+
+    </form>
+
+
+    <p id="message"></p>
+
+</div>
+
+
+<div class="security">
+
+    🔐 Your payment proof is linked to your
+    MarketHub order for verification.
+
+</div>
+
+</div><script>
+
+
+/* =====================================================
+   ORDER ID
+===================================================== */
+
+const orderId =
+    localStorage.getItem("order_id");
+
+
+const orderIdElement =
+    document.getElementById(
+        "orderId"
+    );
+
+
+if(orderIdElement){
+
+    orderIdElement.innerText =
+        orderId || "Unavailable";
+
+}
+
+
+/* =====================================================
+   LOAD EXISTING PAYMENT SCRIPT
+===================================================== */
+
+const script =
+    document.createElement("script");
+
+
+script.src =
+    "js/payment-proof.js";
+
+
+document.body.appendChild(script);
+
+</script></body></html>

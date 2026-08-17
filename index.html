@@ -1,0 +1,3368 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Marko's Marketplace - Shop Everything</title>
+
+<style>
+
+/* =========================================================
+   RESET
+========================================================= */
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    background:#eef1f5;
+    color:#111827;
+}
+
+button,
+input{
+    font-family:inherit;
+}
+
+button{
+    cursor:pointer;
+}
+
+a{
+    text-decoration:none;
+    color:inherit;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.header{
+    min-height:72px;
+    background:linear-gradient(135deg,#07111f,#111d2f 55%,#172a43);
+    color:white;
+
+    display:flex;
+    align-items:center;
+    gap:14px;
+
+    padding:9px 18px;
+
+    position:sticky;
+    top:0;
+    z-index:2000;
+
+    box-shadow:0 4px 18px rgba(0,0,0,.22);
+}
+
+.logo{
+    padding:9px 12px;
+
+    font-size:22px;
+    font-weight:900;
+
+    white-space:nowrap;
+
+    cursor:pointer;
+
+    border:1px solid transparent;
+    border-radius:8px;
+
+    transition:.25s;
+}
+
+.logo:hover{
+    border-color:#ffd166;
+    background:rgba(255,255,255,.06);
+    transform:translateY(-1px);
+}
+
+.search-box{
+    flex:1;
+    height:46px;
+
+    display:flex;
+
+    background:white;
+
+    border-radius:9px;
+
+    overflow:hidden;
+
+    box-shadow:0 3px 12px rgba(0,0,0,.18);
+}
+
+.search-box:focus-within{
+    outline:3px solid rgba(255,193,7,.65);
+}
+
+.search-box input{
+    flex:1;
+
+    border:none;
+    outline:none;
+
+    padding:0 16px;
+
+    font-size:15px;
+}
+
+.search-box button{
+    width:58px;
+
+    border:none;
+
+    background:#ffb703;
+
+    font-size:20px;
+
+    transition:.2s;
+}
+
+.search-box button:hover{
+    background:#f59e0b;
+}
+
+.header-actions{
+    display:flex;
+    align-items:center;
+    gap:3px;
+}
+
+.header-button{
+    position:relative;
+
+    min-width:64px;
+    height:55px;
+
+    color:white;
+    background:transparent;
+
+    border:1px solid transparent;
+    border-radius:8px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-direction:column;
+
+    font-size:21px;
+
+    transition:.2s;
+}
+
+.header-button:hover{
+    background:rgba(255,255,255,.08);
+    border-color:rgba(255,255,255,.6);
+    transform:translateY(-1px);
+}
+
+.header-button small{
+    font-size:9px;
+    margin-top:3px;
+}
+
+.count{
+    position:absolute;
+
+    top:1px;
+    right:5px;
+
+    min-width:20px;
+    height:20px;
+
+    padding:1px 5px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    background:#ff6b00;
+
+    border:2px solid #111d2f;
+
+    border-radius:50%;
+
+    color:white;
+
+    font-size:10px;
+    font-weight:bold;
+}
+
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
+.nav-bar{
+    min-height:45px;
+
+    background:#18283b;
+
+    color:white;
+
+    display:flex;
+    align-items:center;
+
+    gap:4px;
+
+    padding:0 12px;
+
+    overflow-x:auto;
+
+    scrollbar-width:none;
+
+    box-shadow:0 2px 7px rgba(0,0,0,.18);
+}
+
+.nav-bar::-webkit-scrollbar{
+    display:none;
+}
+
+.nav-link{
+    height:40px;
+
+    display:flex;
+    align-items:center;
+
+    padding:0 16px;
+
+    border:1px solid transparent;
+    border-radius:6px;
+
+    font-size:14px;
+    font-weight:600;
+
+    white-space:nowrap;
+
+    transition:.2s;
+}
+
+.nav-link:hover{
+    background:rgba(255,255,255,.08);
+    border-color:rgba(255,255,255,.5);
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.hero{
+    min-height:470px;
+
+    padding:40px 6% 65px;
+
+    display:flex;
+    align-items:flex-end;
+
+    position:relative;
+    overflow:hidden;
+
+    background:
+        radial-gradient(circle at 80% 20%,rgba(255,255,255,.3),transparent 25%),
+        radial-gradient(circle at 20% 80%,rgba(255,255,255,.12),transparent 30%),
+        linear-gradient(120deg,#061b2e,#075985 45%,#0e7490 75%,#164e63);
+}
+
+.hero::before{
+    content:"";
+
+    position:absolute;
+
+    width:430px;
+    height:430px;
+
+    right:-100px;
+    top:-120px;
+
+    border-radius:50%;
+
+    background:rgba(255,255,255,.08);
+
+    box-shadow:
+        0 0 0 70px rgba(255,255,255,.035),
+        0 0 0 140px rgba(255,255,255,.02);
+}
+
+.hero::after{
+    content:"";
+
+    position:absolute;
+
+    left:-120px;
+    bottom:-180px;
+
+    width:500px;
+    height:500px;
+
+    border-radius:50%;
+
+    background:rgba(255,183,3,.08);
+}
+
+.hero-decoration{
+    position:absolute;
+
+    right:10%;
+    top:40px;
+
+    font-size:170px;
+
+    opacity:.18;
+
+    filter:drop-shadow(0 15px 25px rgba(0,0,0,.2));
+
+    animation:float 4s ease-in-out infinite;
+}
+
+@keyframes float{
+
+    0%,100%{
+        transform:translateY(0) rotate(-3deg);
+    }
+
+    50%{
+        transform:translateY(-14px) rotate(3deg);
+    }
+
+}
+
+.hero-content{
+    position:relative;
+    z-index:2;
+
+    max-width:700px;
+
+    padding:36px;
+
+    color:white;
+
+    border-radius:20px;
+
+    background:rgba(3,15,29,.72);
+
+    border:1px solid rgba(255,255,255,.2);
+
+    backdrop-filter:blur(10px);
+
+    box-shadow:0 20px 50px rgba(0,0,0,.3);
+}
+
+.hero-badge{
+    display:inline-flex;
+    align-items:center;
+    gap:7px;
+
+    padding:7px 12px;
+
+    margin-bottom:15px;
+
+    border-radius:30px;
+
+    background:rgba(255,183,3,.15);
+
+    border:1px solid rgba(255,193,7,.5);
+
+    color:#ffd166;
+
+    font-size:12px;
+    font-weight:bold;
+}
+
+.hero-content h1{
+    font-size:48px;
+    line-height:1.08;
+
+    margin-bottom:15px;
+}
+
+.hero-content h1 span{
+    color:#ffd166;
+}
+
+.hero-content p{
+    max-width:600px;
+
+    color:#dbeafe;
+
+    font-size:17px;
+    line-height:1.6;
+
+    margin-bottom:24px;
+}
+
+.hero-buttons{
+    display:flex;
+    gap:12px;
+    flex-wrap:wrap;
+}
+
+.shop-button,
+.sell-button{
+    border:none;
+
+    padding:13px 25px;
+
+    border-radius:9px;
+
+    font-weight:800;
+
+    transition:.2s;
+}
+
+.shop-button{
+    background:#ffb703;
+    color:#111827;
+
+    box-shadow:0 7px 18px rgba(255,183,3,.22);
+}
+
+.shop-button:hover{
+    background:#ffd166;
+    transform:translateY(-2px);
+}
+
+.sell-button{
+    background:white;
+    color:#0f172a;
+}
+
+.sell-button:hover{
+    background:#e2e8f0;
+    transform:translateY(-2px);
+}
+
+
+/* =========================================================
+   TRUST STRIP
+========================================================= */
+
+.trust-strip{
+    max-width:1400px;
+
+    margin:-28px auto 22px;
+
+    position:relative;
+    z-index:10;
+
+    padding:18px 22px;
+
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+
+    gap:12px;
+
+    background:white;
+
+    border-radius:15px;
+
+    box-shadow:0 10px 30px rgba(15,23,42,.13);
+}
+
+.trust-item{
+    display:flex;
+    align-items:center;
+    gap:12px;
+
+    padding:10px 15px;
+
+    border-right:1px solid #e5e7eb;
+}
+
+.trust-item:last-child{
+    border-right:none;
+}
+
+.trust-icon{
+    font-size:27px;
+}
+
+.trust-item strong{
+    display:block;
+    font-size:14px;
+    margin-bottom:3px;
+}
+
+.trust-item span{
+    color:#64748b;
+    font-size:12px;
+}
+
+
+/* =========================================================
+   SECTION
+========================================================= */
+
+.section{
+    max-width:1450px;
+
+    margin:20px auto;
+
+    padding:24px;
+
+    background:white;
+
+    border-radius:15px;
+
+    box-shadow:0 4px 18px rgba(15,23,42,.07);
+}
+
+.section-title{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    margin-bottom:20px;
+}
+
+.section-title h2{
+    font-size:26px;
+    color:#111827;
+}
+
+.section-subtitle{
+    color:#64748b;
+    font-size:13px;
+    margin-top:5px;
+}
+
+.view-all{
+    color:#007185;
+    font-size:14px;
+    font-weight:bold;
+}
+
+.view-all:hover{
+    color:#ff6b00;
+    text-decoration:underline;
+}
+
+
+/* =========================================================
+   CATEGORIES
+========================================================= */
+
+.category-grid{
+    display:grid;
+
+    grid-template-columns:
+        repeat(8,minmax(110px,1fr));
+
+    gap:12px;
+}
+
+.category-card{
+    min-height:145px;
+
+    border:1px solid #e2e8f0;
+
+    border-radius:12px;
+
+    background:linear-gradient(
+        145deg,
+        #f8fafc,
+        #eef2f7
+    );
+
+    display:flex;
+    flex-direction:column;
+
+    justify-content:center;
+    align-items:center;
+
+    text-align:center;
+
+    padding:15px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    transition:.25s;
+
+    box-shadow:
+        0 3px 10px rgba(15,23,42,.04);
+}
+
+.category-card:hover{
+    background:white;
+
+    transform:translateY(-5px);
+
+    box-shadow:
+        0 10px 25px rgba(15,23,42,.13);
+
+    border-color:#cbd5e1;
+}
+
+.category-icon{
+    font-size:43px;
+
+    margin-bottom:10px;
+}
+
+
+/* =========================================================
+   PRODUCT GRID
+========================================================= */
+
+.product-grid{
+    display:grid;
+
+    grid-template-columns:
+        repeat(5,minmax(0,1fr));
+
+    gap:17px;
+}
+
+.product-card{
+    position:relative;
+
+    background:white;
+
+    border:1px solid #e2e8f0;
+
+    border-radius:14px;
+
+    overflow:hidden;
+
+    transition:.25s;
+
+    box-shadow:
+        0 3px 10px rgba(15,23,42,.04);
+}
+
+.product-card:hover{
+    transform:translateY(-6px);
+
+    box-shadow:
+        0 14px 30px rgba(15,23,42,.14);
+
+    border-color:#cbd5e1;
+}
+
+.product-image{
+    height:220px;
+
+    position:relative;
+
+    background:
+        linear-gradient(
+            145deg,
+            #f8fafc,
+            #eef2f7
+        );
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    overflow:hidden;
+}
+
+.product-image img{
+    width:100%;
+    height:100%;
+
+    object-fit:contain;
+
+    padding:12px;
+
+    transition:.3s;
+}
+
+.product-card:hover
+.product-image img{
+    transform:scale(1.06);
+}
+
+.placeholder{
+    font-size:70px;
+    opacity:.45;
+}
+
+.product-badge{
+    position:absolute;
+
+    left:10px;
+    top:10px;
+
+    padding:5px 8px;
+
+    border-radius:20px;
+
+    background:#dc2626;
+    color:white;
+
+    font-size:10px;
+    font-weight:bold;
+
+    z-index:2;
+}
+
+.product-details{
+    padding:15px;
+}
+
+.product-name{
+    min-height:44px;
+
+    line-height:1.45;
+
+    font-size:14px;
+    font-weight:600;
+
+    color:#1e293b;
+}
+
+.price-label{
+    margin-top:8px;
+
+    color:#64748b;
+
+    font-size:10px;
+    font-weight:bold;
+
+    text-transform:uppercase;
+}
+
+.product-price{
+    margin:3px 0 2px;
+
+    font-size:21px;
+
+    font-weight:900;
+
+    color:#0f172a;
+}
+
+.currency-prices{
+    display:flex;
+    flex-wrap:wrap;
+
+    gap:5px;
+
+    margin-bottom:13px;
+}
+
+.currency-pill{
+    padding:4px 7px;
+
+    background:#f1f5f9;
+
+    border-radius:5px;
+
+    color:#475569;
+
+    font-size:10px;
+    font-weight:bold;
+}
+
+.product-buttons{
+    display:flex;
+    gap:7px;
+}
+
+.add-cart{
+    flex:1;
+
+    border:1px solid #f0c14b;
+
+    background:#ffd814;
+
+    color:#111827;
+
+    border-radius:22px;
+
+    padding:10px;
+
+    font-weight:bold;
+
+    transition:.2s;
+}
+
+.add-cart:hover{
+    background:#f7ca00;
+
+    transform:translateY(-1px);
+}
+
+.add-cart:active{
+    transform:scale(.97);
+}
+
+.view-button{
+    width:44px;
+
+    border:1px solid #cbd5e1;
+
+    background:white;
+
+    border-radius:22px;
+
+    transition:.2s;
+}
+
+.view-button:hover{
+    background:#f1f5f9;
+
+    transform:translateY(-1px);
+}
+
+
+/* =========================================================
+   FLASH DEALS
+========================================================= */
+
+.flash-section{
+    background:
+        linear-gradient(
+            135deg,
+            #fff,
+            #fff7ed
+        );
+}
+
+.flash-title{
+    display:flex;
+    align-items:center;
+
+    gap:8px;
+}
+
+.flash-title span{
+    color:#ea580c;
+}
+
+
+/* =========================================================
+   CURRENCY INFO
+========================================================= */
+
+.currency-info{
+    max-width:1450px;
+
+    margin:20px auto;
+
+    padding:18px 24px;
+
+    background:#0f172a;
+
+    color:white;
+
+    border-radius:14px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:20px;
+
+    box-shadow:
+        0 8px 25px rgba(15,23,42,.15);
+}
+
+.currency-info strong{
+    color:#ffd166;
+}
+
+.currency-rates{
+    display:flex;
+
+    gap:10px;
+
+    flex-wrap:wrap;
+}
+
+.rate{
+    padding:7px 10px;
+
+    background:
+        rgba(255,255,255,.08);
+
+    border:
+        1px solid rgba(255,255,255,.12);
+
+    border-radius:7px;
+
+    font-size:12px;
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+footer{
+    margin-top:35px;
+
+    background:#0b1625;
+
+    color:white;
+}
+
+.footer-grid{
+    max-width:1250px;
+
+    margin:auto;
+
+    padding:50px 25px;
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(4,1fr);
+
+    gap:40px;
+}
+
+.footer-column h3{
+    margin-bottom:17px;
+
+    color:#fff;
+}
+
+.footer-column p,
+.footer-link{
+    color:#cbd5e1;
+
+    margin-bottom:11px;
+
+    line-height:1.5;
+
+    cursor:pointer;
+}
+
+.footer-link:hover{
+    color:#ffd166;
+
+    text-decoration:underline;
+}
+
+.footer-bottom{
+    background:#050b13;
+
+    text-align:center;
+
+    padding:20px;
+
+    color:#94a3b8;
+
+    font-size:13px;
+}
+
+
+/* =========================================================
+   NOTIFICATION
+========================================================= */
+
+.notification-panel{
+    display:none;
+
+    position:fixed;
+
+    right:15px;
+    top:80px;
+
+    width:330px;
+
+    background:white;
+    color:#111827;
+
+    border-radius:13px;
+
+    box-shadow:
+        0 15px 40px rgba(0,0,0,.25);
+
+    z-index:3000;
+
+    overflow:hidden;
+}
+
+.notification-panel.active{
+    display:block;
+
+    animation:
+        panelIn .2s ease;
+}
+
+@keyframes panelIn{
+
+    from{
+        opacity:0;
+
+        transform:
+            translateY(-8px);
+    }
+
+    to{
+        opacity:1;
+
+        transform:
+            translateY(0);
+    }
+
+}
+
+.notification-header{
+    padding:16px;
+
+    background:#f8fafc;
+
+    border-bottom:
+        1px solid #e2e8f0;
+
+    font-weight:bold;
+}
+
+.notification-body{
+    padding:30px 20px;
+
+    color:#64748b;
+
+    text-align:center;
+}
+
+
+/* =========================================================
+   TOAST
+========================================================= */
+
+.toast{
+    position:fixed;
+
+    left:50%;
+    bottom:25px;
+
+    transform:
+        translate(-50%,120px);
+
+    background:#0f172a;
+
+    color:white;
+
+    padding:14px 22px;
+
+    border-radius:9px;
+
+    opacity:0;
+
+    transition:.3s;
+
+    z-index:5000;
+
+    box-shadow:
+        0 8px 25px rgba(0,0,0,.25);
+
+    font-size:14px;
+}
+
+.toast.show{
+    opacity:1;
+
+    transform:
+        translate(-50%,0);
+}
+
+
+/* =========================================================
+   LOADING / ERROR
+========================================================= */
+
+.products-message{
+    grid-column:1/-1;
+
+    padding:30px;
+
+    text-align:center;
+
+    color:#64748b;
+}
+
+.products-error{
+    grid-column:1/-1;
+
+    padding:30px;
+
+    text-align:center;
+
+    color:#dc2626;
+
+    background:#fef2f2;
+
+    border-radius:10px;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media(max-width:1100px){
+
+    .category-grid{
+        grid-template-columns:
+            repeat(4,1fr);
+    }
+
+    .product-grid{
+        grid-template-columns:
+            repeat(4,1fr);
+    }
+
+    .trust-strip{
+        margin:15px;
+    }
+
+}
+
+@media(max-width:800px){
+
+    .header{
+        flex-wrap:wrap;
+    }
+
+    .search-box{
+        order:5;
+
+        flex-basis:100%;
+    }
+
+    .header-actions{
+        margin-left:auto;
+    }
+
+    .hero{
+        min-height:410px;
+
+        padding:
+            25px 15px 55px;
+    }
+
+    .hero-content{
+        padding:26px;
+    }
+
+    .hero-content h1{
+        font-size:35px;
+    }
+
+    .hero-decoration{
+        right:4%;
+
+        font-size:110px;
+    }
+
+    .trust-strip{
+        grid-template-columns:
+            repeat(2,1fr);
+    }
+
+    .trust-item{
+        border-right:none;
+
+        border-bottom:
+            1px solid #e5e7eb;
+    }
+
+    .category-grid{
+        grid-template-columns:
+            repeat(2,1fr);
+    }
+
+    .product-grid{
+        grid-template-columns:
+            repeat(2,1fr);
+    }
+
+    .currency-info{
+        margin:15px;
+
+        flex-direction:column;
+
+        align-items:flex-start;
+    }
+
+    .footer-grid{
+        grid-template-columns:
+            repeat(2,1fr);
+    }
+
+}
+
+@media(max-width:500px){
+
+    .header{
+        padding:8px 10px;
+    }
+
+    .logo{
+        font-size:17px;
+    }
+
+    .header-button{
+        min-width:45px;
+    }
+
+    .header-button small{
+        display:none;
+    }
+
+    .hero{
+        min-height:390px;
+    }
+
+    .hero-content{
+        padding:22px;
+    }
+
+    .hero-content h1{
+        font-size:30px;
+    }
+
+    .hero-content p{
+        font-size:14px;
+    }
+
+    .hero-decoration{
+        opacity:.10;
+    }
+
+    .trust-strip{
+        grid-template-columns:1fr;
+
+        margin:10px;
+    }
+
+    .trust-item{
+        border-bottom:
+            1px solid #e5e7eb;
+    }
+
+    .trust-item:last-child{
+        border-bottom:none;
+    }
+
+    .section{
+        margin:12px 10px;
+
+        padding:15px;
+    }
+
+    .section-title h2{
+        font-size:21px;
+    }
+
+    .product-grid{
+        grid-template-columns:
+            repeat(2,1fr);
+
+        gap:10px;
+    }
+
+    .product-image{
+        height:155px;
+    }
+
+    .product-details{
+        padding:11px;
+    }
+
+    .product-name{
+        font-size:13px;
+    }
+
+    .product-price{
+        font-size:17px;
+    }
+
+    .currency-pill{
+        font-size:9px;
+    }
+
+    .add-cart{
+        padding:8px 5px;
+
+        font-size:11px;
+    }
+
+    .view-button{
+        width:39px;
+    }
+
+    .footer-grid{
+        grid-template-columns:1fr;
+    }
+
+    .notification-panel{
+        left:10px;
+        right:10px;
+
+        width:auto;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+
+<!-- =========================================================
+     HEADER
+========================================================= -->
+
+<header class="header">
+
+    <div
+        class="logo"
+        id="logoButton"
+        tabindex="0"
+    >
+        🛍️ Marko's Marketplace
+    </div>
+
+
+    <form
+        class="search-box"
+        id="searchForm"
+    >
+
+        <input
+            id="searchInput"
+            type="search"
+            placeholder="Search products, brands, categories..."
+            autocomplete="off"
+        >
+
+        <button
+            type="submit"
+            title="Search"
+        >
+            🔍
+        </button>
+
+    </form>
+
+
+    <div class="header-actions">
+
+        <button
+            class="header-button"
+            id="notificationButton"
+            type="button"
+            title="Notifications"
+        >
+
+            🔔
+
+            <small>
+                Notifications
+            </small>
+
+        </button>
+
+
+        <button
+            class="header-button"
+            id="cartButton"
+            type="button"
+            title="Shopping Cart"
+        >
+
+            🛒
+
+            <span
+                class="count"
+                id="cartCount"
+            >
+                0
+            </span>
+
+            <small>
+                Cart
+            </small>
+
+        </button>
+
+    </div>
+
+</header>
+
+
+<!-- =========================================================
+     NAVIGATION
+========================================================= -->
+
+<nav class="nav-bar">
+
+    <a
+        class="nav-link"
+        href="/index.html"
+    >
+        🏠 Home
+    </a>
+
+    
+
+    <a
+        class="nav-link"
+        href="/login.html"
+    >
+        🔐 Login
+    </a>
+
+</nav>
+
+
+<!-- =========================================================
+     NOTIFICATION
+========================================================= -->
+
+<div
+    class="notification-panel"
+    id="notificationPanel"
+>
+
+    <div class="notification-header">
+        🔔 Notifications
+    </div>
+
+    <div class="notification-body">
+        You have no new notifications.
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     HERO
+========================================================= -->
+
+<section class="hero">
+
+    <div class="hero-decoration">
+        🛍️
+    </div>
+
+
+    <div class="hero-content">
+
+        <div class="hero-badge">
+            🔥 WELCOME TO MARKO'S MARKETPLACE
+        </div>
+
+        <h1>
+            Discover More.<br>
+            <span>Shop Smarter.</span>
+        </h1>
+
+        <p>
+            Explore products from marketplace sellers,
+            discover great deals and shop confidently
+            from one beautiful online marketplace.
+        </p>
+
+        <div class="hero-buttons">
+
+            
+
+            <button
+                class="sell-button"
+                id="sellNowButton"
+                type="button"
+            >
+                💼 Start Selling
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     TRUST STRIP
+========================================================= -->
+
+<section class="trust-strip">
+
+    <div class="trust-item">
+
+        <div class="trust-icon">
+            🌍
+        </div>
+
+        <div>
+
+            <strong>
+                Global Marketplace
+            </strong>
+
+            <span>
+                Buy and sell across markets
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <div class="trust-item">
+
+        <div class="trust-icon">
+            💱
+        </div>
+
+        <div>
+
+            <strong>
+                3 Currencies
+            </strong>
+
+            <span>
+                NAD • USD • EUR
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <div class="trust-item">
+
+        <div class="trust-icon">
+            🛡️
+        </div>
+
+        <div>
+
+            <strong>
+                Secure Shopping
+            </strong>
+
+            <span>
+                Designed for safer transactions
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <div class="trust-item">
+
+        <div class="trust-icon">
+            🚀
+        </div>
+
+        <div>
+
+            <strong>
+                Easy Selling
+            </strong>
+
+            <span>
+                List your products with ease
+            </span>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     FEATURED PRODUCTS
+========================================================= -->
+
+<section class="section">
+
+    <div class="section-title">
+
+        <div>
+
+            <h2>
+                ✨ Featured Products
+            </h2>
+
+            <p class="section-subtitle">
+                Popular products available right now
+            </p>
+
+        </div>
+
+
+        <a
+            class="view-all"
+            href="/product.html"
+        >
+            View All →
+        </a>
+
+    </div>
+
+
+    <div
+        class="product-grid"
+        id="featuredProducts"
+    >
+
+        <div class="products-message">
+            Loading products...
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     FLASH DEALS
+========================================================= -->
+
+<section class="section flash-section">
+
+    <div class="section-title">
+
+        <div>
+
+            <h2 class="flash-title">
+                🔥 <span>Flash Deals</span>
+            </h2>
+
+            <p class="section-subtitle">
+                Don't miss today's marketplace deals
+            </p>
+
+        </div>
+
+
+        <a
+            class="view-all"
+            href="/deals.html"
+        >
+            View All →
+        </a>
+
+    </div>
+
+
+    <div
+        class="product-grid"
+        id="flashDeals"
+    >
+
+        <div class="products-message">
+            Loading flash deals...
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     CURRENCY STRIP
+========================================================= -->
+
+<section class="currency-info">
+
+    <div>
+
+        <strong>
+            💱 Prices shown in 3 currencies
+        </strong>
+
+        <div
+            style="
+                margin-top:5px;
+                color:#cbd5e1;
+                font-size:12px;
+            "
+        >
+
+            NAD is the base currency.
+            USD and EUR are calculated
+            using the marketplace's fixed
+            conversion rates.
+
+        </div>
+
+    </div>
+
+
+    <div class="currency-rates">
+
+        <div class="rate">
+            🇳🇦 NAD — Base
+        </div>
+
+        <div class="rate">
+            🇺🇸 USD — NAD ÷ 18.20
+        </div>
+
+        <div class="rate">
+            🇪🇺 EUR — USD × 0.86
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     RECOMMENDED
+========================================================= -->
+
+<section class="section">
+
+    <div class="section-title">
+
+        <div>
+
+            <h2>
+                🎯 Recommended For You
+            </h2>
+
+            <p class="section-subtitle">
+                More products you may love
+            </p>
+
+        </div>
+
+
+        <a
+            class="view-all"
+            href="/products.html"
+        >
+            View All →
+        </a>
+
+    </div>
+
+
+    <div
+        class="product-grid"
+        id="recommendedProducts"
+    >
+
+        <div class="products-message">
+            Loading recommendations...
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     FOOTER
+========================================================= -->
+
+<footer>
+
+    <div class="footer-grid">
+
+        <div class="footer-column">
+
+            <h3>
+                🛍️ About Marko's marketplace
+            </h3>
+
+            <p>
+                Marko's Marketplace is an
+                all-in-one marketplace where
+                buyers and sellers connect.
+            </p>
+
+           
+
+        </div>
+
+
+        <div class="footer-column">
+
+            
+
+        </div>
+
+
+        <div class="footer-column">
+
+           
+           
+    </div>
+
+
+    <div class="footer-bottom">
+
+        © 2026 Marko's Marketplace. All rights reserved.
+
+    </div>
+
+</footer>
+
+
+<!-- =========================================================
+     TOAST
+========================================================= -->
+
+<div
+    class="toast"
+    id="toast"
+></div>
+
+
+<script>
+
+document.addEventListener(
+    "DOMContentLoaded",
+    () => {
+
+
+/* =========================================================
+   NAVIGATION
+========================================================= */
+
+function navigate(url){
+
+    window.location.href = url;
+
+}
+
+
+/* =========================================================
+   TOAST
+========================================================= */
+
+function toast(message){
+
+    const element =
+        document.getElementById("toast");
+
+    if(!element){
+        return;
+    }
+
+    element.textContent =
+        message;
+
+    element.classList.add("show");
+
+    setTimeout(
+        () => {
+
+            element.classList.remove(
+                "show"
+            );
+
+        },
+        2200
+    );
+
+}
+
+
+/* =========================================================
+   LOGO
+========================================================= */
+
+const logoButton =
+    document.getElementById(
+        "logoButton"
+    );
+
+if(logoButton){
+
+    logoButton.addEventListener(
+        "click",
+        () => {
+
+            navigate(
+                "/index.html"
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   SEARCH
+========================================================= */
+
+const searchForm =
+    document.getElementById(
+        "searchForm"
+    );
+
+if(searchForm){
+
+    searchForm.addEventListener(
+        "submit",
+        event => {
+
+            event.preventDefault();
+
+            const searchInput =
+                document.getElementById(
+                    "searchInput"
+                );
+
+            const search =
+                searchInput
+                ? searchInput.value.trim()
+                : "";
+
+
+            if(!search){
+
+                toast(
+                    "Please enter a product to search."
+                );
+
+                return;
+            }
+
+
+            navigate(
+                "/products.html?search=" +
+                encodeURIComponent(search)
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   NOTIFICATIONS
+========================================================= */
+
+const notificationButton =
+    document.getElementById(
+        "notificationButton"
+    );
+
+const notificationPanel =
+    document.getElementById(
+        "notificationPanel"
+    );
+
+if(
+    notificationButton &&
+    notificationPanel
+){
+
+    notificationButton.addEventListener(
+        "click",
+        event => {
+
+            event.stopPropagation();
+
+            notificationPanel.classList.toggle(
+                "active"
+            );
+
+        }
+    );
+
+
+    document.addEventListener(
+        "click",
+        event => {
+
+            if(
+                !event.target.closest(
+                    "#notificationPanel"
+                ) &&
+                !event.target.closest(
+                    "#notificationButton"
+                )
+            ){
+
+                notificationPanel.classList.remove(
+                    "active"
+                );
+
+            }
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   FAVORITES
+========================================================= */
+
+const favoritesButton =
+    document.getElementById(
+        "favoritesButton"
+    );
+
+if(favoritesButton){
+
+    favoritesButton.addEventListener(
+        "click",
+        () => {
+
+            navigate(
+                "/favorites.html"
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   CART
+========================================================= */
+
+const cartButton =
+    document.getElementById(
+        "cartButton"
+    );
+
+if(cartButton){
+
+    cartButton.addEventListener(
+        "click",
+        () => {
+
+            navigate(
+                "/cart.html"
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   ACCOUNT
+========================================================= */
+
+const accountButton =
+    document.getElementById(
+        "accountButton"
+    );
+
+if(accountButton){
+
+    accountButton.addEventListener(
+        "click",
+        () => {
+
+            navigate(
+                "/login.html"
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   SHOP NOW
+========================================================= */
+
+const shopNowButton =
+    document.getElementById(
+        "shopNowButton"
+    );
+
+if(shopNowButton){
+
+    shopNowButton.addEventListener(
+        "click",
+        () => {
+
+            navigate(
+                "/products.html"
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   SELL NOW
+========================================================= */
+
+const sellNowButton =
+    document.getElementById(
+        "sellNowButton"
+    );
+
+if(sellNowButton){
+
+    sellNowButton.addEventListener(
+        "click",
+        () => {
+
+            navigate(
+                "/register.html"
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   CATEGORY BUTTONS
+========================================================= */
+
+document
+    .querySelectorAll(
+        ".category-card"
+    )
+    .forEach(
+        card => {
+
+            card.addEventListener(
+                "click",
+                () => {
+
+                    const category =
+                        card.dataset.category;
+
+
+                    navigate(
+                        "/categories.html?category=" +
+                        encodeURIComponent(
+                            category
+                        )
+                    );
+
+                }
+            );
+
+        }
+    );
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+document
+    .querySelectorAll(
+        "[data-url]"
+    )
+    .forEach(
+        element => {
+
+            element.addEventListener(
+                "click",
+                () => {
+
+                    navigate(
+                        element.dataset.url
+                    );
+
+                }
+            );
+
+        }
+    );
+
+
+/* =========================================================
+   CART FUNCTIONS
+========================================================= */
+
+function getCart(){
+
+    try{
+
+        const cart =
+            JSON.parse(
+                localStorage.getItem(
+                    "cart"
+                ) || "[]"
+            );
+
+
+        return Array.isArray(cart)
+            ? cart
+            : [];
+
+
+    }catch(error){
+
+        console.error(
+            "Cart error:",
+            error
+        );
+
+        return [];
+
+    }
+
+}
+
+
+function saveCart(cart){
+
+    localStorage.setItem(
+        "cart",
+        JSON.stringify(cart)
+    );
+
+}
+
+
+function updateCartCount(){
+
+    const cart =
+        getCart();
+
+    let total = 0;
+
+
+    cart.forEach(
+        item => {
+
+            total += Number(
+                item.quantity || 1
+            );
+
+        }
+    );
+
+
+    const cartCount =
+        document.getElementById(
+            "cartCount"
+        );
+
+
+    if(cartCount){
+
+        cartCount.textContent =
+            total;
+
+    }
+
+}
+
+
+/* =========================================================
+   FIX PRODUCT IMAGE URL
+========================================================= */
+
+function getProductImage(product){
+
+    let image =
+        product.image ||
+        product.image_url ||
+        product.product_image ||
+        "";
+
+
+    if(!image){
+
+        return "";
+
+    }
+
+
+    /*
+     * Sometimes the backend returns
+     * a JSON array of images.
+     */
+
+    if(
+        typeof image === "string"
+    ){
+
+        try{
+
+            const parsed =
+                JSON.parse(image);
+
+
+            if(
+                Array.isArray(parsed)
+            ){
+
+                image =
+                    parsed.length > 0
+                    ? parsed[0]
+                    : "";
+
+            }
+
+        }catch(error){
+
+            /*
+             * It is already a normal
+             * image path.
+             */
+
+        }
+
+    }
+
+
+    if(!image){
+
+        return "";
+
+    }
+
+
+    image =
+        String(image).trim();
+
+
+    if(
+        image.startsWith(
+            "http://"
+        ) ||
+
+        image.startsWith(
+            "https://"
+        ) ||
+
+        image.startsWith("/")
+    ){
+
+        return image;
+
+    }
+
+
+    return "/uploads/" +
+        image;
+
+}
+
+
+/* =========================================================
+   NAD BASE CURRENCY
+========================================================= */
+
+const NAD_TO_USD =
+    1 / 18.20;
+
+const USD_TO_EUR =
+    0.86;
+
+
+function getCurrencyPrices(nad){
+
+    nad =
+        Number(nad) || 0;
+
+
+    const usd =
+        nad *
+        NAD_TO_USD;
+
+
+    const eur =
+        usd *
+        USD_TO_EUR;
+
+
+    return {
+
+        nad,
+
+        usd,
+
+        eur
+
+    };
+
+}
+
+
+/* =========================================================
+   NORMALIZE SELLER ID
+========================================================= */
+
+function getSellerId(product){
+
+    /*
+     * Different backend versions may
+     * use different names.
+     */
+
+    const sellerId =
+        product.seller_id ??
+        product.sellerId ??
+        product.sellerID ??
+        product.seller;
+
+
+    if(
+        sellerId === undefined ||
+        sellerId === null ||
+        sellerId === ""
+    ){
+
+        return null;
+
+    }
+
+
+    const number =
+        Number(sellerId);
+
+
+    return Number.isFinite(number) &&
+           number > 0
+        ? number
+        : null;
+
+}
+
+
+/* =========================================================
+   ADD PRODUCT TO CART
+========================================================= */
+
+function addToCart(product){
+
+    const cart =
+        getCart();
+
+
+    /*
+     * PRODUCT ID
+     */
+
+    const id =
+        product.id ??
+        product.product_id;
+
+
+    /*
+     * SELLER ID
+     */
+
+    const sellerId =
+        getSellerId(product);
+
+
+    console.log(
+        "ADDING PRODUCT TO CART:",
+        product
+    );
+
+
+    console.log(
+        "PRODUCT ID:",
+        id
+    );
+
+
+    console.log(
+        "SELLER ID:",
+        sellerId
+    );
+
+
+    /*
+     * PRODUCT ID IS REQUIRED
+     */
+
+    if(!id){
+
+        toast(
+            "This product is missing its product ID."
+        );
+
+        console.error(
+            "PRODUCT ID MISSING:",
+            product
+        );
+
+        return;
+
+    }
+
+
+    /*
+     * SELLER ID IS REQUIRED
+     *
+     * This is the important fix for
+     * /orders/create.
+     */
+
+    if(!sellerId){
+
+        toast(
+            "This product is missing seller information."
+        );
+
+
+        console.error(
+            "SELLER ID MISSING FROM PRODUCT:",
+            product
+        );
+
+
+        return;
+
+    }
+
+
+    /*
+     * CHECK IF PRODUCT ALREADY EXISTS
+     */
+
+    const existing =
+        cart.find(
+            item => {
+
+                const existingId =
+                    item.id ??
+                    item.product_id;
+
+
+                return String(
+                    existingId
+                ) === String(id);
+
+            }
+        );
+
+
+    if(existing){
+
+        existing.quantity =
+            Number(
+                existing.quantity || 1
+            ) + 1;
+
+
+        /*
+         * Make sure old cart
+         * entries receive seller_id.
+         */
+
+        existing.seller_id =
+            Number(sellerId);
+
+
+        existing.product_id =
+            Number(id);
+
+    }
+
+    else{
+
+        /*
+         * NAD IS THE BASE PRICE
+         */
+
+        const nadPrice =
+            Number(
+                product.price_local ??
+                product.price_nad ??
+                product.price ??
+                0
+            );
+
+
+        /*
+         * CREATE COMPLETE CART ITEM
+         */
+
+        const cartItem = {
+
+            /*
+             * Product identifiers
+             */
+
+            id:
+                Number(id),
+
+            product_id:
+                Number(id),
+
+            /*
+             * THIS WAS MISSING BEFORE
+             */
+
+            seller_id:
+                Number(sellerId),
+
+
+            /*
+             * Product name
+             */
+
+            name:
+                product.product_name ||
+                product.name ||
+                product.title ||
+                "Product",
+
+
+            /*
+             * Base price
+             */
+
+            price:
+                nadPrice,
+
+            currency:
+                "NAD",
+
+
+            /*
+             * Image
+             */
+
+            image:
+                getProductImage(
+                    product
+                ),
+
+
+            /*
+             * Quantity
+             */
+
+            quantity:
+                1
+
+        };
+
+
+        cart.push(
+            cartItem
+        );
+
+
+        console.log(
+            "NEW CART ITEM:",
+            cartItem
+        );
+
+    }
+
+
+    /*
+     * SAVE
+     */
+
+    saveCart(
+        cart
+    );
+
+
+    /*
+     * UPDATE COUNT
+     */
+
+    updateCartCount();
+
+
+    /*
+     * CONFIRMATION
+     */
+
+    toast(
+        "✓ Product added to your cart."
+    );
+
+
+    /*
+     * FINAL DEBUG
+     */
+
+    console.log(
+        "CART AFTER ADDING PRODUCT:",
+        getCart()
+    );
+
+}
+
+
+/* =========================================================
+   CREATE PRODUCT CARD
+========================================================= */
+
+function createProductCard(product){
+
+    const id =
+        product.id ??
+        product.product_id ??
+        "";
+
+
+    const sellerId =
+        getSellerId(product);
+
+
+    const name =
+        product.product_name ||
+        product.name ||
+        product.title ||
+        "Product";
+
+
+    /*
+     * NAD IS BASE PRICE
+     */
+
+    const nadPrice =
+        Number(
+            product.price_local ??
+            product.price_nad ??
+            product.price ??
+            0
+        );
+
+
+    const prices =
+        getCurrencyPrices(
+            nadPrice
+        );
+
+
+    const image =
+        getProductImage(
+            product
+        );
+
+
+    const card =
+        document.createElement(
+            "article"
+        );
+
+
+    card.className =
+        "product-card";
+
+
+    /*
+     * SAFE PRODUCT NAME
+     */
+
+    const safeName =
+        String(name)
+            .replace(
+                /&/g,
+                "&amp;"
+            )
+            .replace(
+                /</g,
+                "&lt;"
+            )
+            .replace(
+                />/g,
+                "&gt;"
+            )
+            .replace(
+                /"/g,
+                "&quot;"
+            )
+            .replace(
+                /'/g,
+                "&#039;"
+            );
+
+
+    /*
+     * IMAGE HTML
+     */
+
+    const imageHTML =
+        image
+
+        ?
+
+        `
+        <img
+            src="${image}"
+            alt="${safeName}"
+            loading="lazy"
+        >
+
+        <span
+            class="placeholder"
+            style="display:none"
+        >
+            🛍️
+        </span>
+        `
+
+        :
+
+        `
+        <span class="placeholder">
+            🛍️
+        </span>
+        `;
+
+
+    /*
+     * PRODUCT CARD HTML
+     */
+
+    card.innerHTML = `
+
+        <div class="product-image">
+
+            <div class="product-badge">
+                MARKETPLACE
+            </div>
+
+            ${imageHTML}
+
+        </div>
+
+
+        <div class="product-details">
+
+            <div class="product-name">
+                ${safeName}
+            </div>
+
+
+            <div class="price-label">
+                Base price
+            </div>
+
+
+            <div class="product-price">
+                N$${prices.nad.toFixed(2)}
+            </div>
+
+
+            <div class="currency-prices">
+
+                <span class="currency-pill">
+                    USD $${prices.usd.toFixed(2)}
+                </span>
+
+                <span class="currency-pill">
+                    EUR €${prices.eur.toFixed(2)}
+                </span>
+
+            </div>
+
+
+            <div class="product-buttons">
+
+                <button
+                    type="button"
+                    class="add-cart"
+                >
+                    🛒 Add to Cart
+                </button>
+
+
+                <button
+                    type="button"
+                    class="view-button"
+                    title="View Product"
+                >
+                    👁
+                </button>
+
+            </div>
+
+        </div>
+
+    `;
+
+
+    /*
+     * IMAGE ERROR
+     */
+
+    const imageElement =
+        card.querySelector(
+            ".product-image img"
+        );
+
+
+    if(imageElement){
+
+        imageElement.addEventListener(
+            "error",
+            function(){
+
+                this.style.display =
+                    "none";
+
+
+                const placeholder =
+                    this.parentElement
+                        .querySelector(
+                            ".placeholder"
+                        );
+
+
+                if(placeholder){
+
+                    placeholder.style.display =
+                        "block";
+
+                }
+
+            }
+        );
+
+    }
+
+
+    /*
+     * ADD TO CART BUTTON
+     */
+
+    const addButton =
+        card.querySelector(
+            ".add-cart"
+        );
+
+
+    if(addButton){
+
+        /*
+         * Disable button if seller
+         * information is missing.
+         */
+
+        if(!sellerId){
+
+            addButton.title =
+                "Seller information unavailable";
+
+        }
+
+
+        addButton.addEventListener(
+            "click",
+            event => {
+
+                event.stopPropagation();
+
+                addToCart(
+                    product
+                );
+
+            }
+        );
+
+    }
+
+
+    /*
+     * VIEW PRODUCT
+     */
+
+    const viewButton =
+        card.querySelector(
+            ".view-button"
+        );
+
+
+    if(viewButton){
+
+        viewButton.addEventListener(
+            "click",
+            event => {
+
+                event.stopPropagation();
+
+
+                if(id){
+
+                    navigate(
+                        "/product.html?id=" +
+                        encodeURIComponent(
+                            id
+                        )
+                    );
+
+                }
+
+            }
+        );
+
+    }
+
+
+    /*
+     * CLICK PRODUCT CARD
+     */
+
+    card.addEventListener(
+        "click",
+        () => {
+
+            if(id){
+
+                navigate(
+                    "/product.html?id=" +
+                    encodeURIComponent(
+                        id
+                    )
+                );
+
+            }
+
+        }
+    );
+
+
+    return card;
+
+}
+
+
+/* =========================================================
+   DISPLAY PRODUCTS
+========================================================= */
+
+function displayProducts(
+    container,
+    products,
+    emptyMessage
+){
+
+    if(!container){
+
+        return;
+
+    }
+
+
+    container.innerHTML =
+        "";
+
+
+    if(
+        !Array.isArray(
+            products
+        ) ||
+        products.length === 0
+    ){
+
+        container.innerHTML = `
+
+            <div class="products-message">
+                ${emptyMessage}
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    products
+        .slice(0,10)
+        .forEach(
+            product => {
+
+                container.appendChild(
+                    createProductCard(
+                        product
+                    )
+                );
+
+            }
+        );
+
+}
+
+
+/* =========================================================
+   LOAD PRODUCTS
+========================================================= */
+
+async function loadProducts(){
+
+    const featured =
+        document.getElementById(
+            "featuredProducts"
+        );
+
+
+    const flash =
+        document.getElementById(
+            "flashDeals"
+        );
+
+
+    const recommended =
+        document.getElementById(
+            "recommendedProducts"
+        );
+
+
+    try{
+
+        const response =
+            await fetch(
+                "/products",
+                {
+
+                    method:
+                        "GET",
+
+                    headers:{
+                        "Accept":
+                            "application/json"
+                    },
+
+                    cache:
+                        "no-store"
+
+                }
+            );
+
+
+        console.log(
+            "Products HTTP status:",
+            response.status
+        );
+
+
+        if(!response.ok){
+
+            throw new Error(
+                "Products API returned HTTP " +
+                response.status
+            );
+
+        }
+
+
+        const result =
+            await response.json();
+
+
+        console.log(
+            "Products API response:",
+            result
+        );
+
+
+        let products =
+            [];
+
+
+        /*
+         * API MAY RETURN ARRAY
+         */
+
+        if(
+            Array.isArray(
+                result
+            )
+        ){
+
+            products =
+                result;
+
+        }
+
+
+        /*
+         * API MAY RETURN
+         * { products: [] }
+         */
+
+        else if(
+            result &&
+            Array.isArray(
+                result.products
+            )
+        ){
+
+            products =
+                result.products;
+
+        }
+
+
+        /*
+         * API MAY RETURN
+         * { data: [] }
+         */
+
+        else if(
+            result &&
+            Array.isArray(
+                result.data
+            )
+        ){
+
+            products =
+                result.data;
+
+        }
+
+
+        console.log(
+            "NORMALIZED PRODUCTS:",
+            products
+        );
+
+
+        /*
+         * IMPORTANT DEBUG
+         *
+         * We check seller IDs here.
+         */
+
+        products.forEach(
+            product => {
+
+                console.log(
+                    "PRODUCT:",
+                    product.id,
+                    "SELLER:",
+                    getSellerId(product)
+                );
+
+            }
+        );
+
+
+        /*
+         * FEATURED
+         */
+
+        displayProducts(
+            featured,
+            products,
+            "No products available yet."
+        );
+
+
+        /*
+         * FLASH DEALS
+         */
+
+        displayProducts(
+            flash,
+            products,
+            "No flash deals available yet."
+        );
+
+
+        /*
+         * RECOMMENDED
+         */
+
+        displayProducts(
+            recommended,
+            products,
+            "No recommendations available yet."
+        );
+
+
+    }catch(error){
+
+        console.error(
+            "PRODUCT LOADING ERROR:",
+            error
+        );
+
+
+        const errorMessage = `
+
+            <div class="products-error">
+
+                Products could not be loaded
+                right now.
+
+                <br><br>
+
+                Please try again shortly.
+
+            </div>
+
+        `;
+
+
+        if(featured){
+
+            featured.innerHTML =
+                errorMessage;
+
+        }
+
+
+        if(flash){
+
+            flash.innerHTML =
+                errorMessage;
+
+        }
+
+
+        if(recommended){
+
+            recommended.innerHTML =
+                errorMessage;
+
+        }
+
+    }
+
+}
+
+
+/* =========================================================
+   INITIALIZE
+========================================================= */
+
+updateCartCount();
+
+loadProducts();
+
+
+});
+
+</script>
+
+</body>
+
+</html>

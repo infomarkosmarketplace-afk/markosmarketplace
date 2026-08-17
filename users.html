@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Users | Admin Dashboard</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,Helvetica,sans-serif;
+}
+
+body{
+    background:#f3f3f3;
+}
+
+.container{
+    display:flex;
+}
+
+/* Sidebar */
+
+.sidebar{
+    width:240px;
+    min-height:100vh;
+    background:#131921;
+    color:#fff;
+    position:fixed;
+}
+
+.logo{
+    background:#232f3e;
+    padding:20px;
+    text-align:center;
+    font-size:24px;
+    font-weight:bold;
+}
+
+.sidebar a{
+    display:block;
+    color:white;
+    text-decoration:none;
+    padding:15px 20px;
+}
+
+.sidebar a:hover{
+    background:#ff9900;
+    color:black;
+}
+
+/* Main */
+
+.main{
+    margin-left:240px;
+    width:100%;
+}
+
+.header{
+    background:white;
+    padding:20px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    box-shadow:0 2px 5px rgba(0,0,0,.1);
+}
+
+.header h2{
+    color:#232f3e;
+}
+
+.search-box{
+    padding:20px;
+}
+
+.search-box input{
+    width:100%;
+    padding:12px;
+    border:1px solid #ccc;
+    border-radius:6px;
+    font-size:16px;
+}
+
+/* Table */
+
+.section{
+    margin:20px;
+    background:white;
+    padding:20px;
+    border-radius:10px;
+    box-shadow:0 2px 8px rgba(0,0,0,.1);
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+table th{
+    background:#232f3e;
+    color:white;
+    padding:12px;
+}
+
+table td{
+    padding:12px;
+    border-bottom:1px solid #ddd;
+    text-align:center;
+}
+
+button{
+    padding:8px 14px;
+    border:none;
+    border-radius:5px;
+    cursor:pointer;
+}
+
+.edit{
+    background:#ff9900;
+    color:black;
+}
+
+.delete{
+    background:#d9534f;
+    color:white;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="sidebar">
+
+<div class="logo">
+MARKO
+</div>
+
+<a href="admin.html">Dashboard</a>
+<a href="products.html">Products</a>
+<a href="orders.html">Orders</a>
+<a href="users.html">Users</a>
+<a href="revenue.html">Revenue</a>
+<a href="analytics.html">Analytics</a>
+
+</div>
+
+<div class="main">
+
+<div class="header">
+<h2>Manage Users</h2>
+<div>Administrator</div>
+</div>
+
+<div class="search-box">
+<input type="text" id="searchUser" placeholder="Search users...">
+</div>
+
+<div class="section">
+
+<table>
+
+<thead>
+
+<tr>
+<th>ID</th>
+<th>Name</th>
+<th>Email</th>
+<th>Role</th>
+<th>Status</th>
+<th>Action</th>
+</tr>
+
+</thead>
+
+<tbody id="usersTable">
+
+<tr>
+<td colspan="6">No users found.</td>
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</div>
+
+<script src="js/users.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,1722 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Seller Dashboard | Marko's Marketplace</title><link rel="stylesheet" href="/css/dashboard.css"><link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"><style>
+
+/* =========================================================
+   RESET
+========================================================= */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f1f3f6;
+    color: #172033;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.header {
+    min-height: 78px;
+    padding: 10px 24px;
+
+    display: flex;
+    align-items: center;
+    gap: 22px;
+
+    background:
+        linear-gradient(135deg, #07111f, #131f33 55%, #1d334d);
+
+    color: white;
+
+    position: sticky;
+    top: 0;
+    z-index: 5000;
+
+    box-shadow:
+        0 5px 25px rgba(0,0,0,.25);
+}
+
+
+/* LOGO */
+
+.logo {
+    min-width: 225px;
+}
+
+.logo a {
+    text-decoration: none;
+    color: white;
+}
+
+.logo h2 {
+    font-size: 21px;
+    letter-spacing: .3px;
+}
+
+.logo h2::before {
+    content: "◆";
+    color: #ffb000;
+    margin-right: 9px;
+}
+
+
+/* SEARCH */
+
+.search-bar {
+    flex: 1;
+    max-width: 650px;
+
+    height: 46px;
+
+    display: flex;
+
+    background: white;
+
+    border-radius: 8px;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 3px 12px rgba(0,0,0,.2);
+}
+
+.search-bar input {
+    flex: 1;
+
+    border: none;
+    outline: none;
+
+    padding: 0 16px;
+
+    font-size: 14px;
+}
+
+.search-bar button {
+    width: 55px;
+
+    border: none;
+
+    background: #ffb000;
+
+    color: #111;
+
+    font-size: 17px;
+
+    cursor: pointer;
+}
+
+.search-bar button:hover {
+    background: #ffc43d;
+}
+
+
+/* HEADER NAV */
+
+.header nav {
+    margin-left: auto;
+}
+
+.header nav ul {
+    list-style: none;
+
+    display: flex;
+    align-items: center;
+
+    gap: 6px;
+}
+
+.header nav a {
+    display: block;
+
+    padding: 11px 13px;
+
+    border-radius: 7px;
+
+    color: #fff;
+
+    text-decoration: none;
+
+    font-size: 13px;
+
+    transition: .2s;
+}
+
+.header nav a:hover {
+    background: rgba(255,255,255,.12);
+}
+
+
+/* HEADER ICONS */
+
+.header-icons {
+    display: flex;
+    gap: 8px;
+}
+
+.header-icons a {
+    width: 43px;
+    height: 43px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    color: white;
+
+    text-decoration: none;
+
+    background: rgba(255,255,255,.08);
+
+    transition: .2s;
+}
+
+.header-icons a:hover {
+    background: #ffb000;
+    color: #111;
+
+    transform: translateY(-2px);
+}
+
+
+/* =========================================================
+   DASHBOARD LAYOUT
+========================================================= */
+
+.dashboard-container {
+    max-width: 1500px;
+
+    margin: 25px auto;
+
+    padding: 0 20px;
+
+    display: grid;
+
+    grid-template-columns: 245px 1fr;
+
+    gap: 22px;
+}
+
+
+/* =========================================================
+   SIDEBAR
+========================================================= */
+
+.dashboard-sidebar {
+    background:
+        linear-gradient(180deg, #111d2d, #182a40);
+
+    color: white;
+
+    border-radius: 16px;
+
+    padding: 20px 13px;
+
+    height: fit-content;
+
+    position: sticky;
+    top: 100px;
+
+    box-shadow:
+        0 8px 30px rgba(0,0,0,.14);
+}
+
+.dashboard-sidebar h2 {
+    font-size: 19px;
+
+    padding: 8px 12px 20px;
+
+    border-bottom: 1px solid rgba(255,255,255,.1);
+
+    margin-bottom: 12px;
+}
+
+.dashboard-tab {
+    width: 100%;
+
+    border: none;
+
+    background: transparent;
+
+    color: #dbe5f0;
+
+    text-align: left;
+
+    padding: 14px 15px;
+
+    margin-bottom: 6px;
+
+    border-radius: 9px;
+
+    font-size: 14px;
+
+    cursor: pointer;
+
+    transition: .2s;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+}
+
+.dashboard-tab i {
+    width: 20px;
+    text-align: center;
+}
+
+.dashboard-tab:hover {
+    background: rgba(255,255,255,.09);
+
+    color: white;
+
+    transform: translateX(3px);
+}
+
+.dashboard-tab.active {
+    background:
+        linear-gradient(90deg, #ffb000, #ffca45);
+
+    color: #111;
+
+    font-weight: bold;
+
+    box-shadow:
+        0 5px 15px rgba(255,176,0,.25);
+}
+
+
+/* =========================================================
+   CONTENT
+========================================================= */
+
+.dashboard-content {
+    min-width: 0;
+}
+
+.dashboard-section {
+    display: none;
+
+    animation: fadeIn .25s ease;
+}
+
+.dashboard-section.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+}
+
+
+/* =========================================================
+   SECTION HEADINGS
+========================================================= */
+
+.dashboard-section > h1 {
+    font-size: 28px;
+
+    margin-bottom: 20px;
+
+    color: #162338;
+}
+
+.dashboard-section > h1::after {
+    content: "";
+
+    display: block;
+
+    width: 55px;
+
+    height: 4px;
+
+    margin-top: 8px;
+
+    border-radius: 5px;
+
+    background: #ffb000;
+}
+
+
+/* =========================================================
+   STAT CARDS
+========================================================= */
+
+.dashboard-stats {
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, minmax(0, 1fr));
+
+    gap: 16px;
+
+    margin-bottom: 22px;
+}
+
+.dashboard-card {
+    background: white;
+
+    border-radius: 14px;
+
+    padding: 22px;
+
+    position: relative;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 5px 20px rgba(0,0,0,.08);
+
+    border: 1px solid #e5e8ed;
+
+    transition: .25s;
+}
+
+.dashboard-card::after {
+    content: "";
+
+    position: absolute;
+
+    width: 90px;
+    height: 90px;
+
+    right: -30px;
+    bottom: -35px;
+
+    border-radius: 50%;
+
+    background: rgba(255,176,0,.09);
+}
+
+.dashboard-card:hover {
+    transform: translateY(-5px);
+
+    box-shadow:
+        0 12px 28px rgba(0,0,0,.13);
+}
+
+.dashboard-card i {
+    font-size: 25px;
+
+    color: #f5a800;
+
+    margin-bottom: 13px;
+}
+
+.dashboard-card h3 {
+    font-size: 14px;
+
+    color: #667085;
+
+    margin-bottom: 8px;
+}
+
+.dashboard-card span {
+    font-size: 27px;
+
+    font-weight: 800;
+
+    color: #172033;
+}
+
+
+/* =========================================================
+   INCOME
+========================================================= */
+
+.revenue-box {
+    background: white;
+
+    border-radius: 15px;
+
+    padding: 24px;
+
+    box-shadow:
+        0 5px 20px rgba(0,0,0,.07);
+
+    border: 1px solid #e5e8ed;
+}
+
+.revenue-box h2 {
+    margin-bottom: 18px;
+
+    font-size: 20px;
+}
+
+.income-row {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    padding: 15px 0;
+
+    border-bottom: 1px solid #eee;
+}
+
+.income-row:last-child {
+    border-bottom: none;
+}
+
+.income-row p {
+    color: #667085;
+}
+
+.income-row strong {
+    color: #172033;
+}
+
+
+/* =========================================================
+   ADD PRODUCT
+========================================================= */
+
+.add-product-btn {
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+    padding: 12px 18px;
+
+    margin-bottom: 20px;
+
+    border-radius: 8px;
+
+    background:
+        linear-gradient(135deg, #ffb000, #ffd05c);
+
+    color: #111;
+
+    text-decoration: none;
+
+    font-weight: bold;
+
+    box-shadow:
+        0 5px 15px rgba(255,176,0,.25);
+
+    transition: .2s;
+}
+
+.add-product-btn:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 8px 20px rgba(255,176,0,.35);
+}
+
+
+/* =========================================================
+   PRODUCT LIST
+========================================================= */
+
+.seller-product-list {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+    gap: 16px;
+}
+
+.seller-product-list:empty::before {
+    content: "Your products will appear here.";
+
+    display: block;
+
+    grid-column: 1 / -1;
+
+    background: white;
+
+    padding: 35px;
+
+    text-align: center;
+
+    color: #777;
+
+    border-radius: 12px;
+}
+
+
+/* =========================================================
+   TABLES
+========================================================= */
+
+.table-container {
+    background: white;
+
+    border-radius: 14px;
+
+    overflow-x: auto;
+
+    box-shadow:
+        0 5px 20px rgba(0,0,0,.07);
+
+    border: 1px solid #e5e8ed;
+}
+
+table {
+    width: 100%;
+
+    border-collapse: collapse;
+
+    min-width: 600px;
+}
+
+th {
+    background: #f7f8fa;
+
+    color: #475467;
+
+    text-align: left;
+
+    padding: 15px;
+
+    font-size: 13px;
+}
+
+td {
+    padding: 15px;
+
+    border-top: 1px solid #eee;
+
+    font-size: 14px;
+}
+
+
+/* =========================================================
+   WALLET
+========================================================= */
+
+.wallet-card {
+    background:
+        linear-gradient(135deg, #101c2d, #1e3956);
+
+    color: white;
+
+    border-radius: 18px;
+
+    padding: 30px;
+
+    box-shadow:
+        0 12px 30px rgba(16,28,45,.25);
+
+    margin-bottom: 22px;
+}
+
+.wallet-balance i {
+    color: #ffbf26;
+
+    font-size: 28px;
+
+    margin-bottom: 12px;
+}
+
+.wallet-balance h3 {
+    color: #b9c7d8;
+
+    font-size: 14px;
+
+    margin-bottom: 8px;
+}
+
+.wallet-balance h2 {
+    font-size: 34px;
+
+    margin-bottom: 8px;
+}
+
+.wallet-balance p {
+    color: #b9c7d8;
+}
+
+.wallet-actions {
+    display: flex;
+
+    gap: 10px;
+
+    margin-top: 25px;
+}
+
+.wallet-actions button {
+    border: none;
+
+    padding: 12px 18px;
+
+    border-radius: 8px;
+
+    cursor: pointer;
+
+    font-weight: bold;
+
+    transition: .2s;
+}
+
+#withdrawBtn {
+    background: #ffb000;
+
+    color: #111;
+}
+
+#transactionBtn {
+    background: rgba(255,255,255,.12);
+
+    color: white;
+
+    border: 1px solid rgba(255,255,255,.25);
+}
+
+.wallet-actions button:hover {
+    transform: translateY(-2px);
+}
+
+
+/* =========================================================
+   TRANSACTIONS
+========================================================= */
+
+.transactions-box {
+    background: white;
+
+    border-radius: 15px;
+
+    padding: 22px;
+
+    box-shadow:
+        0 5px 20px rgba(0,0,0,.07);
+}
+
+.transactions-box h2 {
+    margin-bottom: 18px;
+}
+
+
+/* =========================================================
+   NOTIFICATIONS
+========================================================= */
+
+#dashboardNotifications {
+    background: white;
+
+    border-radius: 14px;
+
+    padding: 25px;
+
+    min-height: 130px;
+
+    box-shadow:
+        0 5px 20px rgba(0,0,0,.07);
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.footer {
+    margin-top: 50px;
+
+    background: #111c2b;
+
+    color: white;
+
+    padding-top: 40px;
+}
+
+.footer-container {
+    max-width: 1200px;
+
+    margin: auto;
+
+    padding: 0 25px 35px;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 40px;
+}
+
+.footer h3 {
+    margin-bottom: 14px;
+}
+
+.footer p,
+.footer a {
+    color: #bfc9d6;
+
+    display: block;
+
+    margin-bottom: 9px;
+
+    text-decoration: none;
+}
+
+.footer a:hover {
+    color: #ffb000;
+}
+
+.copyright {
+    background: #09111c;
+
+    text-align: center;
+
+    padding: 18px;
+
+    font-size: 13px;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 1100px) {
+
+    .header nav {
+        display: none;
+    }
+
+    .dashboard-container {
+        grid-template-columns: 210px 1fr;
+    }
+
+    .dashboard-stats {
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+    .seller-product-list {
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+}
+
+
+@media (max-width: 750px) {
+
+    .header {
+        flex-wrap: wrap;
+
+        padding: 12px;
+    }
+
+    .logo {
+        min-width: auto;
+    }
+
+    .logo h2 {
+        font-size: 17px;
+    }
+
+    .search-bar {
+        order: 5;
+
+        flex-basis: 100%;
+
+        max-width: none;
+    }
+
+    .dashboard-container {
+        display: block;
+
+        padding: 12px;
+    }
+
+    .dashboard-sidebar {
+        position: static;
+
+        margin-bottom: 18px;
+
+        display: grid;
+
+        grid-template-columns:
+            repeat(2, 1fr);
+
+        gap: 6px;
+    }
+
+    .dashboard-sidebar h2 {
+        grid-column: 1 / -1;
+    }
+
+    .dashboard-tab {
+        margin: 0;
+    }
+
+}
+
+
+@media (max-width: 500px) {
+
+    .dashboard-stats {
+        grid-template-columns: 1fr;
+    }
+
+    .seller-product-list {
+        grid-template-columns: 1fr;
+    }
+
+    .wallet-actions {
+        flex-direction: column;
+    }
+
+    .wallet-actions button {
+        width: 100%;
+    }
+
+    .footer-container {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+</style></head><body><!-- =========================================================
+     HEADER
+========================================================= --><header class="header"><div class="logo">
+
+    <a href="/index.html">
+
+        <h2>
+            Marko's Marketplace
+        </h2>
+
+    </a>
+
+</div>
+
+
+<form
+    class="search-bar"
+    id="marketplaceSearchForm"
+>
+
+    <input
+        type="search"
+        placeholder="Search marketplace..."
+        id="marketplaceSearch"
+    >
+
+    <button type="submit">
+
+        <i class="fas fa-search"></i>
+
+    </button>
+
+</form>
+
+
+<nav>
+
+    <ul>
+
+        <li>
+            <a href="/index.html">
+                Home
+            </a>
+        </li>
+
+        <li>
+            <a href="/upload.html">
+                Add Product
+            </a>
+        </li>
+
+        <li>
+            <a href="/account.html">
+                Account
+            </a>
+        </li>
+
+    </ul>
+
+</nav>
+
+
+<div class="header-icons">
+
+    <a
+        href="/cart.html"
+        aria-label="Shopping Cart"
+    >
+        <i class="fas fa-shopping-cart"></i>
+    </a>
+
+    <a
+        href="/account.html"
+        aria-label="Account"
+    >
+        <i class="fas fa-user"></i>
+    </a>
+
+</div>
+
+</header><!-- =========================================================
+     DASHBOARD
+========================================================= --><section class="dashboard-container"><aside class="dashboard-sidebar"><h2>
+    <i class="fas fa-store"></i>
+    Seller Panel
+</h2>
+
+
+<button
+    type="button"
+    class="dashboard-tab active"
+    data-section="overview"
+>
+    <i class="fas fa-chart-line"></i>
+    Overview
+</button>
+
+
+<button
+    type="button"
+    class="dashboard-tab"
+    data-section="products"
+>
+    <i class="fas fa-box"></i>
+    My Products
+</button>
+
+
+<button
+    type="button"
+    class="dashboard-tab"
+    data-section="sales"
+>
+    <i class="fas fa-shopping-bag"></i>
+    Sales
+</button>
+
+
+<button
+    type="button"
+    class="dashboard-tab"
+    data-section="wallet"
+>
+    <i class="fas fa-wallet"></i>
+    Wallet
+</button>
+
+
+<button
+    type="button"
+    class="dashboard-tab"
+    data-section="notifications"
+>
+    <i class="fas fa-bell"></i>
+    Notifications
+</button>
+
+</aside><main class="dashboard-content"><!-- =====================================================
+     OVERVIEW
+===================================================== --><section
+    class="dashboard-section active"
+    id="overview"
+><h1>
+    Seller Overview
+</h1>
+
+
+<div class="dashboard-stats">
+
+    <div class="dashboard-card">
+
+        <i class="fas fa-box"></i>
+
+        <h3>
+            Products
+        </h3>
+
+        <span id="productCount">
+            0
+        </span>
+
+    </div>
+
+
+    <div class="dashboard-card">
+
+        <i class="fas fa-shopping-cart"></i>
+
+        <h3>
+            Orders
+        </h3>
+
+        <span id="orderCount">
+            0
+        </span>
+
+    </div>
+
+
+    <div class="dashboard-card">
+
+        <i class="fas fa-dollar-sign"></i>
+
+        <h3>
+            Revenue
+        </h3>
+
+        <span id="revenue">
+            $0.00
+        </span>
+
+    </div>
+
+
+    <div class="dashboard-card">
+
+        <i class="fas fa-star"></i>
+
+        <h3>
+            Rating
+        </h3>
+
+        <span id="sellerRating">
+            0.0
+        </span>
+
+    </div>
+
+</div>
+
+
+<div class="revenue-box">
+
+    <h2>
+        Income Summary
+    </h2>
+
+
+    <div class="income-row">
+
+        <p>
+            Total Sales
+        </p>
+
+        <strong id="totalSales">
+            $0.00 USD
+        </strong>
+
+    </div>
+
+
+    <div class="income-row">
+
+        <p>
+            Marketplace Commission
+        </p>
+
+        <strong id="commission">
+            $0.00 USD
+        </strong>
+
+    </div>
+
+
+    <div class="income-row">
+
+        <p>
+            Your Earnings
+        </p>
+
+        <strong id="sellerIncome">
+            $0.00 USD
+        </strong>
+
+    </div>
+
+</div>
+
+</section><!-- =====================================================
+     PRODUCTS
+===================================================== --><section
+    class="dashboard-section"
+    id="products"
+><h1>
+    My Products
+</h1>
+
+
+<a
+    href="/upload.html"
+    class="add-product-btn"
+    id="addProductBtn"
+>
+
+    <i class="fas fa-plus"></i>
+
+    Add New Product
+
+</a>
+
+
+<div
+    class="seller-product-list"
+    id="sellerProductList"
+>
+
+</div>
+
+</section><!-- =====================================================
+     SALES
+===================================================== --><section
+    class="dashboard-section"
+    id="sales"
+><h1>
+    Recent Sales
+</h1>
+
+
+<div class="table-container">
+
+    <table class="sales-table">
+
+        <thead>
+
+            <tr>
+
+                <th>
+                    Order
+                </th>
+
+                <th>
+                    Product
+                </th>
+
+                <th>
+                    Amount
+                </th>
+
+                <th>
+                    Status
+                </th>
+
+            </tr>
+
+        </thead>
+
+
+        <tbody id="salesTable">
+
+        </tbody>
+
+    </table>
+
+</div>
+
+</section><!-- =====================================================
+     WALLET
+===================================================== --><section
+    class="dashboard-section"
+    id="wallet"
+><h1>
+    Seller Wallet
+</h1>
+
+
+<div class="wallet-card">
+
+    <div class="wallet-balance">
+
+        <i class="fas fa-wallet"></i>
+
+        <h3>
+            Available Balance
+        </h3>
+
+        <h2 id="walletBalance">
+            $0.00 USD
+        </h2>
+
+        <p id="walletLocal">
+            N$0.00 NAD | €0.00 EUR
+        </p>
+
+    </div>
+
+
+    <div class="wallet-actions">
+
+        <button
+            type="button"
+            id="withdrawBtn"
+        >
+
+            <i class="fas fa-money-bill-transfer"></i>
+
+            Withdraw
+
+        </button>
+
+
+        <button
+            type="button"
+            id="transactionBtn"
+        >
+
+            <i class="fas fa-history"></i>
+
+            Transactions
+
+        </button>
+
+    </div>
+
+</div>
+
+
+<div class="transactions-box">
+
+    <h2>
+        Recent Transactions
+    </h2>
+
+
+    <div class="table-container">
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>Date</th>
+                    <th>Type</th>
+                    <th>Amount</th>
+                    <th>Status</th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody id="transactionList">
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+</section><!-- =====================================================
+     NOTIFICATIONS
+===================================================== --><section
+    class="dashboard-section"
+    id="notifications"
+><h1>
+    Notifications
+</h1>
+
+
+<div id="dashboardNotifications">
+
+    <p style="color:#777;">
+        No new notifications.
+    </p>
+
+</div>
+
+</section></main></section><!-- =====================================================
+     FOOTER
+===================================================== --><footer class="footer"><div class="footer-container">
+
+    <div>
+
+        <h3>
+            Marko's Marketplace
+        </h3>
+
+        <p>
+            Seller tools for growing your business.
+        </p>
+
+    </div>
+
+
+    <div>
+
+        <h3>
+            Quick Links
+        </h3>
+
+        <a href="/index.html">
+            Home
+        </a>
+
+        <a href="/upload.html">
+            Add Product
+        </a>
+
+        <a href="/account.html">
+            Account
+        </a>
+
+    </div>
+
+
+    <div>
+
+        <h3>
+            Support
+        </h3>
+
+        <a href="/help.html">
+            Help Center
+        </a>
+
+        <a href="/terms.html">
+            Terms
+        </a>
+
+        <a href="/privacy.html">
+            Privacy
+        </a>
+
+    </div>
+
+</div>
+
+
+<p class="copyright">
+
+    © 2026 Marko's Marketplace.
+    All rights reserved.
+
+</p>
+
+</footer><!-- =====================================================
+     EXISTING BACKEND SCRIPTS
+===================================================== --><script src="/js/seller-auth.js"></script><script src="/js/seller-dashboard.js"></script><!-- =====================================================
+     DASHBOARD BUTTON CONTROL
+===================================================== --><script>
+
+document.addEventListener("DOMContentLoaded", function () {
+
+
+    /* =====================================================
+       SECTION SWITCHING
+    ===================================================== */
+
+    const tabs =
+        document.querySelectorAll(".dashboard-tab");
+
+    const sections =
+        document.querySelectorAll(".dashboard-section");
+
+
+    function showSection(sectionName) {
+
+        sections.forEach(function(section) {
+
+            section.classList.remove("active");
+
+        });
+
+
+        tabs.forEach(function(tab) {
+
+            tab.classList.remove("active");
+
+        });
+
+
+        const target =
+            document.getElementById(sectionName);
+
+
+        const activeTab =
+            document.querySelector(
+                '.dashboard-tab[data-section="' +
+                sectionName +
+                '"]'
+            );
+
+
+        if (target) {
+
+            target.classList.add("active");
+
+        }
+
+
+        if (activeTab) {
+
+            activeTab.classList.add("active");
+
+        }
+
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+
+    }
+
+
+    tabs.forEach(function(tab) {
+
+        tab.addEventListener("click", function(event) {
+
+            event.preventDefault();
+
+            const section =
+                tab.getAttribute("data-section");
+
+
+            if (section) {
+
+                showSection(section);
+
+            }
+
+        });
+
+    });
+
+
+    /* =====================================================
+       ADD PRODUCT
+    ===================================================== */
+
+    const addProductBtn =
+        document.getElementById("addProductBtn");
+
+
+    if (addProductBtn) {
+
+        addProductBtn.addEventListener(
+            "click",
+            function(event) {
+
+                event.preventDefault();
+
+                window.location.href =
+                    "/upload.html";
+
+            }
+        );
+
+    }
+
+
+    /* =====================================================
+       SEARCH
+    ===================================================== */
+
+    const searchForm =
+        document.getElementById(
+            "marketplaceSearchForm"
+        );
+
+
+    if (searchForm) {
+
+        searchForm.addEventListener(
+            "submit",
+            function(event) {
+
+                event.preventDefault();
+
+
+                const value =
+                    document
+                        .getElementById(
+                            "marketplaceSearch"
+                        )
+                        .value
+                        .trim();
+
+
+                if (!value) {
+
+                    return;
+
+                }
+
+
+                window.location.href =
+                    "/products.html?search=" +
+                    encodeURIComponent(value);
+
+            }
+        );
+
+    }
+
+
+    /* =====================================================
+       WITHDRAW
+    ===================================================== */
+
+    const withdrawBtn =
+        document.getElementById("withdrawBtn");
+
+
+    if (withdrawBtn) {
+
+        withdrawBtn.addEventListener(
+            "click",
+            function() {
+
+                window.location.href =
+                    "/withdraw.html";
+
+            }
+        );
+
+    }
+
+
+    /* =====================================================
+       TRANSACTIONS
+    ===================================================== */
+
+    const transactionBtn =
+        document.getElementById(
+            "transactionBtn"
+        );
+
+
+    if (transactionBtn) {
+
+        transactionBtn.addEventListener(
+            "click",
+            function() {
+
+                const walletSection =
+                    document.getElementById("wallet");
+
+
+                if (
+                    walletSection &&
+                    !walletSection.classList.contains("active")
+                ) {
+
+                    showSection("wallet");
+
+                }
+
+
+                const transactionBox =
+                    document.querySelector(
+                        ".transactions-box"
+                    );
+
+
+                if (transactionBox) {
+
+                    setTimeout(function() {
+
+                        transactionBox.scrollIntoView({
+                            behavior: "smooth",
+                            block: "start"
+                        });
+
+                    }, 100);
+
+                }
+
+            }
+        );
+
+    }
+
+
+    /* =====================================================
+       HEADER ICONS
+    ===================================================== */
+
+    document
+        .querySelectorAll(".header-icons a")
+        .forEach(function(link) {
+
+            link.addEventListener(
+                "click",
+                function(event) {
+
+                    event.stopPropagation();
+
+                }
+            );
+
+        });
+
+
+    /* =====================================================
+       PREVENT DEAD BUTTONS
+    ===================================================== */
+
+    document
+        .querySelectorAll("button")
+        .forEach(function(button) {
+
+            button.addEventListener(
+                "mousedown",
+                function() {
+
+                    button.style.transform =
+                        "scale(.98)";
+
+                }
+            );
+
+
+            button.addEventListener(
+                "mouseup",
+                function() {
+
+                    button.style.transform =
+                        "";
+
+                }
+            );
+
+
+            button.addEventListener(
+                "mouseleave",
+                function() {
+
+                    button.style.transform =
+                        "";
+
+                }
+            );
+
+        });
+
+
+});
+
+</script></body></html>

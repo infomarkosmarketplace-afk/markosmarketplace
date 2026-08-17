@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>MarketHub Admin - Payment Verification</title>
+
+
+<style>
+
+/* =====================================================
+   RESET
+===================================================== */
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+
+/* =====================================================
+   BODY
+===================================================== */
+
+body{
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    background:
+        radial-gradient(
+            circle at top left,
+            #ffffff,
+            transparent 35%
+        ),
+        linear-gradient(
+            135deg,
+            #eef2f7,
+            #f8fafc
+        );
+
+    color:#172033;
+
+    min-height:100vh;
+
+    padding:20px;
+
+}
+
+
+/* =====================================================
+   CONTAINER
+===================================================== */
+
+.container{
+
+    width:100%;
+
+    max-width:1100px;
+
+    margin:20px auto;
+
+}
+
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+.header{
+
+    background:#172033;
+
+    color:white;
+
+    padding:25px;
+
+    border-radius:20px;
+
+    margin-bottom:22px;
+
+    box-shadow:
+        0 15px 40px
+        rgba(20,30,50,.15);
+
+}
+
+
+.logo{
+
+    font-size:25px;
+
+    font-weight:900;
+
+}
+
+
+.logo span{
+
+    color:#ffd43b;
+
+}
+
+
+.header h1{
+
+    margin-top:12px;
+
+    font-size:28px;
+
+}
+
+
+.header p{
+
+    margin-top:7px;
+
+    color:#b9c2d0;
+
+    line-height:1.5;
+
+}
+
+
+/* =====================================================
+   PAYMENTS AREA
+===================================================== */
+
+#payments{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(
+            auto-fit,
+            minmax(320px,1fr)
+        );
+
+    gap:20px;
+
+}
+
+
+/* =====================================================
+   PAYMENT CARD
+===================================================== */
+
+.payment{
+
+    background:white;
+
+    border:1px solid #e2e7ee;
+
+    border-radius:18px;
+
+    padding:20px;
+
+    box-shadow:
+        0 10px 30px
+        rgba(20,30,50,.08);
+
+    transition:.25s;
+
+}
+
+
+.payment:hover{
+
+    transform:translateY(-3px);
+
+    box-shadow:
+        0 15px 35px
+        rgba(20,30,50,.12);
+
+}
+
+
+/* =====================================================
+   ORDER HEADER
+===================================================== */
+
+.payment h3{
+
+    font-size:20px;
+
+    margin-bottom:15px;
+
+}
+
+
+.payment p{
+
+    margin:9px 0;
+
+    color:#596575;
+
+    line-height:1.5;
+
+}
+
+
+.payment strong{
+
+    color:#172033;
+
+}
+
+
+/* =====================================================
+   STATUS
+===================================================== */
+
+.payment-status{
+
+    display:inline-block;
+
+    margin-top:5px;
+
+    padding:7px 11px;
+
+    border-radius:20px;
+
+    background:#fff4d6;
+
+    color:#8a6811;
+
+    font-size:12px;
+
+    font-weight:900;
+
+}
+
+
+/* =====================================================
+   RECEIPT
+===================================================== */
+
+.receipt{
+
+    margin-top:18px;
+
+    padding:15px;
+
+    background:#f7f9fc;
+
+    border:1px solid #e5e9ef;
+
+    border-radius:14px;
+
+}
+
+
+.receipt h4{
+
+    margin-bottom:10px;
+
+    font-size:14px;
+
+}
+
+
+.receipt-image{
+
+    width:100%;
+
+    max-width:100%;
+
+    max-height:350px;
+
+    object-fit:contain;
+
+    background:#e9edf3;
+
+    border-radius:10px;
+
+    cursor:pointer;
+
+    transition:.25s;
+
+}
+
+
+.receipt-image:hover{
+
+    transform:scale(1.01);
+
+    box-shadow:
+        0 8px 25px
+        rgba(0,0,0,.15);
+
+}
+
+
+/* =====================================================
+   ACTIONS
+===================================================== */
+
+.payment-actions{
+
+    margin-top:18px;
+
+}
+
+
+.approve-button{
+
+    width:100%;
+
+    padding:15px;
+
+    border:none;
+
+    border-radius:12px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #20c997,
+            #16a085
+        );
+
+    color:white;
+
+    font-size:15px;
+
+    font-weight:900;
+
+    cursor:pointer;
+
+    transition:.25s;
+
+    box-shadow:
+        0 8px 20px
+        rgba(22,160,133,.20);
+
+}
+
+
+.approve-button:hover{
+
+    transform:translateY(-2px);
+
+    box-shadow:
+        0 12px 25px
+        rgba(22,160,133,.30);
+
+}
+
+
+.approve-button:active{
+
+    transform:scale(.98);
+
+}
+
+
+/* =====================================================
+   LOADING
+===================================================== */
+
+.loading{
+
+    grid-column:1 / -1;
+
+    text-align:center;
+
+    padding:50px;
+
+    background:white;
+
+    border-radius:18px;
+
+    color:#707b8c;
+
+}
+
+
+/* =====================================================
+   EMPTY
+===================================================== */
+
+.empty{
+
+    grid-column:1 / -1;
+
+    text-align:center;
+
+    padding:60px 20px;
+
+    background:white;
+
+    border-radius:18px;
+
+    border:1px solid #e2e7ee;
+
+}
+
+
+.empty::before{
+
+    content:"✓";
+
+    display:block;
+
+    font-size:40px;
+
+    margin-bottom:12px;
+
+    color:#20a77a;
+
+}
+
+
+.empty{
+
+    color:#687384;
+
+}
+
+
+/* =====================================================
+   ERROR
+===================================================== */
+
+.error{
+
+    grid-column:1 / -1;
+
+    background:#fff1f1;
+
+    border:1px solid #f0caca;
+
+    color:#9b3636;
+
+    padding:20px;
+
+    border-radius:15px;
+
+    text-align:center;
+
+}
+
+
+.error button{
+
+    margin-top:15px;
+
+    padding:10px 18px;
+
+    border:none;
+
+    border-radius:8px;
+
+    background:#172033;
+
+    color:white;
+
+    cursor:pointer;
+
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media(max-width:600px){
+
+    body{
+
+        padding:10px;
+
+    }
+
+
+    .header{
+
+        padding:20px;
+
+        border-radius:16px;
+
+    }
+
+
+    .header h1{
+
+        font-size:24px;
+
+    }
+
+
+    #payments{
+
+        grid-template-columns:1fr;
+
+    }
+
+
+    .payment{
+
+        padding:17px;
+
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+    <!-- =================================================
+         HEADER
+    ================================================== -->
+
+    <div class="header">
+
+        <div class="logo">
+
+            Marko's
+            <span>Marketplace</span>
+
+        </div>
+
+
+        <h1>
+            Payment Verification
+        </h1>
+
+
+        <p>
+
+            Review buyer payment receipts and approve
+            legitimate payments.
+
+        </p>
+
+    </div>
+
+
+
+    <!-- =================================================
+         PAYMENTS
+    ================================================== -->
+
+    <div id="payments">
+
+        <div class="loading">
+
+            Loading payment proofs...
+
+        </div>
+
+    </div>
+
+
+</div>
+
+
+<script src="js/admin-payments.js"></script>
+
+
+</body>
+
+</html>

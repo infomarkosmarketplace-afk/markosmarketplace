@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>My Account | Marko's Marketplace</title>
+
+<link rel="stylesheet" href="/css/account.css">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+</head>
+
+
+<body>
+
+
+<!-- ===========================
+HEADER
+=========================== -->
+
+
+<header class="header">
+
+
+<div class="logo">
+
+<a href="index.html">
+
+<h2>
+Marko's Marketplace
+</h2>
+
+</a>
+
+</div>
+
+
+
+<div class="search-bar">
+
+<input 
+type="search"
+placeholder="Search products...">
+
+
+<button>
+
+<i class="fas fa-search"></i>
+
+</button>
+
+</div>
+
+
+
+<nav>
+
+<ul>
+
+<li>
+<a href="index.html">
+Home
+</a>
+</li>
+
+
+<li>
+<a href="category.html">
+Categories
+</a>
+</li>
+
+
+<li>
+<a href="deals.html">
+Deals
+</a>
+</li>
+
+
+</ul>
+
+</nav>
+
+
+
+<div class="header-icons">
+
+<a href="cart.html">
+
+<i class="fas fa-shopping-cart"></i>
+
+</a>
+
+
+<a href="account.html">
+
+<i class="fas fa-user-circle"></i>
+
+</a>
+
+
+</div>
+
+
+</header>
+
+
+
+
+
+<!-- ===========================
+ACCOUNT LAYOUT
+=========================== -->
+
+
+<section class="account-container">
+
+
+
+<!-- SIDEBAR -->
+
+
+<aside class="account-sidebar">
+
+
+<img
+src="images/default-profile.png"
+id="accountImage"
+alt="Profile">
+
+
+<h2 id="accountName">
+
+User Name
+
+</h2>
+
+
+
+<button class="account-tab active"
+data-section="profile">
+
+<i class="fas fa-user"></i>
+
+Profile
+
+</button>
+
+
+
+<button class="account-tab"
+data-section="orders">
+
+<i class="fas fa-box"></i>
+
+Orders
+
+</button>
+
+
+
+<button class="account-tab"
+data-section="notifications">
+
+<i class="fas fa-bell"></i>
+
+Notifications
+
+</button>
+
+
+
+<button class="account-tab"
+data-section="settings">
+
+<i class="fas fa-cog"></i>
+
+Settings
+
+</button>
+
+
+
+<button class="account-tab"
+data-section="security">
+
+<i class="fas fa-lock"></i>
+
+Security
+
+</button>
+
+
+
+</aside>
+
+<!-- ===========================
+MAIN ACCOUNT CONTENT
+=========================== -->
+
+<main class="account-content">
+
+
+<!-- ===========================
+PROFILE SECTION
+=========================== -->
+
+
+<section 
+class="account-section active"
+id="profile">
+
+
+
+<h2>
+My Profile
+</h2>
+
+
+
+<div class="profile-card">
+
+
+<div class="profile-image">
+
+
+<img
+src="images/default-profile.png"
+id="profilePhoto"
+alt="Profile Photo">
+
+
+
+<button id="changePhotoBtn">
+
+<i class="fas fa-camera"></i>
+
+Change Photo
+
+</button>
+
+
+</div>
+
+
+
+
+<div class="profile-details">
+
+
+<div class="input-group">
+
+<label>
+Full Name
+</label>
+
+<input
+type="text"
+id="fullName"
+placeholder="Your name">
+
+</div>
+
+
+
+<div class="input-group">
+
+<label>
+Email
+</label>
+
+<input
+type="email"
+id="email"
+placeholder="Email address">
+
+</div>
+
+
+
+<div class="input-group">
+
+<label>
+Phone Number
+</label>
+
+<input
+type="tel"
+id="phone"
+placeholder="Phone number">
+
+</div>
+
+
+
+<div class="input-group">
+
+<label>
+Country
+</label>
+
+<input
+type="text"
+id="country"
+placeholder="Country">
+
+</div>
+
+
+
+<div class="input-group">
+
+<label>
+Address
+</label>
+
+<textarea
+id="address"
+placeholder="Delivery address">
+
+</textarea>
+
+</div>
+
+
+
+<button id="saveProfileBtn">
+
+Save Profile
+
+</button>
+
+
+</div>
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+
+<!-- ===========================
+SELLER STATUS
+=========================== -->
+
+
+<section class="account-section"
+id="sellerStatus">
+
+
+<h2>
+Seller Account
+</h2>
+
+
+
+<div class="seller-status-card">
+
+
+<i class="fas fa-store"></i>
+
+
+<h3 id="sellerStatusTitle">
+
+Buyer Account
+
+</h3>
+
+
+
+<p id="sellerStatusText">
+
+Become a seller and start selling products on Marko's Marketplace.
+
+</p>
+
+
+
+<a href="upload.html"
+id="sellerActionBtn">
+
+Become a Seller
+
+</a>
+
+
+
+</div>
+
+
+</section>
+
+<!-- ===========================
+NOTIFICATIONS SECTION
+=========================== -->
+
+
+<section 
+class="account-section"
+id="notifications">
+
+
+<h2>
+Notifications
+</h2>
+
+
+
+<div 
+class="notification-list"
+id="notificationList">
+
+
+<!-- Notifications loaded dynamically -->
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+
+<!-- ===========================
+SETTINGS SECTION
+=========================== -->
+
+
+<section 
+class="account-section"
+id="settings">
+
+
+<h2>
+Account Settings
+</h2>
+
+
+
+<div class="settings-card">
+
+
+<div class="setting-item">
+
+<label>
+Language
+</label>
+
+
+<select id="language">
+
+<option>
+English
+</option>
+
+<option>
+French
+</option>
+
+<option>
+Portuguese
+</option>
+
+</select>
+
+
+</div>
+
+
+
+
+
+<div class="setting-item">
+
+
+<label>
+Currency Display
+</label>
+
+
+<select id="currency">
+
+
+<option>
+USD + NAD + EUR
+</option>
+
+
+</select>
+
+
+</div>
+
+
+
+
+
+<div class="setting-item">
+
+
+<label>
+Dark Mode
+</label>
+
+
+<input
+type="checkbox"
+id="darkMode">
+
+
+</div>
+
+
+
+
+
+<button id="saveSettingsBtn">
+
+Save Settings
+
+</button>
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+
+<!-- ===========================
+SECURITY SECTION
+=========================== -->
+
+
+<section
+class="account-section"
+id="security">
+
+
+<h2>
+Security
+</h2>
+
+
+
+<div class="security-card">
+
+
+<div class="input-group">
+
+
+<label>
+Current Password
+</label>
+
+
+<input
+type="password"
+id="currentPassword">
+
+
+</div>
+
+
+
+
+
+<div class="input-group">
+
+
+<label>
+New Password
+</label>
+
+
+<input
+type="password"
+id="newPassword">
+
+
+</div>
+
+
+
+
+
+<div class="input-group">
+
+
+<label>
+Confirm New Password
+</label>
+
+
+<input
+type="password"
+id="confirmPassword">
+
+
+</div>
+
+
+
+
+
+<button id="changePasswordBtn">
+
+Change Password
+
+</button>
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+
+
+<!-- ===========================
+ACCOUNT ACTIONS
+=========================== -->
+
+
+<section class="account-actions">
+
+
+<button id="logoutBtn">
+
+
+<i class="fas fa-sign-out-alt"></i>
+
+Logout
+
+
+</button>
+
+
+</section>
+
+
+
+</main>
+
+
+</section>
+
+
+
+
+
+
+<!-- ===========================
+FOOTER
+=========================== -->
+
+
+<footer class="footer">
+
+
+<div class="footer-container">
+
+
+<div>
+
+<h3>
+Marko's Marketplace
+</h3>
+
+
+<p>
+Your trusted online marketplace.
+</p>
+
+
+</div>
+
+
+
+
+<div>
+
+<h3>
+Marketplace
+</h3>
+
+
+<a href="index.html">
+Home
+</a>
+
+
+<a href="upload.html">
+Sell
+</a>
+
+
+<a href="cart.html">
+Cart
+</a>
+
+
+</div>
+
+
+
+
+<div>
+
+<h3>
+Support
+</h3>
+
+
+<a href="help.html">
+Help Center
+</a>
+
+
+<a href="privacy.html">
+Privacy
+</a>
+
+
+<a href="terms.html">
+Terms
+</a>
+
+
+</div>
+
+
+</div>
+
+
+
+<p class="copyright">
+
+© 2026 Marko's Marketplace
+
+</p>
+
+
+</footer>
+
+
+
+
+<script src="js/account.js"></script>
+
+
+
+</body>
+
+</html>

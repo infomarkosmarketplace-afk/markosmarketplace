@@ -1,0 +1,680 @@
+<!DOCTYPE html><html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Live Exchange Rates | Marko's Marketplace</title>
+
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: 0;
+        font-family: Arial, Helvetica, sans-serif;
+        background: #f3f3f3;
+        color: #111;
+    }
+
+    header {
+        background: #131921;
+        color: white;
+        padding: 22px 15px;
+        text-align: center;
+    }
+
+    header h1 {
+        margin: 0 0 6px;
+        font-size: 28px;
+    }
+
+    header p {
+        margin: 0;
+        color: #ddd;
+    }
+
+    .container {
+        width: 94%;
+        max-width: 1200px;
+        margin: 30px auto;
+    }
+
+    .card {
+        background: white;
+        border-radius: 12px;
+        padding: 22px;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, .10);
+        overflow-x: auto;
+    }
+
+    .top-section {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 15px;
+        margin-bottom: 20px;
+        flex-wrap: wrap;
+    }
+
+    h2 {
+        margin: 0;
+        font-size: 24px;
+    }
+
+    .live-status {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 14px;
+        color: #555;
+    }
+
+    .live-dot {
+        width: 10px;
+        height: 10px;
+        background: #16a34a;
+        border-radius: 50%;
+        display: inline-block;
+        box-shadow: 0 0 0 4px rgba(22, 163, 74, .12);
+    }
+
+    .table-wrapper {
+        width: 100%;
+        overflow-x: auto;
+    }
+
+    table {
+        width: 100%;
+        min-width: 850px;
+        border-collapse: collapse;
+    }
+
+    th {
+        background: #232f3e;
+        color: white;
+        padding: 15px 12px;
+        text-align: center;
+        white-space: nowrap;
+    }
+
+    td {
+        padding: 15px 12px;
+        border-bottom: 1px solid #ddd;
+        text-align: center;
+        white-space: nowrap;
+    }
+
+    tbody tr:hover {
+        background: #f7f7f7;
+    }
+
+    .currency-code {
+        font-weight: bold;
+        font-size: 16px;
+    }
+
+    .rate {
+        font-weight: bold;
+        font-size: 16px;
+    }
+
+    .up {
+        color: #15803d;
+        font-weight: bold;
+    }
+
+    .down {
+        color: #dc2626;
+        font-weight: bold;
+    }
+
+    .same {
+        color: #666;
+        font-weight: bold;
+    }
+
+    .arrow {
+        font-size: 20px;
+        margin-right: 4px;
+    }
+
+    .percentage {
+        display: block;
+        font-size: 12px;
+        margin-top: 4px;
+    }
+
+    .last-updated {
+        margin-top: 18px;
+        color: #666;
+        font-size: 14px;
+    }
+
+    .refresh-btn {
+        margin-top: 20px;
+        padding: 13px 22px;
+        background: #ffd814;
+        border: 1px solid #e6c200;
+        border-radius: 7px;
+        cursor: pointer;
+        font-weight: bold;
+        font-size: 15px;
+    }
+
+    .refresh-btn:hover {
+        background: #f7ca00;
+    }
+
+    .refresh-btn:disabled {
+        opacity: .6;
+        cursor: not-allowed;
+    }
+
+    .loading {
+        text-align: center;
+        padding: 30px;
+        color: #555;
+    }
+
+    .error {
+        background: #fee2e2;
+        color: #991b1b;
+        padding: 15px;
+        border-radius: 8px;
+        margin-bottom: 15px;
+        display: none;
+    }
+
+    .empty {
+        text-align: center;
+        padding: 30px;
+        color: #666;
+    }
+
+    .auto-refresh {
+        margin-top: 10px;
+        font-size: 13px;
+        color: #777;
+    }
+
+    @media (max-width: 600px) {
+
+        header h1 {
+            font-size: 22px;
+        }
+
+        .container {
+            width: 96%;
+            margin: 20px auto;
+        }
+
+        .card {
+            padding: 15px;
+        }
+
+        h2 {
+            font-size: 20px;
+        }
+    }
+</style>
+
+</head><body><header>
+    <h1>Marko's Marketplace</h1>
+    <p>Live Exchange Rates</p>
+</header><div class="container"><div class="card">
+
+    <div class="top-section">
+
+        <h2>💱 Exchange Rates</h2>
+
+        <div class="live-status">
+            <span class="live-dot"></span>
+            <span>Live rate system</span>
+        </div>
+
+    </div>
+
+    <div id="errorMessage" class="error"></div>
+
+    <div class="table-wrapper">
+
+        <table>
+
+            <thead>
+                <tr>
+                    <th>Currency</th>
+                    <th>Name</th>
+                    <th>Symbol</th>
+                    <th>Current Rate</th>
+                    <th>Previous Rate</th>
+                    <th>Change</th>
+                    <th>Movement</th>
+                </tr>
+            </thead>
+
+            <tbody id="ratesTable">
+
+                <tr>
+                    <td colspan="7" class="loading">
+                        Loading live exchange rates...
+                    </td>
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+    <div id="lastUpdated" class="last-updated">
+        Last updated: Loading...
+    </div>
+
+    <div class="auto-refresh">
+        Rates automatically refresh every 15 minutes.
+    </div>
+
+    <button
+        id="refreshButton"
+        class="refresh-btn"
+        onclick="loadRates(true)"
+    >
+        🔄 Refresh Rates
+    </button>
+
+</div>
+
+</div><script>
+
+    /*
+    ============================================================
+    MARKO'S MARKETPLACE
+    LIVE EXCHANGE RATE DISPLAY
+    ============================================================
+    */
+
+    const API_URL = "/exchange-rates";
+
+    /*
+    ------------------------------------------------------------
+    Load rates from backend
+    ------------------------------------------------------------
+    */
+
+    async function loadRates(manualRefresh = false) {
+
+        const table = document.getElementById("ratesTable");
+        const errorBox = document.getElementById("errorMessage");
+        const refreshButton = document.getElementById("refreshButton");
+
+        errorBox.style.display = "none";
+
+        if (manualRefresh) {
+            refreshButton.disabled = true;
+            refreshButton.textContent = "⏳ Updating...";
+        }
+
+        try {
+
+            const response = await fetch(API_URL, {
+                method: "GET",
+                headers: {
+                    "Accept": "application/json"
+                },
+                cache: "no-store"
+            });
+
+            if (!response.ok) {
+                throw new Error(
+                    `Server returned ${response.status}`
+                );
+            }
+
+            const data = await response.json();
+
+            /*
+            ----------------------------------------------------
+            Support both:
+            [
+                {...}
+            ]
+
+            and:
+
+            {
+                success: true,
+                rates: [...]
+            }
+            ----------------------------------------------------
+            */
+
+            const rates = Array.isArray(data)
+                ? data
+                : data.rates || [];
+
+            if (!rates.length) {
+
+                table.innerHTML = `
+                    <tr>
+                        <td colspan="7" class="empty">
+                            No exchange rates available.
+                        </td>
+                    </tr>
+                `;
+
+                return;
+            }
+
+            table.innerHTML = "";
+
+            rates.forEach(rate => {
+
+                const currentRate = Number(
+                    rate.exchange_rate ??
+                    rate.rate ??
+                    0
+                );
+
+                let previousRate = Number(
+                    rate.previous_rate ??
+                    rate.previous_exchange_rate ??
+                    0
+                );
+
+                /*
+                ------------------------------------------------
+                If backend did not provide previous rate,
+                use the stored change information if available.
+                ------------------------------------------------
+                */
+
+                let change = Number(
+                    rate.change ??
+                    rate.rate_change ??
+                    0
+                );
+
+                let changePercent = Number(
+                    rate.change_percent ??
+                    rate.percentage_change ??
+                    0
+                );
+
+                /*
+                ------------------------------------------------
+                Calculate change if previous rate exists.
+                ------------------------------------------------
+                */
+
+                if (
+                    previousRate > 0 &&
+                    currentRate > 0
+                ) {
+
+                    change = currentRate - previousRate;
+
+                    changePercent =
+                        (change / previousRate) * 100;
+                }
+
+                /*
+                ------------------------------------------------
+                Determine movement
+                ------------------------------------------------
+                */
+
+                let movementHTML = "";
+
+                if (change > 0) {
+
+                    movementHTML = `
+                        <span class="up">
+                            <span class="arrow">↑</span>
+                            Increased
+                        </span>
+                    `;
+
+                } else if (change < 0) {
+
+                    movementHTML = `
+                        <span class="down">
+                            <span class="arrow">↓</span>
+                            Decreased
+                        </span>
+                    `;
+
+                } else {
+
+                    movementHTML = `
+                        <span class="same">
+                            <span class="arrow">→</span>
+                            Unchanged
+                        </span>
+                    `;
+                }
+
+                /*
+                ------------------------------------------------
+                Change formatting
+                ------------------------------------------------
+                */
+
+                let changeHTML = "";
+
+                if (change > 0) {
+
+                    changeHTML = `
+                        <span class="up">
+                            +${formatNumber(change)}
+                        </span>
+                        <span class="percentage">
+                            +${formatNumber(changePercent)}%
+                        </span>
+                    `;
+
+                } else if (change < 0) {
+
+                    changeHTML = `
+                        <span class="down">
+                            ${formatNumber(change)}
+                        </span>
+                        <span class="percentage">
+                            ${formatNumber(changePercent)}%
+                        </span>
+                    `;
+
+                } else {
+
+                    changeHTML = `
+                        <span class="same">
+                            0.00
+                        </span>
+                        <span class="percentage">
+                            0.00%
+                        </span>
+                    `;
+                }
+
+                /*
+                ------------------------------------------------
+                Create row
+                ------------------------------------------------
+                */
+
+                table.innerHTML += `
+
+                    <tr>
+
+                        <td>
+                            <span class="currency-code">
+                                ${escapeHTML(
+                                    rate.currency_code || "-"
+                                )}
+                            </span>
+                        </td>
+
+                        <td>
+                            ${escapeHTML(
+                                rate.currency_name || "-"
+                            )}
+                        </td>
+
+                        <td>
+                            ${escapeHTML(
+                                rate.currency_symbol || "-"
+                            )}
+                        </td>
+
+                        <td>
+                            <span class="rate">
+                                ${formatNumber(currentRate)}
+                            </span>
+                        </td>
+
+                        <td>
+                            ${
+                                previousRate > 0
+                                    ? formatNumber(previousRate)
+                                    : "-"
+                            }
+                        </td>
+
+                        <td>
+                            ${changeHTML}
+                        </td>
+
+                        <td>
+                            ${movementHTML}
+                        </td>
+
+                    </tr>
+                `;
+            });
+
+            /*
+            ----------------------------------------------------
+            Last updated timestamp
+            ----------------------------------------------------
+            */
+
+            const updatedAt =
+                data.updated_at ||
+                data.last_updated ||
+                rates[0]?.updated_at ||
+                rates[0]?.last_updated ||
+                new Date().toISOString();
+
+            document.getElementById("lastUpdated").textContent =
+                "Last updated: " +
+                formatDate(updatedAt);
+
+        } catch (error) {
+
+            console.error(
+                "Exchange rate error:",
+                error
+            );
+
+            errorBox.textContent =
+                "Unable to load live exchange rates. Please try again.";
+
+            errorBox.style.display = "block";
+
+            table.innerHTML = `
+                <tr>
+                    <td colspan="7" class="empty">
+                        Failed to load exchange rates.
+                    </td>
+                </tr>
+            `;
+
+        } finally {
+
+            refreshButton.disabled = false;
+            refreshButton.textContent = "🔄 Refresh Rates";
+        }
+    }
+
+
+    /*
+    ============================================================
+    Number formatting
+    ============================================================
+    */
+
+    function formatNumber(value) {
+
+        const number = Number(value);
+
+        if (!Number.isFinite(number)) {
+            return "0.00";
+        }
+
+        return number.toLocaleString(
+            undefined,
+            {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 6
+            }
+        );
+    }
+
+
+    /*
+    ============================================================
+    Date formatting
+    ============================================================
+    */
+
+    function formatDate(dateValue) {
+
+        const date = new Date(dateValue);
+
+        if (Number.isNaN(date.getTime())) {
+            return "Unknown";
+        }
+
+        return date.toLocaleString();
+    }
+
+
+    /*
+    ============================================================
+    Security:
+    Prevent HTML returned by API from being inserted directly.
+    ============================================================
+    */
+
+    function escapeHTML(value) {
+
+        return String(value)
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+    }
+
+
+    /*
+    ============================================================
+    Initial load
+    ============================================================
+    */
+
+    loadRates();
+
+
+    /*
+    ============================================================
+    Automatic refresh every 15 minutes
+    ============================================================
+    */
+
+    setInterval(() => {
+
+        loadRates(false);
+
+    }, 15 * 60 * 1000);
+
+</script></body>
+</html>

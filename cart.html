@@ -1,0 +1,1321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Shopping Cart - Marko's Marketplace</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background:
+        radial-gradient(circle at 10% 0%, rgba(255,255,255,.9), transparent 30%),
+        linear-gradient(135deg, #eef2f7, #f8fafc);
+    color: #172033;
+    min-height: 100vh;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+.header {
+    background: linear-gradient(135deg, #08111f, #14243d, #243b5a);
+    color: white;
+    min-height: 76px;
+    padding: 14px 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 8px 30px rgba(0,0,0,.2);
+}
+
+.logo {
+    color: white;
+    text-decoration: none;
+    font-size: 23px;
+    font-weight: 900;
+}
+
+.logo span {
+    color: #ffd43b;
+}
+
+.cart-title {
+    font-size: 20px;
+    font-weight: 800;
+}
+
+.continue-shopping {
+    color: #172033;
+    text-decoration: none;
+    background: linear-gradient(135deg, #ffd43b, #ffb703);
+    padding: 11px 18px;
+    border-radius: 12px;
+    font-weight: 800;
+    transition: .25s;
+}
+
+.continue-shopping:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(255,183,3,.35);
+}
+
+/* =========================
+   MAIN
+========================= */
+
+.container {
+    max-width: 1350px;
+    margin: 35px auto;
+    padding: 0 20px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 350px;
+    gap: 28px;
+}
+
+/* =========================
+   CART SECTION
+========================= */
+
+.cart-section {
+    background: rgba(255,255,255,.96);
+    padding: 30px;
+    border-radius: 22px;
+    box-shadow: 0 15px 45px rgba(20,30,50,.08);
+    border: 1px solid #e6eaf0;
+}
+
+.cart-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.cart-section h1 {
+    font-size: 30px;
+    letter-spacing: -.7px;
+}
+
+.cart-count {
+    color: #697386;
+    margin-top: 7px;
+    margin-bottom: 24px;
+}
+
+/* =========================
+   CART ITEM
+========================= */
+
+.cart-item {
+    display: grid;
+    grid-template-columns: 165px minmax(0,1fr) auto;
+    gap: 24px;
+    padding: 25px 0;
+    border-top: 1px solid #e8ebf0;
+    align-items: start;
+    transition: .25s;
+}
+
+.cart-item:hover {
+    background: linear-gradient(
+        90deg,
+        rgba(247,249,252,.8),
+        transparent
+    );
+}
+
+/* PRODUCT IMAGE */
+
+.product-image-box {
+    width: 165px;
+    height: 165px;
+    border-radius: 18px;
+    background: linear-gradient(135deg, #f5f7fa, #e9eef5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border: 1px solid #e1e6ed;
+}
+
+.product-image-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    padding: 10px;
+    transition: .3s;
+}
+
+.cart-item:hover .product-image-box img {
+    transform: scale(1.05);
+}
+
+/* PRODUCT INFO */
+
+.product-name {
+    font-size: 20px;
+    font-weight: 900;
+    color: #182235;
+    margin-bottom: 8px;
+}
+
+.product-description {
+    color: #707b8c;
+    font-size: 14px;
+    line-height: 1.5;
+    margin-bottom: 12px;
+}
+
+.seller-name {
+    display: inline-block;
+    color: #657083;
+    font-size: 13px;
+    background: #f3f5f8;
+    padding: 6px 10px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+/* =========================
+   CURRENCIES
+========================= */
+
+.currency-title {
+    font-size: 11px;
+    font-weight: 800;
+    color: #8a93a1;
+    text-transform: uppercase;
+    margin-bottom: 7px;
+}
+
+.currency-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 9px;
+    margin-bottom: 17px;
+}
+
+.currency-box {
+    background: linear-gradient(135deg, #f8fafc, #eef2f7);
+    border: 1px solid #e1e6ed;
+    border-radius: 10px;
+    padding: 9px 12px;
+    min-width: 105px;
+}
+
+.currency-label {
+    display: block;
+    color: #7a8494;
+    font-size: 11px;
+    font-weight: 800;
+    margin-bottom: 3px;
+}
+
+.currency-value {
+    display: block;
+    color: #172033;
+    font-size: 15px;
+    font-weight: 900;
+}
+
+/* =========================
+   QUANTITY
+========================= */
+
+.quantity-controls {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    background: #f3f5f8;
+    padding: 5px;
+    border-radius: 12px;
+}
+
+.quantity-controls button {
+    width: 34px;
+    height: 34px;
+    border: none;
+    background: white;
+    border-radius: 9px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: bold;
+    box-shadow: 0 2px 6px rgba(0,0,0,.08);
+    transition: .2s;
+}
+
+.quantity-controls button:hover {
+    background: #172033;
+    color: white;
+    transform: translateY(-1px);
+}
+
+.quantity {
+    min-width: 30px;
+    text-align: center;
+    font-weight: 900;
+}
+
+.remove-btn {
+    width: auto !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    color: #d14b4b;
+    font-size: 13px !important;
+    padding: 0 8px;
+}
+
+.remove-btn:hover {
+    background: transparent !important;
+    color: #a51f1f !important;
+    transform: none !important;
+}
+
+/* =========================
+   ITEM TOTAL
+========================= */
+
+.item-total {
+    min-width: 145px;
+    text-align: right;
+}
+
+.item-total-label {
+    color: #8a93a1;
+    font-size: 11px;
+    text-transform: uppercase;
+    font-weight: 800;
+    margin-bottom: 5px;
+}
+
+.item-total-main {
+    font-size: 21px;
+    font-weight: 900;
+    color: #172033;
+}
+
+.item-total-secondary {
+    color: #697386;
+    font-size: 12px;
+    margin-top: 4px;
+}
+
+/* =========================
+   SUMMARY
+========================= */
+
+.summary {
+    background: linear-gradient(145deg, #ffffff, #f7f9fc);
+    padding: 27px;
+    border-radius: 22px;
+    height: fit-content;
+    position: sticky;
+    top: 100px;
+    box-shadow: 0 18px 45px rgba(20,30,50,.10);
+    border: 1px solid #e6eaf0;
+}
+
+.summary h2 {
+    font-size: 22px;
+    margin-bottom: 15px;
+}
+
+.summary-badge {
+    background: #eef7f1;
+    color: #23844b;
+    padding: 8px 12px;
+    border-radius: 10px;
+    font-size: 12px;
+    font-weight: 800;
+    margin-bottom: 20px;
+    display: inline-block;
+}
+
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    margin-bottom: 14px;
+    color: #697386;
+}
+
+.summary-row strong {
+    color: #172033;
+}
+
+.summary-currencies {
+    margin: 20px 0;
+    padding: 15px;
+    background: #f4f6f9;
+    border-radius: 14px;
+}
+
+.summary-currency {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    font-weight: 800;
+}
+
+.summary-currency span:first-child {
+    color: #737d8d;
+}
+
+.summary-currency span:last-child {
+    color: #172033;
+}
+
+.summary-total {
+    border-top: 1px solid #e0e4ea;
+    padding-top: 18px;
+    margin-top: 10px;
+    font-size: 20px;
+    font-weight: 900;
+}
+
+.checkout-btn {
+    width: 100%;
+    border: none;
+    background: linear-gradient(135deg, #ffd43b, #ffb703);
+    color: #172033;
+    padding: 15px;
+    border-radius: 13px;
+    margin-top: 20px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 900;
+    transition: .25s;
+    box-shadow: 0 8px 20px rgba(255,183,3,.25);
+}
+
+.checkout-btn:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 25px rgba(255,183,3,.35);
+}
+
+.checkout-btn:disabled {
+    background: #d5d9df;
+    color: #89909b;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+.secure-text {
+    text-align: center;
+    color: #778191;
+    font-size: 12px;
+    margin-top: 15px;
+}
+
+/* =========================
+   EMPTY CART
+========================= */
+
+.empty-cart {
+    text-align: center;
+    padding: 80px 20px;
+}
+
+.empty-cart-icon {
+    width: 95px;
+    height: 95px;
+    margin: 0 auto 20px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #eef2f7, #dfe6ef);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 45px;
+}
+
+.empty-cart h2 {
+    font-size: 25px;
+    margin-bottom: 10px;
+}
+
+.empty-cart p {
+    color: #737d8d;
+}
+
+.shop-btn {
+    display: inline-block;
+    margin-top: 22px;
+    background: linear-gradient(135deg, #ffd43b, #ffb703);
+    color: #172033;
+    text-decoration: none;
+    padding: 13px 26px;
+    border-radius: 12px;
+    font-weight: 800;
+    transition: .2s;
+}
+
+.shop-btn:hover {
+    transform: translateY(-2px);
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 900px) {
+
+    .container {
+        grid-template-columns: 1fr;
+    }
+
+    .summary {
+        position: static;
+    }
+}
+
+@media (max-width: 650px) {
+
+    .header {
+        padding: 12px 15px;
+        flex-wrap: wrap;
+    }
+
+    .cart-title {
+        order: 3;
+        width: 100%;
+        text-align: center;
+    }
+
+    .container {
+        margin-top: 15px;
+        padding: 0 10px;
+    }
+
+    .cart-section {
+        padding: 20px 15px;
+        border-radius: 17px;
+    }
+
+    .cart-section h1 {
+        font-size: 24px;
+    }
+
+    .cart-item {
+        grid-template-columns: 90px minmax(0,1fr);
+        gap: 14px;
+        padding: 20px 0;
+    }
+
+    .product-image-box {
+        width: 90px;
+        height: 90px;
+        border-radius: 13px;
+    }
+
+    .product-name {
+        font-size: 16px;
+    }
+
+    .product-description {
+        font-size: 13px;
+    }
+
+    .currency-grid {
+        gap: 6px;
+    }
+
+    .currency-box {
+        min-width: 90px;
+        padding: 7px 9px;
+    }
+
+    .currency-value {
+        font-size: 13px;
+    }
+
+    .item-total {
+        grid-column: 2;
+        text-align: left;
+    }
+
+    .continue-shopping {
+        padding: 9px 11px;
+        font-size: 12px;
+    }
+
+    .logo {
+        font-size: 18px;
+    }
+}
+
+@media (max-width: 430px) {
+
+    .currency-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .currency-box {
+        min-width: 0;
+    }
+
+    .quantity-controls {
+        width: 100%;
+        justify-content: space-between;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header class="header">
+
+    <a href="index.html" class="logo">
+        Marko's <span>Marketplace</span>
+    </a>
+
+    <div class="cart-title">
+        🛒 Shopping Cart
+    </div>
+
+    <a href="index.html" class="continue-shopping">
+        ← Continue Shopping
+    </a>
+
+</header>
+
+
+<main class="container">
+
+<section class="cart-section">
+
+    <div class="cart-heading">
+        <h1>Your Cart</h1>
+    </div>
+
+    <p class="cart-count" id="cartCount">
+        0 items
+    </p>
+
+    <div id="cartItems"></div>
+
+</section>
+
+
+<aside class="summary">
+
+    <h2>Order Summary</h2>
+
+    <div class="summary-badge">
+        ✓ Secure Marketplace Checkout
+    </div>
+
+    <div class="summary-row">
+        <span>Items</span>
+        <strong id="itemCount">0</strong>
+    </div>
+
+    <div class="summary-row">
+        <span>Delivery</span>
+        <strong>FREE</strong>
+    </div>
+
+
+    <!-- ALL THREE CURRENCIES -->
+
+    <div class="summary-currencies">
+
+        <div class="summary-currency">
+            <span>🇺🇸 USD</span>
+            <span id="summaryUSD">$0.00</span>
+        </div>
+
+        <div class="summary-currency">
+            <span>🇳🇦 NAD</span>
+            <span id="summaryNAD">N$0.00</span>
+        </div>
+
+        <div class="summary-currency">
+            <span>🇪🇺 EUR</span>
+            <span id="summaryEUR">€0.00</span>
+        </div>
+
+    </div>
+
+
+    <div class="summary-row summary-total">
+        <span>Total</span>
+        <span id="total">$0.00</span>
+    </div>
+
+
+    <button
+        id="checkoutBtn"
+        class="checkout-btn"
+        onclick="goToCheckout()"
+        disabled>
+
+        Proceed to Checkout →
+
+    </button>
+
+
+    <p class="secure-text">
+        🔒 Your checkout is protected
+    </p>
+
+</aside>
+
+</main>
+
+
+<script>
+
+/* ==========================================
+   CART DATA
+========================================== */
+
+let cart =
+    JSON.parse(localStorage.getItem("cart")) || [];
+
+
+/* ==========================================
+   MARKETPLACE BASE CURRENCY
+
+   IMPORTANT:
+   USD IS THE PERMANENT BASE CURRENCY.
+
+   item.price is treated as USD.
+========================================== */
+
+const BASE_CURRENCY = "USD";
+
+
+/* ==========================================
+   FIXED EXCHANGE RATES
+
+   1 USD = 18.20 NAD
+   1 USD = 0.86 EUR
+
+   These can later be replaced with
+   your database exchange-rate endpoint.
+========================================== */
+
+const USD_TO_NAD = 18.20;
+const USD_TO_EUR = 0.86;
+
+
+/* ==========================================
+   MONEY FORMATTER
+========================================== */
+
+function money(amount, currency) {
+
+    amount = Number(amount) || 0;
+
+    if (currency === "USD") {
+        return `$${amount.toFixed(2)}`;
+    }
+
+    if (currency === "NAD") {
+        return `N$${amount.toFixed(2)}`;
+    }
+
+    if (currency === "EUR") {
+        return `€${amount.toFixed(2)}`;
+    }
+
+    return amount.toFixed(2);
+}
+
+
+/* ==========================================
+   USD → ALL CURRENCIES
+========================================== */
+
+function convertUSD(usdAmount) {
+
+    usdAmount =
+        Number(usdAmount) || 0;
+
+    return {
+
+        USD: usdAmount,
+
+        NAD:
+            usdAmount * USD_TO_NAD,
+
+        EUR:
+            usdAmount * USD_TO_EUR
+
+    };
+
+}
+
+
+/* ==========================================
+   DISPLAY CART
+========================================== */
+
+function displayCart() {
+
+    const cartItems =
+        document.getElementById("cartItems");
+
+    const cartCount =
+        document.getElementById("cartCount");
+
+    cartItems.innerHTML = "";
+
+
+    if (cart.length === 0) {
+
+        cartCount.textContent =
+            "0 items";
+
+
+        cartItems.innerHTML = `
+
+            <div class="empty-cart">
+
+                <div class="empty-cart-icon">
+                    🛒
+                </div>
+
+                <h2>Your cart is empty</h2>
+
+                <p>
+                    Discover something amazing and
+                    add it to your cart.
+                </p>
+
+                <a
+                    href="index.html"
+                    class="shop-btn">
+
+                    Start Shopping
+
+                </a>
+
+            </div>
+
+        `;
+
+
+        updateSummary();
+
+        return;
+    }
+
+
+    let totalItems = 0;
+
+
+    cart.forEach((item, index) => {
+
+        const quantity =
+            Math.max(
+                1,
+                Number(item.quantity) || 1
+            );
+
+
+        totalItems += quantity;
+
+
+        /*
+        IMPORTANT:
+        item.price = USD
+        */
+
+        const usdPrice =
+            Number(item.price) || 0;
+
+
+        const itemUSD =
+            usdPrice * quantity;
+
+
+        const convertedPrice =
+            convertUSD(usdPrice);
+
+
+        const convertedTotal =
+            convertUSD(itemUSD);
+
+
+        const div =
+            document.createElement("div");
+
+
+        div.className =
+            "cart-item";
+
+
+        div.innerHTML = `
+
+            <!-- PRODUCT IMAGE -->
+
+            <div class="product-image-box">
+
+                <img
+                    src="${
+                        item.image ||
+                        '/images/placeholder.jpg'
+                    }"
+
+                    alt="${
+                        item.name ||
+                        'Product'
+                    }"
+
+                    onerror="
+                        this.src='/images/placeholder.jpg'
+                    "
+                >
+
+            </div>
+
+
+            <!-- PRODUCT INFORMATION -->
+
+            <div>
+
+                <div class="product-name">
+
+                    ${
+                        item.name ||
+                        "Product"
+                    }
+
+                </div>
+
+
+                <div class="product-description">
+
+                    ${
+                        item.description ||
+                        "Quality marketplace product."
+                    }
+
+                </div>
+
+
+                <div class="seller-name">
+
+                    Seller:
+                    ${
+                        item.sellerName ||
+                        "Marketplace Seller"
+                    }
+
+                </div>
+
+
+                <div class="currency-title">
+                    Price
+                </div>
+
+
+                <!-- THREE CURRENCIES -->
+
+                <div class="currency-grid">
+
+
+                    <div class="currency-box">
+
+                        <span class="currency-label">
+                            USD
+                        </span>
+
+                        <span class="currency-value">
+
+                            ${
+                                money(
+                                    convertedPrice.USD,
+                                    "USD"
+                                )
+                            }
+
+                        </span>
+
+                    </div>
+
+
+                    <div class="currency-box">
+
+                        <span class="currency-label">
+                            NAD
+                        </span>
+
+                        <span class="currency-value">
+
+                            ${
+                                money(
+                                    convertedPrice.NAD,
+                                    "NAD"
+                                )
+                            }
+
+                        </span>
+
+                    </div>
+
+
+                    <div class="currency-box">
+
+                        <span class="currency-label">
+                            EUR
+                        </span>
+
+                        <span class="currency-value">
+
+                            ${
+                                money(
+                                    convertedPrice.EUR,
+                                    "EUR"
+                                )
+                            }
+
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- QUANTITY -->
+
+                <div class="quantity-controls">
+
+                    <button
+                        onclick="
+                            changeQuantity(
+                                ${index},
+                                -1
+                            )
+                        "
+                        aria-label="Decrease quantity">
+
+                        −
+
+                    </button>
+
+
+                    <span class="quantity">
+
+                        ${quantity}
+
+                    </span>
+
+
+                    <button
+                        onclick="
+                            changeQuantity(
+                                ${index},
+                                1
+                            )
+                        "
+                        aria-label="Increase quantity">
+
+                        +
+
+                    </button>
+
+
+                    <button
+                        class="remove-btn"
+                        onclick="
+                            removeItem(${index})
+                        ">
+
+                        Remove
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- ITEM TOTAL -->
+
+            <div class="item-total">
+
+                <div class="item-total-label">
+                    Item Total
+                </div>
+
+
+                <div class="item-total-main">
+
+                    ${
+                        money(
+                            convertedTotal.USD,
+                            "USD"
+                        )
+                    }
+
+                </div>
+
+
+                <div class="item-total-secondary">
+
+                    ${
+                        money(
+                            convertedTotal.NAD,
+                            "NAD"
+                        )
+                    }
+
+                </div>
+
+
+                <div class="item-total-secondary">
+
+                    ${
+                        money(
+                            convertedTotal.EUR,
+                            "EUR"
+                        )
+                    }
+
+                </div>
+
+            </div>
+
+        `;
+
+
+        cartItems.appendChild(div);
+
+    });
+
+
+    cartCount.textContent =
+        `${totalItems} ${
+            totalItems === 1
+                ? "item"
+                : "items"
+        }`;
+
+
+    document.getElementById(
+        "itemCount"
+    ).textContent = totalItems;
+
+
+    updateSummary();
+
+}
+
+
+/* ==========================================
+   CHANGE QUANTITY
+========================================== */
+
+function changeQuantity(index, amount) {
+
+    if (!cart[index]) return;
+
+
+    cart[index].quantity =
+        (
+            Number(
+                cart[index].quantity
+            ) || 1
+        ) + amount;
+
+
+    if (
+        cart[index].quantity <= 0
+    ) {
+
+        cart.splice(index, 1);
+
+    }
+
+
+    saveCart();
+
+}
+
+
+/* ==========================================
+   REMOVE PRODUCT
+========================================== */
+
+function removeItem(index) {
+
+    if (!cart[index]) return;
+
+
+    cart.splice(index, 1);
+
+
+    saveCart();
+
+}
+
+
+/* ==========================================
+   SAVE CART
+========================================== */
+
+function saveCart() {
+
+    localStorage.setItem(
+        "cart",
+        JSON.stringify(cart)
+    );
+
+
+    displayCart();
+
+}
+
+
+/* ==========================================
+   UPDATE ORDER SUMMARY
+========================================== */
+
+function updateSummary() {
+
+    let subtotalUSD = 0;
+
+    let totalItems = 0;
+
+
+    cart.forEach(item => {
+
+        const price =
+            Number(item.price) || 0;
+
+
+        const quantity =
+            Math.max(
+                1,
+                Number(item.quantity) || 1
+            );
+
+
+        subtotalUSD +=
+            price * quantity;
+
+
+        totalItems += quantity;
+
+    });
+
+
+    /*
+    Convert from USD base
+    */
+
+    const converted =
+        convertUSD(subtotalUSD);
+
+
+    document.getElementById(
+        "summaryUSD"
+    ).textContent =
+        money(
+            converted.USD,
+            "USD"
+        );
+
+
+    document.getElementById(
+        "summaryNAD"
+    ).textContent =
+        money(
+            converted.NAD,
+            "NAD"
+        );
+
+
+    document.getElementById(
+        "summaryEUR"
+    ).textContent =
+        money(
+            converted.EUR,
+            "EUR"
+        );
+
+
+    /*
+    Main total always uses
+    the marketplace base currency:
+    USD.
+    */
+
+    document.getElementById(
+        "total"
+    ).textContent =
+        money(
+            converted.USD,
+            "USD"
+        );
+
+
+    document.getElementById(
+        "itemCount"
+    ).textContent =
+        totalItems;
+
+
+    document.getElementById(
+        "checkoutBtn"
+    ).disabled =
+        cart.length === 0;
+
+}
+
+
+/* ==========================================
+   PROCEED TO CHECKOUT
+========================================== */
+
+function goToCheckout() {
+
+    if (cart.length === 0) {
+
+        alert(
+            "Your cart is empty."
+        );
+
+        return;
+
+    }
+
+
+    localStorage.setItem(
+        "cart",
+        JSON.stringify(cart)
+    );
+
+
+    window.location.href =
+        "checkout.html";
+
+}
+
+
+/* ==========================================
+   INITIALIZE
+========================================== */
+
+displayCart();
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Today's Deals | Marko's Marketplace</title>
+
+<link rel="stylesheet" href="styles.css">
+
+<style>
+
+body{
+    margin:0;
+    font-family:Arial,Helvetica,sans-serif;
+    background:#f3f3f3;
+}
+
+header{
+    background:#131921;
+    color:white;
+    padding:20px;
+    text-align:center;
+}
+
+.deals-container{
+    width:95%;
+    margin:auto;
+    padding:20px 0;
+}
+
+.section-title{
+    font-size:28px;
+    margin-bottom:20px;
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:20px;
+}
+
+.card{
+    background:white;
+    border-radius:10px;
+    overflow:hidden;
+    box-shadow:0 2px 8px rgba(0,0,0,.15);
+    transition:.3s;
+}
+
+.card:hover{
+    transform:translateY(-5px);
+}
+
+.card img{
+    width:100%;
+    height:220px;
+    object-fit:cover;
+}
+
+.info{
+    padding:15px;
+}
+
+.discount{
+    background:red;
+    color:white;
+    display:inline-block;
+    padding:5px 10px;
+    border-radius:5px;
+    font-size:14px;
+    margin-bottom:10px;
+}
+
+.price{
+    font-size:24px;
+    color:#B12704;
+    font-weight:bold;
+}
+
+.old-price{
+    color:gray;
+    text-decoration:line-through;
+}
+
+button{
+    width:100%;
+    padding:12px;
+    margin-top:15px;
+    background:#FFD814;
+    border:none;
+    border-radius:8px;
+    font-size:16px;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#F7CA00;
+}
+
+.timer{
+    color:red;
+    font-weight:bold;
+    margin-top:10px;
+}
+
+footer{
+    background:#131921;
+    color:white;
+    text-align:center;
+    padding:20px;
+    margin-top:40px;
+}
+
+</style>
+
+</head>
+<body>
+
+<header>
+<h1>🔥 Today's Deals</h1>
+<p>Save big on selected products</p>
+</header>
+
+<div class="deals-container">
+
+<h2 class="section-title">Limited Time Offers</h2>
+
+<div class="grid" id="dealsGrid">
+
+</div>
+
+</div>
+
+<footer>
+
+© 2026 Marko's Marketplace
+
+</footer>
+
+<script>
+
+const deals=[
+
+{
+name:"Wireless Headphones",
+price:49.99,
+oldPrice:89.99,
+discount:"45% OFF",
+image:"https://via.placeholder.com/300x220"
+},
+
+{
+name:"Gaming Keyboard",
+price:39.99,
+oldPrice:79.99,
+discount:"50% OFF",
+image:"https://via.placeholder.com/300x220"
+},
+
+{
+name:"Smart Watch",
+price:69.99,
+oldPrice:129.99,
+discount:"46% OFF",
+image:"https://via.placeholder.com/300x220"
+},
+
+{
+name:"Bluetooth Speaker",
+price:24.99,
+oldPrice:49.99,
+discount:"50% OFF",
+image:"https://via.placeholder.com/300x220"
+}
+
+];
+
+const grid=document.getElementById("dealsGrid");
+
+deals.forEach(item=>{
+
+grid.innerHTML+=`
+
+<div class="card">
+
+<img src="${item.image}">
+
+<div class="info">
+
+<div class="discount">${item.discount}</div>
+
+<h3>${item.name}</h3>
+
+<div class="price">$${item.price}</div>
+
+<div class="old-price">$${item.oldPrice}</div>
+
+<p class="timer">
+Ends in:
+<span class="countdown">23:59:59</span>
+</p>
+
+<button onclick="addToCart('${item.name}')">
+Add to Cart
+</button>
+
+</div>
+
+</div>
+
+`;
+
+});
+
+function addToCart(product){
+
+alert(product+" added to cart.");
+
+}
+
+function updateCountdown(){
+
+document.querySelectorAll(".countdown").forEach(timer=>{
+
+let time=timer.innerHTML.split(":");
+
+let h=parseInt(time[0]);
+let m=parseInt(time[1]);
+let s=parseInt(time[2]);
+
+s--;
+
+if(s<0){
+s=59;
+m--;
+}
+
+if(m<0){
+m=59;
+h--;
+}
+
+if(h<0){
+h=23;
+m=59;
+s=59;
+}
+
+timer.innerHTML=
+
+String(h).padStart(2,"0")+":"+
+
+String(m).padStart(2,"0")+":"+
+
+String(s).padStart(2,"0");
+
+});
+
+}
+
+setInterval(updateCountdown,1000);
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Marko's Marketplace</title>
+
+    <link rel="stylesheet" href="/css/category.css">
+    <script defer src="/js/category.js"></script>
+</head>
+
+<body>
+
+<!-- ================= HEADER ================= -->
+
+<header class="header">
+
+    <a href="/index.html" class="logo">
+        Marko's <span>Marketplace</span>
+    </a>
+
+    <button class="menu-btn" id="menuBtn">
+        ☰
+    </button>
+
+    <div class="deliver">
+        <small>Deliver to</small>
+        <strong>Namibia</strong>
+    </div>
+
+    <div class="search">
+
+        <select id="searchDepartment">
+            <option value="all">All</option>
+            <option value="electronics">Electronics</option>
+            <option value="phones">Phones</option>
+            <option value="computers">Computers</option>
+            <option value="fashion">Fashion</option>
+            <option value="home">Home</option>
+            <option value="beauty">Beauty</option>
+            <option value="sports">Sports</option>
+        </select>
+
+        <input
+            type="search"
+            id="searchInput"
+            placeholder="Search Marko's Marketplace"
+        >
+
+        <button id="searchButton">
+            🔍
+        </button>
+
+    </div>
+
+    <div class="account">
+
+        <a href="/login.html">
+            <small>Hello, sign in</small>
+            <strong>Account & Lists</strong>
+        </a>
+
+        <a href="/orders.html">
+            <small>Returns</small>
+            <strong>& Orders</strong>
+        </a>
+
+        <a href="/cart.html" class="cart">
+            🛒
+            <span id="cartCount">0</span>
+            Cart
+        </a>
+
+    </div>
+
+</header>
+
+
+<!-- ================= NAVIGATION ================= -->
+
+<nav class="navigation">
+
+    <button id="allButton">
+        ☰ All
+    </button>
+
+    <a href="/index.html">Home</a>
+
+    <a href="/category.html?category=electronics">
+        Electronics
+    </a>
+
+    <a href="/category.html?category=phones">
+        Phones
+    </a>
+
+    <a href="/category.html?category=computers">
+        Computers
+    </a>
+
+    <a href="/category.html?category=fashion">
+        Fashion
+    </a>
+
+    <a href="/category.html?category=home">
+        Home & Garden
+    </a>
+
+    <a href="/category.html?category=beauty">
+        Beauty
+    </a>
+
+    <a href="/category.html?category=sports">
+        Sports
+    </a>
+
+    <a href="/deals.html">
+        Today's Deals
+    </a>
+
+</nav>
+
+
+<!-- ================= SIDE MENU ================= -->
+
+<div class="side-menu" id="sideMenu">
+
+    <div class="side-header">
+
+        <strong>Shop by Category</strong>
+
+        <button id="closeMenu">
+            ×
+        </button>
+
+    </div>
+
+    <a href="/category.html?category=electronics">
+        📱 Electronics
+    </a>
+
+    <a href="/category.html?category=phones">
+        📱 Phones
+    </a>
+
+    <a href="/category.html?category=computers">
+        💻 Computers
+    </a>
+
+    <a href="/category.html?category=fashion">
+        👕 Fashion
+    </a>
+
+    <a href="/category.html?category=home">
+        🏠 Home & Garden
+    </a>
+
+    <a href="/category.html?category=beauty">
+        💄 Beauty
+    </a>
+
+    <a href="/category.html?category=sports">
+        ⚽ Sports
+    </a>
+
+</div>
+
+
+<!-- ================= BREADCRUMB ================= -->
+
+<div class="breadcrumb">
+
+    <a href="/index.html">Home</a>
+
+    <span>›</span>
+
+    <span id="breadcrumb">
+        Products
+    </span>
+
+</div>
+
+
+<!-- ================= PAGE ================= -->
+
+<main class="page">
+
+
+    <!-- ================= SIDEBAR ================= -->
+
+    <aside class="filters" id="filters">
+
+        <h3>Shop by Category</h3>
+
+        <a href="/category.html?category=all">
+            All Products
+        </a>
+
+        <a href="/category.html?category=electronics">
+            Electronics
+        </a>
+
+        <a href="/category.html?category=phones">
+            Phones
+        </a>
+
+        <a href="/category.html?category=computers">
+            Computers
+        </a>
+
+        <a href="/category.html?category=fashion">
+            Fashion
+        </a>
+
+        <a href="/category.html?category=home">
+            Home & Garden
+        </a>
+
+        <a href="/category.html?category=beauty">
+            Beauty
+        </a>
+
+        <a href="/category.html?category=sports">
+            Sports
+        </a>
+
+
+        <hr>
+
+
+        <h3>Customer Rating</h3>
+
+        <label>
+            <input
+                type="radio"
+                name="rating"
+                value="0"
+                checked
+            >
+            All ratings
+        </label>
+
+        <label>
+            <input
+                type="radio"
+                name="rating"
+                value="4"
+            >
+            ⭐⭐⭐⭐ & up
+        </label>
+
+        <label>
+            <input
+                type="radio"
+                name="rating"
+                value="3"
+            >
+            ⭐⭐⭐ & up
+        </label>
+
+
+        <hr>
+
+
+        <h3>Price</h3>
+
+        <label>
+            <input
+                type="radio"
+                name="price"
+                value="all"
+                checked
+            >
+            All prices
+        </label>
+
+        <label>
+            <input
+                type="radio"
+                name="price"
+                value="0-500"
+            >
+            Under N$500
+        </label>
+
+        <label>
+            <input
+                type="radio"
+                name="price"
+                value="500-1000"
+            >
+            N$500 - N$1,000
+        </label>
+
+        <label>
+            <input
+                type="radio"
+                name="price"
+                value="1000-5000"
+            >
+            N$1,000 - N$5,000
+        </label>
+
+        <label>
+            <input
+                type="radio"
+                name="price"
+                value="5000-999999999"
+            >
+            N$5,000+
+        </label>
+
+
+        <hr>
+
+
+        <h3>Deals</h3>
+
+        <label>
+            <input
+                type="checkbox"
+                id="dealsOnly"
+            >
+            Today's Deals
+        </label>
+
+        <label>
+            <input
+                type="checkbox"
+                id="discountOnly"
+            >
+            Discounted Products
+        </label>
+
+
+        <button id="clearFilters" class="clear">
+            Clear Filters
+        </button>
+
+    </aside>
+
+
+    <!-- ================= PRODUCTS ================= -->
+
+    <section class="content">
+
+
+        <!-- CATEGORY HERO -->
+
+        <section class="category-hero">
+
+            <div>
+
+                <small>MARKO'S MARKETPLACE</small>
+
+                <h1 id="categoryTitle">
+                    Products
+                </h1>
+
+                <p id="categoryDescription">
+                    Discover products from sellers on Marko's Marketplace.
+                </p>
+
+            </div>
+
+            <div class="hero-icon">
+                🛍️
+            </div>
+
+        </section>
+
+
+        <!-- ================= SUBCATEGORIES ================= -->
+
+        <section class="subcategories">
+
+            <h2>Explore Categories</h2>
+
+            <div class="category-cards">
+
+                <a href="/category.html?category=electronics">
+                    <span>📱</span>
+                    Electronics
+                </a>
+
+                <a href="/category.html?category=phones">
+                    <span>📲</span>
+                    Phones
+                </a>
+
+                <a href="/category.html?category=computers">
+                    <span>💻</span>
+                    Computers
+                </a>
+
+                <a href="/category.html?category=fashion">
+                    <span>👕</span>
+                    Fashion
+                </a>
+
+                <a href="/category.html?category=home">
+                    <span>🏠</span>
+                    Home
+                </a>
+
+                <a href="/category.html?category=beauty">
+                    <span>💄</span>
+                    Beauty
+                </a>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= RESULTS HEADER ================= -->
+
+        <section class="results-header">
+
+            <div>
+
+                <h2 id="resultsTitle">
+                    Products
+                </h2>
+
+                <p id="resultCount">
+                    Loading products...
+                </p>
+
+            </div>
+
+            <div class="sort">
+
+                <label for="sort">
+                    Sort by
+                </label>
+
+                <select id="sort">
+
+                    <option value="featured">
+                        Featured
+                    </option>
+
+                    <option value="low">
+                        Price: Low to High
+                    </option>
+
+                    <option value="high">
+                        Price: High to Low
+                    </option>
+
+                    <option value="rating">
+                        Customer Rating
+                    </option>
+
+                    <option value="newest">
+                        Newest
+                    </option>
+
+                </select>
+
+            </div>
+
+        </section>
+
+
+        <!-- ================= PRODUCT GRID ================= -->
+
+        <section
+            class="product-grid"
+            id="productGrid"
+        >
+
+            <!-- JavaScript inserts products here ONCE -->
+
+        </section>
+
+
+        <!-- ================= PAGINATION ================= -->
+
+        <div class="pagination">
+
+            <button id="previous">
+                ← Previous
+            </button>
+
+            <span id="pageNumber">
+                Page 1
+            </span>
+
+            <button id="next">
+                Next →
+            </button>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<!-- ================= MOBILE FILTER ================= -->
+
+<button
+    class="mobile-filter"
+    id="mobileFilter"
+>
+    ⚙ Filters
+</button>
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer>
+
+    <div class="back-top">
+        Back to top ↑
+    </div>
+
+    <div class="footer-grid">
+
+        <div>
+
+            <h3>Get to Know Us</h3>
+
+            <a href="/about.html">
+                About Us
+            </a>
+
+            <a href="/contact.html">
+                Contact Us
+            </a>
+
+        </div>
+
+        <div>
+
+            <h3>Sell With Us</h3>
+
+            <a href="/seller-register.html">
+                Sell on Marko's Marketplace
+            </a>
+
+            <a href="/seller-dashboard.html">
+                Seller Dashboard
+            </a>
+
+        </div>
+
+        <div>
+
+            <h3>Customer Service</h3>
+
+            <a href="/help.html">
+                Help Centre
+            </a>
+
+            <a href="/orders.html">
+                Your Orders
+            </a>
+
+            <a href="/returns.html">
+                Returns
+            </a>
+
+        </div>
+
+        <div>
+
+            <h3>Your Account</h3>
+
+            <a href="/login.html">
+                Sign In
+            </a>
+
+            <a href="/cart.html">
+                Cart
+            </a>
+
+            <a href="/privacy.html">
+                Privacy
+            </a>
+
+        </div>
+
+    </div>
+
+    <div class="footer-bottom">
+
+        <strong>
+            Marko's Marketplace
+        </strong>
+
+        <span>
+            © 2026 All Rights Reserved
+        </span>
+
+    </div>
+
+</footer>
+
+</body>
+</html>

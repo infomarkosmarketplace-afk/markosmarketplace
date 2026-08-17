@@ -1,0 +1,1269 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>Seller Payment - Marko's Marketplace</title>
+
+<style>
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    background:
+        radial-gradient(circle at top left,#ffffff,transparent 35%),
+        linear-gradient(135deg,#eef2f7,#f8fafc);
+    color:#172033;
+    min-height:100vh;
+    padding:20px;
+}
+
+.container{
+    width:100%;
+    max-width:760px;
+    margin:30px auto;
+    background:white;
+    border-radius:24px;
+    padding:30px;
+    border:1px solid #e5e9ef;
+    box-shadow:0 20px 55px rgba(20,30,50,.12);
+}
+
+.brand{
+    text-align:center;
+    margin-bottom:25px;
+}
+
+.logo{
+    font-size:25px;
+    font-weight:900;
+}
+
+.logo span{
+    color:#ffb703;
+}
+
+h1{
+    margin-top:18px;
+    font-size:30px;
+}
+
+.subtitle{
+    color:#707b8c;
+    line-height:1.5;
+    margin-top:8px;
+}
+
+.order-card{
+    margin-top:25px;
+    background:linear-gradient(135deg,#f8fafc,#eef2f6);
+    border:1px solid #e1e6ed;
+    border-radius:16px;
+    padding:20px;
+}
+
+.order-card-title{
+    font-size:12px;
+    text-transform:uppercase;
+    color:#7a8492;
+    font-weight:900;
+    margin-bottom:12px;
+}
+
+.order-row{
+    display:flex;
+    justify-content:space-between;
+    gap:20px;
+    padding:10px 0;
+    border-bottom:1px solid #e1e6ed;
+}
+
+.order-row:last-child{
+    border-bottom:none;
+}
+
+.order-row span:first-child{
+    color:#6c7685;
+}
+
+.order-row span:last-child{
+    font-weight:900;
+    text-align:right;
+}
+
+.info{
+    margin-top:20px;
+    padding:16px;
+    background:#eef7f1;
+    border:1px solid #cde8d6;
+    color:#28643c;
+    border-radius:13px;
+    line-height:1.5;
+    font-size:13px;
+}
+
+.sellers{
+    margin-top:25px;
+}
+
+.seller-card{
+    margin-bottom:20px;
+    background:linear-gradient(135deg,#fffdf2,#fff8d8);
+    border:2px solid #ffd43b;
+    border-radius:18px;
+    padding:22px;
+}
+
+.seller-header{
+    display:flex;
+    align-items:center;
+    gap:13px;
+    margin-bottom:18px;
+}
+
+.seller-icon{
+    width:48px;
+    height:48px;
+    border-radius:13px;
+    background:#172033;
+    color:white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:22px;
+}
+
+.seller-header h2{
+    font-size:19px;
+}
+
+.seller-header p{
+    color:#6e7785;
+    font-size:12px;
+    margin-top:3px;
+}
+
+.details{
+    background:#172033;
+    color:white;
+    border-radius:15px;
+    padding:18px;
+}
+
+.detail-row{
+    display:flex;
+    justify-content:space-between;
+    gap:20px;
+    padding:11px 0;
+    border-bottom:1px solid rgba(255,255,255,.10);
+}
+
+.detail-row:last-child{
+    border-bottom:none;
+}
+
+.label{
+    color:#aeb8c7;
+    font-size:13px;
+}
+
+.value{
+    color:white;
+    font-size:13px;
+    font-weight:800;
+    text-align:right;
+    word-break:break-word;
+}
+
+
+/* =====================================================
+   PAY SELLER BUTTON
+===================================================== */
+
+.pay-amount{
+    width:100%;
+    margin-top:15px;
+    padding:15px;
+    border-radius:12px;
+    background:linear-gradient(135deg,#ffd43b,#ffb703);
+    color:#172033;
+    text-align:center;
+    font-size:18px;
+    font-weight:900;
+    border:none;
+    cursor:pointer;
+    transition:.25s;
+    box-shadow:0 8px 20px rgba(255,183,3,.25);
+}
+
+.pay-amount:hover{
+    transform:translateY(-2px);
+    box-shadow:0 12px 25px rgba(255,183,3,.35);
+}
+
+.pay-amount:active{
+    transform:scale(.98);
+}
+
+.pay-amount .pay-label{
+    display:block;
+    font-size:12px;
+    text-transform:uppercase;
+    letter-spacing:.5px;
+    margin-bottom:4px;
+    opacity:.75;
+}
+
+.pay-amount .pay-value{
+    display:block;
+    font-size:20px;
+    font-weight:900;
+}
+
+
+/* =====================================================
+   REFERENCE
+===================================================== */
+
+.reference{
+    margin-top:12px;
+    padding:13px;
+    border-radius:10px;
+    background:white;
+    border:1px dashed #d8b928;
+    text-align:center;
+}
+
+.reference small{
+    display:block;
+    color:#777;
+    margin-bottom:5px;
+}
+
+.reference strong{
+    font-size:15px;
+    letter-spacing:.5px;
+}
+
+.notice{
+    margin-top:20px;
+    padding:16px;
+    border-radius:13px;
+    background:#f7f9fb;
+    border:1px solid #e1e6ed;
+    color:#596373;
+    font-size:13px;
+    line-height:1.6;
+}
+
+.warning{
+    margin-top:15px;
+    padding:15px;
+    border-radius:13px;
+    background:#fff1f1;
+    border:1px solid #f1cccc;
+    color:#8c3434;
+    font-size:12px;
+    line-height:1.6;
+}
+
+button{
+    width:100%;
+    padding:17px;
+    margin-top:22px;
+    background:linear-gradient(135deg,#ffd43b,#ffb703);
+    color:#172033;
+    border:none;
+    border-radius:13px;
+    font-size:16px;
+    font-weight:900;
+    cursor:pointer;
+    transition:.25s;
+    box-shadow:0 8px 20px rgba(255,183,3,.25);
+}
+
+button:hover{
+    transform:translateY(-2px);
+    box-shadow:0 12px 25px rgba(255,183,3,.35);
+}
+
+button:active{
+    transform:scale(.98);
+}
+
+button:disabled{
+    background:#d5d9df;
+    color:#89909b;
+    cursor:not-allowed;
+    transform:none;
+    box-shadow:none;
+}
+
+.missing{
+    margin-top:20px;
+    padding:16px;
+    border-radius:13px;
+    background:#fff6d6;
+    border:1px solid #f0d77b;
+    color:#725c13;
+    line-height:1.6;
+    font-size:13px;
+}
+
+.security{
+    text-align:center;
+    margin-top:16px;
+    color:#788291;
+    font-size:12px;
+    line-height:1.5;
+}
+
+@media(max-width:600px){
+
+    body{
+        padding:10px;
+    }
+
+    .container{
+        margin:10px auto;
+        padding:20px;
+        border-radius:18px;
+    }
+
+    h1{
+        font-size:25px;
+    }
+
+    .order-row,
+    .detail-row{
+        flex-direction:column;
+        gap:5px;
+    }
+
+    .order-row span:last-child,
+    .value{
+        text-align:left;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="brand">
+
+    <div class="logo">
+        Marko's <span>Marketplace</span>
+    </div>
+
+    <h1>
+        Seller Payment
+    </h1>
+
+    <p class="subtitle">
+        Pay each seller directly using the verified
+        payment details shown below.
+    </p>
+
+</div>
+
+
+<!-- ORDER INFORMATION -->
+
+<div class="order-card">
+
+    <div class="order-card-title">
+        Order Information
+    </div>
+
+    <div class="order-row">
+
+        <span>
+            Order ID
+        </span>
+
+        <span id="orderId">
+            Loading...
+        </span>
+
+    </div>
+
+    <div class="order-row">
+
+        <span>
+            Total Order
+        </span>
+
+        <span id="orderAmount">
+            Loading...
+        </span>
+
+    </div>
+
+    <div class="order-row">
+
+        <span>
+            Status
+        </span>
+
+        <span>
+            Awaiting Payment
+        </span>
+
+    </div>
+
+</div>
+
+
+<div class="info">
+
+    <strong>How payment works</strong>
+
+    <br>
+
+    Your payment is sent directly to the seller.
+    MarketHub does not currently receive the
+    product payment.
+
+</div>
+
+
+<!-- SELLERS -->
+
+<div
+    id="sellers"
+    class="sellers"
+></div>
+
+
+<!-- MISSING DETAILS -->
+
+<div
+    id="missing"
+    class="missing"
+    style="display:none;"
+>
+
+    <strong>
+        Seller payment information is unavailable.
+    </strong>
+
+    <br><br>
+
+    Do not send money until valid seller payment
+    details are displayed.
+
+    Please return to checkout or contact MarketHub
+    support.
+
+</div>
+
+
+<div class="notice">
+
+    <strong>Before you pay:</strong>
+
+    <br>
+
+    • Pay the exact amount shown for each seller.
+
+    <br>
+
+    • Use the exact payment reference provided.
+
+    <br>
+
+    • Keep your bank/e-wallet receipt.
+
+    <br>
+
+    • You will upload the receipt on the next page.
+
+</div>
+
+
+<div class="warning">
+
+    ⚠️ <strong>Important:</strong>
+
+    MarketHub is not currently collecting buyer
+    funds into a MarketHub bank account.
+
+    Payments are made directly to the sellers.
+
+    Always verify the displayed payment information
+    before sending money.
+
+</div>
+
+
+<button
+    id="proofButton"
+    onclick="uploadProof()"
+    disabled
+>
+
+    📄 I've Paid — Upload Payment Proof
+
+</button>
+
+
+<div class="security">
+
+    🔐 Your payment proof will be connected to
+    Order <span id="securityOrder">---</span>.
+
+</div>
+
+</div>
+
+
+<script>
+
+/* =====================================================
+   LOAD ORDER
+===================================================== */
+
+const orderId =
+    localStorage.getItem("order_id");
+
+const currentOrder =
+    JSON.parse(
+        localStorage.getItem("current_order") || "{}"
+    );
+
+
+/* =====================================================
+   BASIC ORDER INFORMATION
+===================================================== */
+
+document.getElementById("orderId").textContent =
+    orderId || "Unavailable";
+
+document.getElementById("securityOrder").textContent =
+    orderId || "---";
+
+
+const totalAmount =
+    Number(currentOrder.total_amount) || 0;
+
+const currency =
+    currentOrder.currency || "NAD";
+
+
+document.getElementById("orderAmount").textContent =
+    `${currency} ${totalAmount.toFixed(2)}`;
+
+
+/* =====================================================
+   ESCAPE HTML
+===================================================== */
+
+function escapeHTML(value) {
+
+    return String(value ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
+}
+
+
+/* =====================================================
+   FORMAT AMOUNT
+===================================================== */
+
+function formatAmount(amount, currency) {
+
+    const value =
+        Number(amount) || 0;
+
+    return `${currency || "NAD"} ${value.toFixed(2)}`;
+
+}
+
+
+/* =====================================================
+   PAY SELLER
+===================================================== */
+
+function paySeller(paymentData) {
+
+    if (!paymentData) {
+
+        alert(
+            "Seller payment information is unavailable."
+        );
+
+        return;
+    }
+
+
+    const paymentText = `
+
+Seller Payment
+
+Amount: ${paymentData.amount}
+
+Account Holder: ${paymentData.accountName}
+
+Bank / Provider: ${paymentData.bankName}
+
+Account Number: ${paymentData.accountNumber}
+
+IBAN: ${paymentData.iban}
+
+SWIFT / BIC: ${paymentData.swiftBic}
+
+Payment Reference: ${paymentData.reference}
+
+    `.trim();
+
+
+    /*
+    =================================================
+    SAVE SELECTED SELLER PAYMENT
+    =================================================
+    */
+
+    localStorage.setItem(
+        "selected_seller_payment",
+        JSON.stringify(paymentData)
+    );
+
+
+    /*
+    =================================================
+    COPY PAYMENT DETAILS
+    =================================================
+    */
+
+    if (
+        navigator.clipboard &&
+        window.isSecureContext
+    ) {
+
+        navigator.clipboard.writeText(paymentText)
+            .then(function(){
+
+                alert(
+                    "Seller payment details copied.\n\n" +
+                    "Amount: " +
+                    paymentData.amount +
+                    "\n\n" +
+                    "Reference: " +
+                    paymentData.reference +
+                    "\n\n" +
+                    "Open your banking app and make the transfer using the seller's bank details shown on this page."
+                );
+
+            })
+            .catch(function(){
+
+                alert(
+                    "Amount: " +
+                    paymentData.amount +
+                    "\n\n" +
+                    "Payment Reference: " +
+                    paymentData.reference +
+                    "\n\n" +
+                    "Please use the seller's bank details shown above to make the transfer."
+                );
+
+            });
+
+    }
+    else {
+
+        alert(
+            "Amount: " +
+            paymentData.amount +
+            "\n\n" +
+            "Payment Reference: " +
+            paymentData.reference +
+            "\n\n" +
+            "Please use the seller's bank details shown above to make the transfer."
+        );
+
+    }
+
+}
+
+
+/* =====================================================
+   DISPLAY SELLERS
+===================================================== */
+
+function displaySellers() {
+
+    const container =
+        document.getElementById("sellers");
+
+    const missing =
+        document.getElementById("missing");
+
+    const button =
+        document.getElementById("proofButton");
+
+
+    if (!container || !button) {
+        return;
+    }
+
+
+    const sellers =
+        Array.isArray(currentOrder.sellers)
+            ? currentOrder.sellers
+            : [];
+
+
+    /* =================================================
+       NO SELLERS
+    ================================================= */
+
+    if (!sellers.length) {
+
+        if (missing) {
+            missing.style.display = "block";
+        }
+
+        button.disabled = true;
+
+        return;
+    }
+
+
+    let validSellerCount = 0;
+
+
+    /* =================================================
+       DISPLAY EACH SELLER
+    ================================================= */
+
+    sellers.forEach((seller, index) => {
+
+        const payment =
+            seller.payment || null;
+
+
+        /*
+        ================================================
+        SELLER PAYMENT DETAILS MUST EXIST
+        ================================================
+        */
+
+        if (
+            !payment ||
+            (
+                !payment.accountNumber &&
+                !payment.iban
+            )
+        ) {
+
+            return;
+
+        }
+
+
+        validSellerCount++;
+
+
+        const card =
+            document.createElement("div");
+
+        card.className =
+            "seller-card";
+
+
+        const paymentMethod =
+            payment.paymentMethod ||
+            "Bank Transfer";
+
+
+        const bankName =
+            payment.bankName ||
+            "-";
+
+
+        const accountName =
+            payment.accountName ||
+            payment.sellerName ||
+            "-";
+
+
+        const accountNumber =
+            payment.accountNumber ||
+            "-";
+
+
+        const routingNumber =
+            payment.routingNumber ||
+            "-";
+
+
+        const sortCode =
+            payment.sortCode ||
+            "-";
+
+
+        const iban =
+            payment.iban ||
+            "-";
+
+
+        const swiftBic =
+            payment.swiftBic ||
+            "-";
+
+
+        const sellerName =
+            payment.sellerName ||
+            `Seller ${index + 1}`;
+
+
+        /*
+        =================================================
+        orderRoutes.js returns:
+
+        seller.total_amount
+        =================================================
+        */
+
+        const amount =
+            Number(
+                seller.total_amount
+            ) || 0;
+
+
+        const paymentCurrency =
+            currency;
+
+
+        const reference =
+            payment.paymentReference ||
+            orderId ||
+            `MH-${Date.now()}`;
+
+
+        let optionalRows = "";
+
+
+        if (routingNumber !== "-") {
+
+            optionalRows += `
+
+                <div class="detail-row">
+
+                    <span class="label">
+                        Routing Number
+                    </span>
+
+                    <span class="value">
+                        ${escapeHTML(routingNumber)}
+                    </span>
+
+                </div>
+
+            `;
+
+        }
+
+
+        if (sortCode !== "-") {
+
+            optionalRows += `
+
+                <div class="detail-row">
+
+                    <span class="label">
+                        Sort Code
+                    </span>
+
+                    <span class="value">
+                        ${escapeHTML(sortCode)}
+                    </span>
+
+                </div>
+
+            `;
+
+        }
+
+
+        if (iban !== "-") {
+
+            optionalRows += `
+
+                <div class="detail-row">
+
+                    <span class="label">
+                        IBAN
+                    </span>
+
+                    <span class="value">
+                        ${escapeHTML(iban)}
+                    </span>
+
+                </div>
+
+            `;
+
+        }
+
+
+        if (swiftBic !== "-") {
+
+            optionalRows += `
+
+                <div class="detail-row">
+
+                    <span class="label">
+                        SWIFT / BIC
+                    </span>
+
+                    <span class="value">
+                        ${escapeHTML(swiftBic)}
+                    </span>
+
+                </div>
+
+            `;
+
+        }
+
+
+        card.innerHTML = `
+
+            <div class="seller-header">
+
+                <div class="seller-icon">
+                    💳
+                </div>
+
+                <div>
+
+                    <h2>
+                        Seller ${index + 1}
+                    </h2>
+
+                    <p>
+                        Pay this seller directly
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="details">
+
+                <div class="detail-row">
+
+                    <span class="label">
+                        Seller
+                    </span>
+
+                    <span class="value">
+                        ${escapeHTML(sellerName)}
+                    </span>
+
+                </div>
+
+
+                <div class="detail-row">
+
+                    <span class="label">
+                        Payment Method
+                    </span>
+
+                    <span class="value">
+                        ${escapeHTML(paymentMethod)}
+                    </span>
+
+                </div>
+
+
+                <div class="detail-row">
+
+                    <span class="label">
+                        Bank / Provider
+                    </span>
+
+                    <span class="value">
+                        ${escapeHTML(bankName)}
+                    </span>
+
+                </div>
+
+
+                <div class="detail-row">
+
+                    <span class="label">
+                        Account Holder
+                    </span>
+
+                    <span class="value">
+                        ${escapeHTML(accountName)}
+                    </span>
+
+                </div>
+
+
+                <div class="detail-row">
+
+                    <span class="label">
+                        Account Number
+                    </span>
+
+                    <span class="value">
+                        ${escapeHTML(accountNumber)}
+                    </span>
+
+                </div>
+
+                ${optionalRows}
+
+            </div>
+
+
+            <!-- WORKING PAY BUTTON -->
+
+            <button
+                type="button"
+                class="pay-amount"
+            >
+
+                <span class="pay-label">
+                    💳 Pay This Seller
+                </span>
+
+                <span class="pay-value">
+                    ${escapeHTML(
+                        formatAmount(
+                            amount,
+                            paymentCurrency
+                        )
+                    )}
+                </span>
+
+            </button>
+
+
+            <div class="reference">
+
+                <small>
+                    Payment Reference
+                </small>
+
+                <strong>
+                    ${escapeHTML(reference)}
+                </strong>
+
+            </div>
+
+        `;
+
+
+        /*
+        =================================================
+        CONNECT THE PAY BUTTON
+        =================================================
+        */
+
+        const payButton =
+            card.querySelector(".pay-amount");
+
+
+        if (payButton) {
+
+            payButton.addEventListener(
+                "click",
+                function(){
+
+                    paySeller({
+
+                        accountName:
+                            accountName,
+
+                        bankName:
+                            bankName,
+
+                        accountNumber:
+                            accountNumber,
+
+                        iban:
+                            iban,
+
+                        swiftBic:
+                            swiftBic,
+
+                        reference:
+                            reference,
+
+                        amount:
+                            formatAmount(
+                                amount,
+                                paymentCurrency
+                            )
+
+                    });
+
+                }
+            );
+
+        }
+
+
+        container.appendChild(card);
+
+    });
+
+
+    /* =================================================
+       ENABLE PAYMENT-PROOF BUTTON
+    ================================================= */
+
+    if (validSellerCount > 0) {
+
+        button.disabled = false;
+
+        button.textContent =
+            "📄 I've Paid — Upload Payment Proof";
+
+    }
+    else {
+
+        button.disabled = true;
+
+        if (missing) {
+            missing.style.display = "block";
+        }
+
+    }
+
+}
+
+
+/* =====================================================
+   UPLOAD PAYMENT PROOF
+===================================================== */
+
+function uploadProof() {
+
+    /*
+    =================================================
+    MAKE SURE ORDER EXISTS
+    =================================================
+    */
+
+    if (!orderId) {
+
+        alert(
+            "Order information is missing. Please return to checkout."
+        );
+
+        return;
+
+    }
+
+
+    /*
+    =================================================
+    MAKE SURE ORDER DATA EXISTS
+    =================================================
+    */
+
+    if (
+        !currentOrder ||
+        !Array.isArray(currentOrder.sellers) ||
+        currentOrder.sellers.length === 0
+    ) {
+
+        alert(
+            "Payment information is missing. Please return to checkout."
+        );
+
+        return;
+
+    }
+
+
+    /*
+    =================================================
+    SAVE ORDER ID AGAIN
+    =================================================
+    */
+
+    localStorage.setItem(
+        "order_id",
+        orderId
+    );
+
+
+    /*
+    =================================================
+    GO TO PAYMENT PROOF
+    =================================================
+    */
+
+    window.location.href =
+        "payment-proof.html";
+
+}
+
+
+/* =====================================================
+   INITIALIZE
+===================================================== */
+
+displaySellers();
+
+
+/* =====================================================
+   EXTRA SAFETY
+
+   Existing payment-proof button remains working.
+===================================================== */
+
+const proofButton =
+    document.getElementById("proofButton");
+
+
+if (proofButton) {
+
+    proofButton.addEventListener(
+        "click",
+        function () {
+
+            if (!this.disabled) {
+                uploadProof();
+            }
+
+        }
+    );
+
+}
+
+</script>
+
+</body>
+</html>

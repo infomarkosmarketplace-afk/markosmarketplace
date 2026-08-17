@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF -8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Account | Marketplace</title>
+
+    <Link rel="stylesheet" href="css/profile.css">
+    <script> src="js/profile.js" defer></script>
+
+    <Link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awsome6.5.2/css/all.min.css">
+</head>
+<body>
+
+    <!-- Header-->
+    <header class="header">
+        <div class="logo">
+            <h2>Marketplace</h2>
+
+         <nav>
+            <a href="index.html">Home</a>
+            <a href="dashboard.html">Dashboard</a>
+            <a href="register.html">Register</a>
+            <a href="upload.html">Upload Products</a>
+            <a href="profile.html">My profile</a>
+            <a href="cart.html">Cart</a>
+            <a href="contact.html">About Us</a>
+            <a href="login.html">Login</a>
+            <a href="success.html">Success</a>
+         </nav>
+    </header>
+
+    <!-- Main-->
+    <main class="profile-container">
+
+        <!-- Left Sidebar-->
+        <<aside class="sidebar">
+
+            <div class="profile-card">
+
+                <img src="images/default-profile.png"
+                     id="profileImage"
+                     alt="Profile-Picture">
+
+                <h2 id="userName">Loading...</h2>
+                <p id="userEmail">Loading...</p>
+
+                <button id="uploadBtn">
+                    <i class="fa-solid fa-camera"></i>
+                    Change Photo
+                </button>
+
+                <input
+                    type="file"
+                    id="profileUpload"
+                    hidden>
+
+            </div>
+
+            <div class="menu">
+
+                <button class="menu-bin active">
+                    <i class="fa-solid fa-box"></i>
+                    My profile
+                </button>
+
+                <button class="menu-bin">
+                    <i class="fa-solid fa-box"></i>
+                    My Orders
+                </button>
+
+                <button class="menu-bin">
+                    <i class="fa-solid fa-location-dot"></i>
+                    Address
+                </button>
+
+                <button class="menu-bin">
+                    <i class="fa-solid fa-lock"></i>
+                    Change Password
+                </button>
+
+                <button class="menu-bin logout">
+                    <i class="fa-solid fa-rigt-from-bracket"></i>
+                    logout
+                </button>
+
+            </div>
+
+        <aside>
+
+        <!-- Right Content-->
+        <section class="content">
+
+            <div class="card">
+
+                <h2>Personal Infomation</h2>
+
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" id="name"readonly>
+                </div>
+
+                <div class="form-group">
+                    <label>Email Address<label>
+                    <input type="email" id="email" readonly>
+                </div>
+
+                <div class="from-group">
+                    <label>Phone Number</label>
+                    <input type="text" id="phone">
+                </div>
+
+                <div class="form-group">
+                    <label>Address</label>
+                    <textarea id="address" rows="4"></textarea>
+                <div>
+
+                <button id="saveProfile">
+                    Save Changes
+                </button>
+
+            </div>
+
+            <div class="card">
+
+                <h2>Account Infomation<h2>
+
+                <p><strong>Member Since:</strong>
+                    <span id="memberSice">Loading...<span>
+                </p>
+
+                <p><strong>Account Type<strong>
+                    Customer
+                </p>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</body>
+</html>

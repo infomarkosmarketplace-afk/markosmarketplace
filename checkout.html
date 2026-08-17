@@ -1,0 +1,1182 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Checkout - Marko's Marketplace</title><style>
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    background:
+        radial-gradient(circle at top left,#ffffff,transparent 35%),
+        linear-gradient(135deg,#eef2f7,#f8fafc);
+    color:#172033;
+    min-height:100vh;
+}
+
+.header{
+    background:linear-gradient(135deg,#08111f,#14243d,#243b5a);
+    color:white;
+    min-height:76px;
+    padding:14px 30px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:20px;
+    box-shadow:0 8px 30px rgba(0,0,0,.2);
+    position:sticky;
+    top:0;
+    z-index:1000;
+}
+
+.logo{
+    color:white;
+    text-decoration:none;
+    font-size:23px;
+    font-weight:900;
+}
+
+.logo span{
+    color:#ffd43b;
+}
+
+.header-title{
+    font-size:20px;
+    font-weight:800;
+}
+
+.back-cart{
+    color:#172033;
+    text-decoration:none;
+    background:linear-gradient(135deg,#ffd43b,#ffb703);
+    padding:11px 18px;
+    border-radius:12px;
+    font-weight:800;
+    transition:.25s;
+}
+
+.back-cart:hover{
+    transform:translateY(-2px);
+    box-shadow:0 8px 20px rgba(255,183,3,.35);
+}
+
+.page{
+    max-width:1250px;
+    margin:35px auto;
+    padding:0 20px;
+    display:grid;
+    grid-template-columns:minmax(0,1fr) 360px;
+    gap:28px;
+}
+
+.checkout-card{
+    background:rgba(255,255,255,.96);
+    border-radius:22px;
+    padding:30px;
+    border:1px solid #e6eaf0;
+    box-shadow:0 15px 45px rgba(20,30,50,.08);
+}
+
+.checkout-heading{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    margin-bottom:8px;
+}
+
+.checkout-icon{
+    width:48px;
+    height:48px;
+    border-radius:14px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:linear-gradient(135deg,#ffd43b,#ffb703);
+    font-size:25px;
+}
+
+h1{
+    font-size:30px;
+    letter-spacing:-.6px;
+}
+
+.subtitle{
+    color:#707b8c;
+    margin-bottom:25px;
+}
+
+.progress{
+    display:flex;
+    align-items:center;
+    margin-bottom:28px;
+    gap:8px;
+}
+
+.progress-step{
+    display:flex;
+    align-items:center;
+    gap:7px;
+    color:#6f7887;
+    font-size:13px;
+    font-weight:700;
+}
+
+.progress-step.active{
+    color:#172033;
+}
+
+.step-number{
+    width:28px;
+    height:28px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:#e9edf3;
+}
+
+.progress-step.active .step-number{
+    background:#ffd43b;
+    color:#172033;
+}
+
+.progress-line{
+    height:2px;
+    flex:1;
+    background:#e3e7ed;
+}
+
+.section-title{
+    font-size:19px;
+    font-weight:900;
+    margin-bottom:15px;
+}
+
+#cartItems{
+    border-top:1px solid #e8ebf0;
+}
+
+.product{
+    display:grid;
+    grid-template-columns:95px minmax(0,1fr) auto;
+    gap:18px;
+    padding:20px 0;
+    border-bottom:1px solid #e8ebf0;
+    align-items:center;
+}
+
+.product-image{
+    width:95px;
+    height:95px;
+    border-radius:15px;
+    background:linear-gradient(135deg,#f5f7fa,#e9eef5);
+    border:1px solid #e0e5ec;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+}
+
+.product-image img{
+    width:100%;
+    height:100%;
+    object-fit:contain;
+    padding:7px;
+    transition:.25s;
+}
+
+.product:hover .product-image img{
+    transform:scale(1.05);
+}
+
+.product-name{
+    font-size:17px;
+    font-weight:900;
+    margin-bottom:6px;
+}
+
+.product-description{
+    color:#747e8d;
+    font-size:13px;
+    line-height:1.45;
+    margin-bottom:7px;
+}
+
+.product-quantity{
+    display:inline-block;
+    background:#f1f4f8;
+    padding:5px 9px;
+    border-radius:8px;
+    color:#5f6877;
+    font-size:12px;
+    font-weight:800;
+}
+
+.product-currencies{
+    display:flex;
+    flex-wrap:wrap;
+    gap:6px;
+    margin-top:9px;
+}
+
+.product-currency{
+    padding:5px 8px;
+    background:#f7f9fb;
+    border:1px solid #e5e9ef;
+    border-radius:7px;
+    font-size:11px;
+    font-weight:800;
+    color:#536071;
+}
+
+.product-total{
+    text-align:right;
+    font-weight:900;
+    font-size:17px;
+    color:#172033;
+}
+
+
+/* =====================================
+   DIRECT SELLER PAYMENT
+===================================== */
+
+.payment-section{
+    margin-top:28px;
+    padding-top:25px;
+    border-top:1px solid #e8ebf0;
+}
+
+.payment-method{
+    border:2px solid #ffd43b;
+    background:linear-gradient(135deg,#fffdf2,#fff8d8);
+    border-radius:18px;
+    padding:20px;
+}
+
+.payment-header{
+    display:flex;
+    align-items:center;
+    gap:14px;
+}
+
+.payment-icon{
+    width:48px;
+    height:48px;
+    border-radius:12px;
+    background:#172033;
+    color:white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:22px;
+    flex-shrink:0;
+}
+
+.payment-method h3{
+    font-size:17px;
+    margin-bottom:5px;
+}
+
+.payment-method p{
+    color:#6e7785;
+    font-size:13px;
+    line-height:1.5;
+}
+
+.payment-notice{
+    margin-top:16px;
+    padding:15px;
+    background:white;
+    border:1px solid #eadf9c;
+    border-radius:12px;
+    color:#555e6c;
+    font-size:13px;
+    line-height:1.55;
+}
+
+.payment-notice strong{
+    color:#172033;
+}
+
+.seller-payment-box{
+    margin-top:15px;
+    padding:17px;
+    background:#172033;
+    color:white;
+    border-radius:14px;
+}
+
+.seller-payment-box h4{
+    font-size:15px;
+    margin-bottom:12px;
+    color:#ffd43b;
+}
+
+.seller-payment-row{
+    display:flex;
+    justify-content:space-between;
+    gap:15px;
+    padding:8px 0;
+    border-bottom:1px solid rgba(255,255,255,.1);
+    font-size:13px;
+}
+
+.seller-payment-row:last-child{
+    border-bottom:none;
+}
+
+.seller-payment-row span:first-child{
+    color:#aeb8c7;
+}
+
+.seller-payment-row span:last-child{
+    text-align:right;
+    font-weight:800;
+    word-break:break-word;
+}
+
+.payment-warning{
+    margin-top:12px;
+    color:#8a6500;
+    background:#fff5c7;
+    padding:11px;
+    border-radius:10px;
+    font-size:12px;
+    line-height:1.45;
+}
+
+
+/* =====================================
+   COMMISSION INFORMATION
+===================================== */
+
+.commission-box{
+    margin-top:16px;
+    padding:16px;
+    background:#f5f7fa;
+    border:1px solid #e3e7ed;
+    border-radius:14px;
+}
+
+.commission-box h4{
+    font-size:14px;
+    margin-bottom:8px;
+}
+
+.commission-box p{
+    color:#687384;
+    font-size:12px;
+    line-height:1.5;
+}
+
+.commission-box strong{
+    color:#172033;
+}
+
+
+/* =====================================
+   SUMMARY
+===================================== */
+
+.summary{
+    background:linear-gradient(145deg,#ffffff,#f7f9fc);
+    border-radius:22px;
+    padding:27px;
+    height:fit-content;
+    position:sticky;
+    top:100px;
+    border:1px solid #e6eaf0;
+    box-shadow:0 18px 45px rgba(20,30,50,.10);
+}
+
+.summary h2{
+    font-size:22px;
+    margin-bottom:15px;
+}
+
+.secure-badge{
+    display:inline-block;
+    background:#eef7f1;
+    color:#23844b;
+    padding:8px 12px;
+    border-radius:10px;
+    font-size:12px;
+    font-weight:800;
+    margin-bottom:20px;
+}
+
+.summary-row{
+    display:flex;
+    justify-content:space-between;
+    gap:15px;
+    margin-bottom:14px;
+    color:#697386;
+}
+
+.summary-row strong{
+    color:#172033;
+}
+
+.currency-summary{
+    margin:20px 0;
+    padding:16px;
+    border-radius:15px;
+    background:#f3f6f9;
+    border:1px solid #e5e9ef;
+}
+
+.currency-summary-title{
+    font-size:11px;
+    color:#7c8695;
+    text-transform:uppercase;
+    font-weight:900;
+    margin-bottom:8px;
+}
+
+.currency-row{
+    display:flex;
+    justify-content:space-between;
+    padding:8px 0;
+    font-weight:800;
+    border-bottom:1px solid #e3e7ec;
+}
+
+.currency-row:last-child{
+    border-bottom:none;
+}
+
+.currency-row span:first-child{
+    color:#687384;
+}
+
+.currency-row span:last-child{
+    color:#172033;
+}
+
+.base-note{
+    font-size:11px;
+    color:#7b8492;
+    background:#f8f9fb;
+    padding:9px;
+    border-radius:9px;
+    margin-bottom:16px;
+    text-align:center;
+}
+
+.total{
+    border-top:1px solid #e0e4ea;
+    padding-top:18px;
+    margin-top:10px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    font-size:21px;
+    font-weight:900;
+}
+
+.total span:last-child{
+    color:#172033;
+}
+
+.pay-button{
+    width:100%;
+    border:none;
+    background:linear-gradient(135deg,#ffd43b,#ffb703);
+    color:#172033;
+    padding:16px;
+    border-radius:13px;
+    margin-top:22px;
+    cursor:pointer;
+    font-size:16px;
+    font-weight:900;
+    transition:.25s;
+    box-shadow:0 8px 20px rgba(255,183,3,.25);
+}
+
+.pay-button:hover{
+    transform:translateY(-2px);
+    box-shadow:0 12px 25px rgba(255,183,3,.35);
+}
+
+.pay-button:active{
+    transform:scale(.98);
+}
+
+.pay-button:disabled{
+    background:#d5d9df;
+    color:#89909b;
+    cursor:not-allowed;
+    box-shadow:none;
+    transform:none;
+}
+
+.security{
+    display:flex;
+    gap:9px;
+    align-items:center;
+    justify-content:center;
+    margin-top:15px;
+    color:#747e8d;
+    font-size:12px;
+    text-align:center;
+}
+
+
+/* =====================================
+   MOBILE
+===================================== */
+
+@media(max-width:900px){
+
+    .page{
+        grid-template-columns:1fr;
+    }
+
+    .summary{
+        position:static;
+    }
+}
+
+@media(max-width:650px){
+
+    .header{
+        padding:12px 15px;
+        flex-wrap:wrap;
+    }
+
+    .header-title{
+        order:3;
+        width:100%;
+        text-align:center;
+        font-size:17px;
+    }
+
+    .logo{
+        font-size:18px;
+    }
+
+    .back-cart{
+        font-size:12px;
+        padding:9px 11px;
+    }
+
+    .page{
+        margin:15px auto;
+        padding:0 10px;
+    }
+
+    .checkout-card{
+        padding:20px 15px;
+        border-radius:17px;
+    }
+
+    h1{
+        font-size:24px;
+    }
+
+    .progress{
+        gap:5px;
+    }
+
+    .progress-step{
+        font-size:10px;
+    }
+
+    .step-number{
+        width:25px;
+        height:25px;
+    }
+
+    .product{
+        grid-template-columns:75px minmax(0,1fr);
+        gap:12px;
+    }
+
+    .product-image{
+        width:75px;
+        height:75px;
+    }
+
+    .product-total{
+        grid-column:2;
+        text-align:left;
+    }
+
+    .product-currencies{
+        gap:4px;
+    }
+
+    .product-currency{
+        font-size:10px;
+    }
+
+    .summary{
+        padding:21px;
+    }
+
+    .seller-payment-row{
+        flex-direction:column;
+        gap:3px;
+    }
+
+    .seller-payment-row span:last-child{
+        text-align:left;
+    }
+}
+
+@media(max-width:420px){
+
+    .currency-summary{
+        padding:12px;
+    }
+
+    .currency-row{
+        font-size:13px;
+    }
+
+    .payment-method{
+        padding:14px;
+    }
+
+    .payment-icon{
+        width:42px;
+        height:42px;
+    }
+}
+
+</style></head><body><header class="header"><a href="index.html" class="logo">
+    Marko's <span>Marketplace</span>
+</a>
+
+<div class="header-title">
+    🔒 Secure Checkout
+</div>
+
+<a href="cart.html" class="back-cart">
+    ← Back to Cart
+</a>
+
+</header><main class="page"><section class="checkout-card"><div class="checkout-heading">
+
+    <div class="checkout-icon">
+        🛒
+    </div>
+
+    <div>
+        <h1>
+            Complete Your Order
+        </h1>
+    </div>
+
+</div>
+
+
+<p class="subtitle">
+    Review your products and complete payment directly with the seller.
+</p>
+
+
+<div class="progress">
+
+    <div class="progress-step active">
+        <span class="step-number">✓</span>
+        Cart
+    </div>
+
+    <div class="progress-line"></div>
+
+    <div class="progress-step active">
+        <span class="step-number">2</span>
+        Checkout
+    </div>
+
+    <div class="progress-line"></div>
+
+    <div class="progress-step">
+        <span class="step-number">3</span>
+        Payment
+    </div>
+
+</div>
+
+
+<h2 class="section-title">
+    Your Products
+</h2>
+
+
+<div id="cartItems"></div>
+
+
+<!-- =====================================
+     SELLER PAYMENT
+====================================== -->
+
+<div class="payment-section">
+
+    <h2 class="section-title">
+        Seller Payment
+    </h2>
+
+
+    <div class="payment-method">
+
+        <div class="payment-header">
+
+            <div class="payment-icon">
+                💳
+            </div>
+
+            <div>
+
+                <h3>
+                    Pay the Seller Directly
+                </h3>
+
+                <p>
+                    MarketHub does not collect the product payment
+                    at this stage. Your payment goes directly to the
+                    seller.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="payment-notice">
+
+            <strong>How it works:</strong><br>
+
+            1. Place your order.<br>
+            2. Review the seller's payment instructions.<br>
+            3. Transfer the order amount directly to the seller.<br>
+            4. Keep your payment receipt/proof.<br>
+            5. Submit the payment proof when requested.
+
+        </div>
+
+
+        <!--
+            checkout.js / backend can populate
+            seller payment details here later.
+        -->
+
+        <div
+            id="sellerPaymentDetails"
+            class="seller-payment-box"
+            style="display:none;">
+
+            <h4>
+                Seller Payment Instructions
+            </h4>
+
+            <div class="seller-payment-row">
+                <span>Seller</span>
+                <span id="sellerName">-</span>
+            </div>
+
+            <div class="seller-payment-row">
+                <span>Payment Method</span>
+                <span id="sellerPaymentMethod">-</span>
+            </div>
+
+            <div class="seller-payment-row">
+                <span>Bank / Provider</span>
+                <span id="sellerBankName">-</span>
+            </div>
+
+            <div class="seller-payment-row">
+                <span>Account / Wallet Name</span>
+                <span id="sellerAccountName">-</span>
+            </div>
+
+            <div class="seller-payment-row">
+                <span>Account / Wallet Number</span>
+                <span id="sellerAccountNumber">-</span>
+            </div>
+
+            <div class="seller-payment-row">
+                <span>Payment Reference</span>
+                <span id="sellerPaymentReference">-</span>
+            </div>
+
+            <div class="payment-warning">
+
+                ⚠️ Always check the seller name and payment
+                details before sending money. Do not send more
+                than the order total.
+
+            </div>
+
+        </div>
+
+
+        <div class="commission-box">
+
+            <h4>
+                MarketHub Commission
+            </h4>
+
+            <p>
+
+                The seller receives the buyer's payment directly.
+                Sellers are responsible for paying the agreed
+                <strong>30% MarketHub commission</strong> separately
+                through the approved MarketHub payment method.
+
+                <br><br>
+
+                Your buyer payment is <strong>not</strong> increased
+                by this commission.
+
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+</section><aside class="summary"><h2>
+    Order Summary
+</h2>
+
+<div class="secure-badge">
+    🔒 Secure Marketplace Checkout
+</div>
+
+
+<div class="summary-row">
+
+    <span>
+        Items
+    </span>
+
+    <strong id="itemCount">
+        0
+    </strong>
+
+</div>
+
+
+<div class="summary-row">
+
+    <span>
+        Delivery
+    </span>
+
+    <strong>
+        FREE
+    </strong>
+
+</div>
+
+
+<div class="currency-summary">
+
+    <div class="currency-summary-title">
+        Total in all currencies
+    </div>
+
+
+    <div class="currency-row">
+
+        <span>
+            🇺🇸 USD
+        </span>
+
+        <span id="totalUSD">
+            $0.00
+        </span>
+
+    </div>
+
+
+    <div class="currency-row">
+
+        <span>
+            🇳🇦 NAD
+        </span>
+
+        <span id="totalNAD">
+            N$0.00
+        </span>
+
+    </div>
+
+
+    <div class="currency-row">
+
+        <span>
+            🇪🇺 EUR
+        </span>
+
+        <span id="totalEUR">
+            €0.00
+        </span>
+
+    </div>
+
+</div>
+
+
+<div class="base-note">
+    USD is the MarketHub base currency.
+</div>
+
+
+<div class="total">
+
+    <span>
+        Total
+    </span>
+
+    <span id="totalAmount">
+        $0.00
+    </span>
+
+</div>
+
+
+<button
+    id="payButton"
+    class="pay-button"
+    onclick="createOrder()">
+
+    🛒 Place Order & View Payment Details
+
+</button>
+
+
+<div class="security">
+
+    🔐
+
+    <span>
+        Payment is made directly to the seller.
+    </span>
+
+</div>
+
+</aside></main><script src="js/checkout.js"></script><script>
+
+const USD_TO_NAD = 18.20;
+const USD_TO_EUR = 0.86;
+
+
+const checkoutCart =
+    JSON.parse(
+        localStorage.getItem("cart")
+    ) || [];
+
+
+function formatMoney(amount, currency){
+
+    amount = Number(amount) || 0;
+
+    if(currency === "USD"){
+        return `$${amount.toFixed(2)}`;
+    }
+
+    if(currency === "NAD"){
+        return `N$${amount.toFixed(2)}`;
+    }
+
+    if(currency === "EUR"){
+        return `€${amount.toFixed(2)}`;
+    }
+
+    return amount.toFixed(2);
+}
+
+
+function calculateCheckoutUSD(){
+
+    let total = 0;
+
+    checkoutCart.forEach(item => {
+
+        const price =
+            Number(item.price) || 0;
+
+        const quantity =
+            Math.max(
+                1,
+                Number(item.quantity) || 1
+            );
+
+        total += price * quantity;
+
+    });
+
+    return total;
+}
+
+
+function updateThreeCurrencySummary(){
+
+    const usd =
+        calculateCheckoutUSD();
+
+    const nad =
+        usd * USD_TO_NAD;
+
+    const eur =
+        usd * USD_TO_EUR;
+
+
+    const usdElement =
+        document.getElementById("totalUSD");
+
+    const nadElement =
+        document.getElementById("totalNAD");
+
+    const eurElement =
+        document.getElementById("totalEUR");
+
+
+    if(usdElement){
+        usdElement.textContent =
+            formatMoney(usd,"USD");
+    }
+
+    if(nadElement){
+        nadElement.textContent =
+            formatMoney(nad,"NAD");
+    }
+
+    if(eurElement){
+        eurElement.textContent =
+            formatMoney(eur,"EUR");
+    }
+
+
+    const totalAmount =
+        document.getElementById("totalAmount");
+
+    if(totalAmount){
+        totalAmount.textContent =
+            formatMoney(usd,"USD");
+    }
+
+
+    let itemCount = 0;
+
+    checkoutCart.forEach(item => {
+
+        itemCount +=
+            Math.max(
+                1,
+                Number(item.quantity) || 1
+            );
+
+    });
+
+
+    const countElement =
+        document.getElementById("itemCount");
+
+    if(countElement){
+        countElement.textContent =
+            itemCount;
+    }
+
+}
+
+
+updateThreeCurrencySummary();
+
+
+/*
+================================================
+TEMPORARY SELLER PAYMENT DISPLAY
+================================================
+
+The actual seller payment information should
+come from the authenticated backend/database.
+
+We deliberately do NOT hard-code bank details here.
+
+Later checkout.js can populate:
+
+sellerName
+sellerPaymentMethod
+sellerBankName
+sellerAccountName
+sellerAccountNumber
+sellerPaymentReference
+
+after the order has been created.
+
+================================================
+*/
+
+function displaySellerPaymentDetails(data){
+
+    if(!data){
+        return;
+    }
+
+
+    const box =
+        document.getElementById(
+            "sellerPaymentDetails"
+        );
+
+    if(!box){
+        return;
+    }
+
+
+    const setText = (id,value) => {
+
+        const element =
+            document.getElementById(id);
+
+        if(element){
+            element.textContent =
+                value || "-";
+        }
+
+    };
+
+
+    setText(
+        "sellerName",
+        data.sellerName
+    );
+
+    setText(
+        "sellerPaymentMethod",
+        data.paymentMethod
+    );
+
+    setText(
+        "sellerBankName",
+        data.bankName
+    );
+
+    setText(
+        "sellerAccountName",
+        data.accountName
+    );
+
+    setText(
+        "sellerAccountNumber",
+        data.accountNumber
+    );
+
+    setText(
+        "sellerPaymentReference",
+        data.paymentReference
+    );
+
+
+    box.style.display = "block";
+}
+
+</script></body></html>

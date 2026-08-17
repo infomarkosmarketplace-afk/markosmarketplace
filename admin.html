@@ -1,0 +1,975 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"><title>MarketHub Admin Dashboard</title><style>
+
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    font-family:Arial,Helvetica,sans-serif;
+    background:#eaeded;
+    color:#172133;
+}
+
+/* =========================
+   SIDEBAR
+========================= */
+
+.sidebar{
+    position:fixed;
+    left:0;
+    top:0;
+    bottom:0;
+    width:240px;
+    background:#131921;
+    color:white;
+    z-index:1000;
+    overflow-y:auto;
+}
+
+.logo{
+    height:65px;
+    display:flex;
+    align-items:center;
+    padding:0 22px;
+    font-size:21px;
+    font-weight:bold;
+    border-bottom:1px solid #29323d;
+}
+
+.logo span{
+    color:#ff9900;
+}
+
+.nav{
+    padding:18px 10px;
+}
+
+.nav-title{
+    font-size:11px;
+    color:#9ca3af;
+    text-transform:uppercase;
+    padding:10px 14px;
+}
+
+.nav a{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:13px 14px;
+    margin:3px 0;
+    border-radius:5px;
+    color:#e5e7eb;
+    text-decoration:none;
+    font-size:14px;
+}
+
+.nav a:hover,
+.nav a.active{
+    background:#232f3e;
+    color:white;
+}
+
+.nav-icon{
+    width:22px;
+    text-align:center;
+}
+
+/* =========================
+   MAIN
+========================= */
+
+.main{
+    margin-left:240px;
+    min-height:100vh;
+}
+
+/* =========================
+   TOP BAR
+========================= */
+
+.topbar{
+    height:65px;
+    background:white;
+    border-bottom:1px solid #ddd;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 25px;
+    position:sticky;
+    top:0;
+    z-index:500;
+}
+
+.search{
+    width:420px;
+    max-width:50%;
+    display:flex;
+}
+
+.search input{
+    width:100%;
+    border:1px solid #aaa;
+    padding:11px 14px;
+    border-radius:4px 0 0 4px;
+    outline:none;
+}
+
+.search button{
+    border:0;
+    background:#febd69;
+    padding:0 18px;
+    border-radius:0 4px 4px 0;
+    cursor:pointer;
+}
+
+.admin-info{
+    display:flex;
+    align-items:center;
+    gap:15px;
+}
+
+.admin-avatar{
+    width:38px;
+    height:38px;
+    background:#232f3e;
+    color:white;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:bold;
+}
+
+.logout{
+    background:white;
+    border:1px solid #aaa;
+    padding:8px 14px;
+    border-radius:5px;
+    cursor:pointer;
+}
+
+.logout:hover{
+    background:#f3f3f3;
+}
+
+/* =========================
+   CONTENT
+========================= */
+
+.content{
+    padding:25px;
+    max-width:1500px;
+    margin:auto;
+}
+
+.page-title{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:20px;
+}
+
+.page-title h1{
+    margin:0;
+    font-size:27px;
+}
+
+.page-title p{
+    margin:6px 0 0;
+    color:#667085;
+}
+
+/* =========================
+   STAT CARDS
+========================= */
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:18px;
+    margin-bottom:22px;
+}
+
+.card{
+    background:white;
+    border:1px solid #ddd;
+    border-radius:8px;
+    padding:20px;
+    min-height:140px;
+    box-shadow:0 1px 3px rgba(0,0,0,.08);
+}
+
+.card-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.card-title{
+    color:#667085;
+    font-size:14px;
+}
+
+.card-icon{
+    width:40px;
+    height:40px;
+    background:#f3f4f6;
+    border-radius:8px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:19px;
+}
+
+.amount{
+    margin-top:15px;
+    font-size:27px;
+    font-weight:bold;
+}
+
+.card-footer{
+    margin-top:9px;
+    color:#667085;
+    font-size:12px;
+}
+
+.wallet-card{
+    border-top:4px solid #ff9900;
+}
+
+/* =========================
+   GRID
+========================= */
+
+.dashboard-grid{
+    display:grid;
+    grid-template-columns:2fr 1fr;
+    gap:20px;
+}
+
+.panel{
+    background:white;
+    border:1px solid #ddd;
+    border-radius:8px;
+    padding:20px;
+    box-shadow:0 1px 3px rgba(0,0,0,.08);
+    margin-bottom:20px;
+}
+
+.panel-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    border-bottom:1px solid #eee;
+    padding-bottom:14px;
+    margin-bottom:15px;
+}
+
+.panel-header h2{
+    margin:0;
+    font-size:19px;
+}
+
+.panel-header a{
+    color:#007185;
+    text-decoration:none;
+    font-size:13px;
+}
+
+.panel-header a:hover{
+    text-decoration:underline;
+}
+
+/* =========================
+   WALLET
+========================= */
+
+.wallet-box{
+    background:#f8fafc;
+    border:1px solid #e5e7eb;
+    border-radius:7px;
+    padding:18px;
+}
+
+.wallet-row{
+    display:flex;
+    justify-content:space-between;
+    padding:11px 0;
+    border-bottom:1px solid #e5e7eb;
+}
+
+.wallet-row:last-child{
+    border-bottom:0;
+}
+
+.wallet-label{
+    color:#667085;
+}
+
+.wallet-value{
+    font-weight:bold;
+}
+
+.withdraw-btn{
+    width:100%;
+    margin-top:18px;
+    padding:12px;
+    background:#ff9900;
+    border:1px solid #e47911;
+    border-radius:5px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.withdraw-btn:hover{
+    background:#f08800;
+}
+
+/* =========================
+   PAYMENT
+========================= */
+
+.payment{
+    border:1px solid #ddd;
+    border-radius:7px;
+    padding:15px;
+    margin-bottom:12px;
+}
+
+.payment-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.payment h3{
+    margin:0;
+    font-size:16px;
+}
+
+.payment p{
+    margin:7px 0;
+    color:#555;
+    font-size:14px;
+}
+
+.payment img{
+    max-width:220px;
+    max-height:180px;
+    object-fit:contain;
+    display:block;
+    margin:12px 0;
+    border:1px solid #ddd;
+    border-radius:5px;
+}
+
+.approve-btn{
+    background:#ffd814;
+    border:1px solid #fcd200;
+    padding:10px 16px;
+    border-radius:20px;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+.approve-btn:hover{
+    background:#f7ca00;
+}
+
+.status{
+    color:#667085;
+    font-size:14px;
+}
+
+/* =========================
+   REVENUE
+========================= */
+
+.revenue-box{
+    text-align:center;
+    padding:20px;
+    background:#f8fafc;
+    border-radius:7px;
+}
+
+.revenue-number{
+    font-size:32px;
+    font-weight:bold;
+    margin:10px 0;
+}
+
+.commission{
+    display:inline-block;
+    background:#e7f6ec;
+    color:#137333;
+    padding:6px 12px;
+    border-radius:15px;
+    font-size:12px;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+.menu-btn{
+    display:none;
+    border:0;
+    background:#131921;
+    color:white;
+    font-size:22px;
+    cursor:pointer;
+}
+
+@media(max-width:1100px){
+
+    .stats{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .dashboard-grid{
+        grid-template-columns:1fr;
+    }
+
+}
+
+@media(max-width:750px){
+
+    .sidebar{
+        transform:translateX(-100%);
+        transition:.25s;
+    }
+
+    .sidebar.open{
+        transform:translateX(0);
+    }
+
+    .main{
+        margin-left:0;
+    }
+
+    .menu-btn{
+        display:block;
+    }
+
+    .topbar{
+        padding:0 12px;
+    }
+
+    .search{
+        display:none;
+    }
+
+    .content{
+        padding:15px;
+    }
+
+    .stats{
+        grid-template-columns:1fr;
+    }
+
+    .page-title h1{
+        font-size:22px;
+    }
+
+}
+
+</style></head><body><!-- =========================
+     SIDEBAR
+========================= --><aside
+class="sidebar"
+id="sidebar"><div class="logo">Market<span>Hub</span>
+
+</div><div class="nav"><div class="nav-title">
+Main
+</div><a
+href="admin.html"
+class="active">
+
+<span class="nav-icon">📊</span>
+Dashboard
+
+</a><a href="admin-payments.html"><span class="nav-icon">💳</span>
+Payments
+
+</a><a href="admin-revenue.html"><span class="nav-icon">💰</span>
+Revenue
+
+</a><div class="nav-title">
+Finance
+</div><a href="#wallet"><span class="nav-icon">👛</span>
+Admin Wallet
+
+</a><a href="admin-withdraw.html"><span class="nav-icon">🏦</span>
+Withdraw Funds
+
+</a><div class="nav-title">
+Marketplace
+</div><a href="products.html"><span class="nav-icon">📦</span>
+Products
+
+</a><a href="seller-dashboard.html"><span class="nav-icon">👥</span>
+Sellers
+
+</a><div class="nav-title">
+System
+</div><a href="#settings"><span class="nav-icon">⚙️</span>
+Settings
+
+</a></div></aside><!-- =========================
+     MAIN
+========================= --><main class="main"><!-- TOPBAR --><div class="topbar"><button
+class="menu-btn"
+onclick="toggleSidebar()">
+
+☰
+
+</button><div class="search"><input
+type="text"
+placeholder="Search MarketHub...">
+
+<button>
+🔍
+</button></div><div class="admin-info"><span>
+Administrator
+</span><div class="admin-avatar">
+A
+</div><button
+class="logout"
+onclick="logout()">
+
+Logout
+
+</button></div></div><!-- CONTENT --><div class="content"><div class="page-title"><div><h1>
+Admin Dashboard
+</h1><p>
+Manage your marketplace, payments and revenue.
+</p></div></div><!-- STATISTICS --><div class="stats"><div class="card wallet-card"><div class="card-header"><div class="card-title">
+Admin Wallet
+</div><div class="card-icon">
+👛
+</div></div><div
+class="amount"
+id="adminWalletBalance">N$0.00
+
+</div><div class="card-footer">
+Available to withdraw
+</div></div><div class="card"><div class="card-header"><div class="card-title">
+Total Earned
+</div><div class="card-icon">
+💰
+</div></div><div
+class="amount"
+id="adminTotalEarned">N$0.00
+
+</div><div class="card-footer">
+Marketplace commissions
+</div></div><div class="card"><div class="card-header"><div class="card-title">
+Total Withdrawn
+</div><div class="card-icon">
+🏦
+</div></div><div
+class="amount"
+id="adminTotalWithdrawn">N$0.00
+
+</div><div class="card-footer">
+Funds already withdrawn
+</div></div><div class="card"><div class="card-header"><div class="card-title">
+Commission Rate
+</div><div class="card-icon">
+📈
+</div></div><div class="amount">
+30%
+</div><div class="card-footer">
+Marketplace commission
+</div></div></div><!-- MAIN GRID --><div class="dashboard-grid"><div><!-- PAYMENTS --><div class="panel"><div class="panel-header"><h2>
+Pending Payments
+</h2><a href="admin-payments.html">
+View all
+</a></div><div
+id="payments"
+class="status">Loading payments...
+
+</div></div><!-- REVENUE --><div class="panel"><div class="panel-header"><h2>
+Marketplace Revenue
+</h2><a href="admin-revenue.html">
+View revenue
+</a></div><div class="revenue-box"><div>
+Total marketplace commission
+</div><div
+class="revenue-number"
+id="revenueAmount">N$0.00
+
+</div><span class="commission">
+30% COMMISSION
+</span></div></div></div><!-- RIGHT COLUMN --><div><!-- WALLET --><div
+class="panel"
+id="wallet"><div class="panel-header"><h2>
+Admin Wallet
+</h2></div><div class="wallet-box"><div class="wallet-row"><span class="wallet-label">
+Available balance
+</span><strong
+class="wallet-value"
+id="walletBalanceText">
+
+N$0.00
+
+</strong></div><div class="wallet-row"><span class="wallet-label">
+Total earned
+</span><strong
+class="wallet-value"
+id="walletEarnedText">
+
+N$0.00
+
+</strong></div><div class="wallet-row"><span class="wallet-label">
+Total withdrawn
+</span><strong
+class="wallet-value"
+id="walletWithdrawnText">
+
+N$0.00
+
+</strong></div><button
+class="withdraw-btn"
+onclick="goToWithdraw()">
+
+Withdraw Admin Funds
+
+</button></div></div></div></div></div></main><script>
+
+/* =========================
+   AUTH
+========================= */
+
+const token =
+localStorage.getItem("token");
+
+
+if(!token){
+
+window.location.href =
+"/login.html";
+
+}
+
+
+/* =========================
+   SIDEBAR
+========================= */
+
+function toggleSidebar(){
+
+document
+.getElementById("sidebar")
+.classList
+.toggle("open");
+
+}
+
+
+/* =========================
+   ADMIN WALLET
+========================= */
+
+async function loadAdminWallet(){
+
+try{
+
+const response =
+await fetch(
+"/admin/wallet",
+{
+headers:{
+"Authorization":
+"Bearer "+token
+}
+}
+);
+
+
+const data =
+await response.json();
+
+
+if(!data.success){
+
+console.error(data.message);
+
+return;
+
+}
+
+
+const balance =
+Number(
+data.wallet.balance || 0
+);
+
+const earned =
+Number(
+data.wallet.total_earned || 0
+);
+
+const withdrawn =
+Number(
+data.wallet.total_withdrawn || 0
+);
+
+
+document.getElementById(
+"adminWalletBalance"
+).textContent =
+"N$"+balance.toFixed(2);
+
+
+document.getElementById(
+"adminTotalEarned"
+).textContent =
+"N$"+earned.toFixed(2);
+
+
+document.getElementById(
+"adminTotalWithdrawn"
+).textContent =
+"N$"+withdrawn.toFixed(2);
+
+
+document.getElementById(
+"walletBalanceText"
+).textContent =
+"N$"+balance.toFixed(2);
+
+
+document.getElementById(
+"walletEarnedText"
+).textContent =
+"N$"+earned.toFixed(2);
+
+
+document.getElementById(
+"walletWithdrawnText"
+).textContent =
+"N$"+withdrawn.toFixed(2);
+
+
+document.getElementById(
+"revenueAmount"
+).textContent =
+"N$"+earned.toFixed(2);
+
+
+}catch(error){
+
+console.error(
+"Admin wallet error:",
+error
+);
+
+}
+
+}
+
+
+
+/* =========================
+   PAYMENTS
+========================= */
+
+async function loadPayments(){
+
+try{
+
+const response =
+await fetch(
+"/admin/payment/pending",
+{
+headers:{
+"Authorization":
+"Bearer "+token
+}
+}
+);
+
+
+const data =
+await response.json();
+
+
+const box =
+document.getElementById(
+"payments"
+);
+
+
+box.innerHTML="";
+
+
+if(
+!data.payments ||
+data.payments.length===0
+){
+
+box.innerHTML =
+"<p class='status'>No pending payments.</p>";
+
+return;
+
+}
+
+
+data.payments.forEach(
+payment=>{
+
+
+box.innerHTML += `
+
+<div class="payment">
+
+<div class="payment-top">
+
+<h3>
+Order #${payment.order_id}
+</h3>
+
+<strong>
+${payment.total_amount || ""}
+${payment.currency || ""}
+</strong>
+
+</div>
+
+<p>
+Buyer ID:
+${payment.buyer_id}
+</p>
+
+<img
+src="/${payment.receipt_image}"
+alt="Payment receipt"
+>
+
+<button
+class="approve-btn"
+onclick="
+approvePayment(${payment.order_id})
+">
+
+Approve Payment
+
+</button>
+
+</div>
+
+`;
+
+});
+
+
+}catch(error){
+
+console.error(
+"Payments error:",
+error
+);
+
+document.getElementById(
+"payments"
+).innerHTML =
+"<p class='status'>Unable to load payments.</p>";
+
+}
+
+}
+
+
+
+/* =========================
+   APPROVE PAYMENT
+========================= */
+
+async function approvePayment(
+orderId
+){
+
+try{
+
+const response =
+await fetch(
+"/admin/payment/approve/"+orderId,
+{
+method:"PUT",
+
+headers:{
+"Authorization":
+"Bearer "+token
+}
+}
+);
+
+
+const data =
+await response.json();
+
+
+alert(data.message);
+
+
+if(data.success){
+
+loadPayments();
+
+loadAdminWallet();
+
+}
+
+}catch(error){
+
+console.error(error);
+
+alert(
+"Payment approval failed."
+);
+
+}
+
+}
+
+
+
+/* =========================
+   WITHDRAW
+========================= */
+
+function goToWithdraw(){
+
+window.location.href =
+"/admin-withdraw.html";
+
+}
+
+
+/* =========================
+   LOGOUT
+========================= */
+
+function logout(){
+
+localStorage.removeItem("token");
+
+window.location.href =
+"/login.html";
+
+}
+
+
+/* =========================
+   START
+========================= */
+
+loadAdminWallet();
+
+loadPayments();
+
+</script></body></html>

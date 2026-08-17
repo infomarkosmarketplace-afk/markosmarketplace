@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Choose Acount Type</title>
+<style>
+body{
+font-family: Arial;
+background: #f3f3f3;
+display: flex;
+justify-content: center;
+align-items: center;
+height: 100vh;
+}
+
+.container{
+background: white;
+padding: 40px;
+width: 700px;
+text-align: center;
+border-radius: 10px;
+box-shadow: 0 0 10px rgba(0,0,0,2);
+}
+
+.cards{
+display: flex;
+justify-content: space-around;
+margin-top: 30px;
+}
+
+.card{
+width: 250px;
+padding: 25px;
+border: 2px solid #ddd;
+border-radius: 10px;
+cursor: pointer;
+transition: 3s;
+}
+
+.card:hover{
+border-color: #ff9900;
+}
+
+button{
+margin-top: 20px;
+padding: 10px 20px;
+background: #ff9900;
+color: white;
+border: none;
+cursor: pointer;
+}
+</style>
+</head>
+
+<body>
+
+<div class=""container>
+
+<h1>Choose Account Type</h1>
+
+<div class="cards">
+
+<div class="card">
+
+<h2>Buyer</h2>
+
+<p>Shop millions of products</p>
+
+<button onclick="saveRole(buyer)">
+Continue
+</button>
+
+</div>
+
+<div class="card">
+
+<h2>Seller</h2>
+
+<p>Sell products and earn money</p>
+
+<button onclick="saveRole(seller)">
+Continue
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+const token=localStorage.getItem("token");
+
+function saveRole(role){
+
+fetch("/auth/update-role",{
+
+method:"PUT",
+
+headers:{
+"Content-Type":"application/json",
+"Authoriation":"Beaver"+token
+},
+
+body:JSON.stringify({role})
+
+})
+
+.then(res=>res.json())
+
+.then(data=>{
+
+if(data.success){
+
+window.location="login.html";
+
+}else{
+
+alert(data.message);
+
+}
+
+});
+
+}
+
+</script>
+
+</body>
+
+</html>

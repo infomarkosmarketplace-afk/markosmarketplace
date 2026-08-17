@@ -1,0 +1,908 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>Upload Product | Marko's Marketplace</title>
+
+<style>
+
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: #f3f3f3;
+        color: #222;
+    }
+
+    .header {
+        background: #131921;
+        padding: 15px 20px;
+        color: white;
+        font-size: 20px;
+        font-weight: bold;
+    }
+
+    .header a {
+        color: white;
+        text-decoration: none;
+    }
+
+    .container {
+        max-width: 950px;
+        margin: 30px auto;
+        background: white;
+        padding: 25px;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+        margin-bottom: 20px;
+        font-size: 24px;
+    }
+
+    .form-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
+    }
+
+    .full {
+        grid-column: 1 / -1;
+    }
+
+    label {
+        font-size: 13px;
+        color: #444;
+        margin-bottom: 5px;
+        display: block;
+        font-weight: bold;
+    }
+
+    input,
+    textarea {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        font-size: 14px;
+        outline: none;
+    }
+
+    input:focus,
+    textarea:focus {
+        border-color: #ff9900;
+    }
+
+    textarea {
+        resize: vertical;
+        min-height: 120px;
+    }
+
+    .upload-box {
+        border: 2px dashed #aaa;
+        padding: 25px;
+        text-align: center;
+        border-radius: 10px;
+        background: #fafafa;
+        cursor: pointer;
+        margin-bottom: 20px;
+    }
+
+    .upload-box:hover {
+        border-color: #ff9900;
+    }
+
+    .upload-box input {
+        border: none;
+        cursor: pointer;
+    }
+
+    .upload-info {
+        color: #666;
+        font-size: 13px;
+        margin-top: 10px;
+    }
+
+    #imagePreview {
+        display: grid;
+        grid-template-columns: repeat(
+            auto-fill,
+            minmax(100px, 1fr)
+        );
+        gap: 10px;
+        margin-top: 15px;
+    }
+
+    .preview-item {
+        position: relative;
+    }
+
+    .preview-item img {
+        width: 100%;
+        height: 100px;
+        object-fit: cover;
+        border-radius: 6px;
+        border: 1px solid #ddd;
+    }
+
+    .actions {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 20px;
+        gap: 10px;
+    }
+
+    .btn {
+        padding: 12px 18px;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: bold;
+    }
+
+    .btn-primary {
+        background: #ff9900;
+        color: white;
+    }
+
+    .btn-primary:hover {
+        background: #e68a00;
+    }
+
+    .btn-primary:disabled {
+        background: #aaa;
+        cursor: not-allowed;
+    }
+
+    .btn-danger {
+        background: #d9534f;
+        color: white;
+    }
+
+    .btn-danger:hover {
+        background: #c9302c;
+    }
+
+    .btn-secondary {
+        background: #555;
+        color: white;
+    }
+
+    .btn-secondary:hover {
+        background: #444;
+    }
+
+    #message {
+        display: none;
+        padding: 12px;
+        margin-bottom: 20px;
+        border-radius: 6px;
+        font-weight: bold;
+    }
+
+    #message.success {
+        display: block;
+        background: #dff0d8;
+        color: #3c763d;
+    }
+
+    #message.error {
+        display: block;
+        background: #f2dede;
+        color: #a94442;
+    }
+
+    .loading {
+        opacity: 0.7;
+        pointer-events: none;
+    }
+
+    @media (max-width: 700px) {
+
+        .container {
+            margin: 10px;
+            padding: 18px;
+        }
+
+        .form-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .full {
+            grid-column: auto;
+        }
+
+        .actions {
+            flex-direction: column;
+        }
+
+        .btn {
+            width: 100%;
+        }
+
+    }
+
+</style>
+
+</head><body><div class="header"><a href="/seller-dashboard.html">
+    Marko's Marketplace
+</a>
+
+- Seller Product Upload
+
+</div><div class="container"><h1>
+    Add New Product
+</h1>
+
+
+<div id="message"></div>
+
+
+<form
+    id="productUploadForm"
+    enctype="multipart/form-data"
+>
+
+
+    <!-- =========================================
+         PRODUCT IMAGES
+    ========================================== -->
+
+    <div class="full">
+
+        <label>
+            Product Images
+        </label>
+
+
+        <div class="upload-box">
+
+            <input
+                type="file"
+                id="productImages"
+                name="image"
+                accept="image/*"
+                multiple
+            >
+
+            <p>
+                Select up to 20 product images.
+            </p>
+
+            <div class="upload-info">
+                At least one image is required.
+            </div>
+
+        </div>
+
+
+        <div id="imagePreview"></div>
+
+    </div>
+
+
+    <!-- =========================================
+         PRODUCT INFORMATION
+    ========================================== -->
+
+    <div class="form-grid">
+
+
+        <div>
+
+            <label for="productName">
+                Product Name
+            </label>
+
+            <input
+                type="text"
+                id="productName"
+                name="product_name"
+                placeholder="e.g. Samsung Galaxy Phone"
+                maxlength="150"
+                required
+            >
+
+        </div>
+
+
+        <div>
+
+            <label for="price">
+                Price (USD)
+            </label>
+
+            <input
+                type="number"
+                id="price"
+                name="price"
+                step="0.01"
+                min="0.01"
+                placeholder="e.g. 250.00"
+                required
+            >
+
+        </div>
+
+
+        <div>
+
+            <label for="stock">
+                Stock Quantity
+            </label>
+
+            <input
+                type="number"
+                id="stock"
+                name="stock"
+                min="0"
+                step="1"
+                placeholder="e.g. 10"
+                required
+            >
+
+        </div>
+
+
+        <div class="full">
+
+            <label for="description">
+                Description
+            </label>
+
+            <textarea
+                id="description"
+                name="description"
+                maxlength="5000"
+                placeholder="Describe your product..."
+            ></textarea>
+
+        </div>
+
+
+    </div>
+
+
+    <!-- =========================================
+         ACTIONS
+    ========================================== -->
+
+    <div class="actions">
+
+        <button
+            type="button"
+            class="btn btn-danger"
+            id="clearBtn"
+        >
+            Clear
+        </button>
+
+
+        <button
+            type="button"
+            class="btn btn-secondary"
+            id="backBtn"
+        >
+            Back to Dashboard
+        </button>
+
+
+        <button
+            type="submit"
+            class="btn btn-primary"
+            id="submitBtn"
+        >
+            Add Product
+        </button>
+
+    </div>
+
+
+</form>
+
+</div><script>
+
+"use strict";
+
+
+// =====================================================
+// ELEMENTS
+// =====================================================
+
+const form =
+    document.getElementById(
+        "productUploadForm"
+    );
+
+
+const imageInput =
+    document.getElementById(
+        "productImages"
+    );
+
+
+const preview =
+    document.getElementById(
+        "imagePreview"
+    );
+
+
+const message =
+    document.getElementById(
+        "message"
+    );
+
+
+const submitBtn =
+    document.getElementById(
+        "submitBtn"
+    );
+
+
+const clearBtn =
+    document.getElementById(
+        "clearBtn"
+    );
+
+
+const backBtn =
+    document.getElementById(
+        "backBtn"
+    );
+
+
+// =====================================================
+// AUTHENTICATION
+// =====================================================
+
+const token =
+    localStorage.getItem("token");
+
+
+if (!token) {
+
+    showMessage(
+        "You are not logged in. Please log in as a seller.",
+        "error"
+    );
+
+    submitBtn.disabled = true;
+
+}
+
+
+// =====================================================
+// MESSAGE
+// =====================================================
+
+function showMessage(
+    text,
+    type
+) {
+
+    message.textContent =
+        text;
+
+    message.className =
+        type;
+
+    message.style.display =
+        "block";
+
+}
+
+
+// =====================================================
+// IMAGE PREVIEW
+// =====================================================
+
+imageInput.addEventListener(
+    "change",
+    function () {
+
+        preview.innerHTML =
+            "";
+
+        const files =
+            Array.from(
+                imageInput.files
+            );
+
+
+        if (files.length > 20) {
+
+            showMessage(
+                "You can upload a maximum of 20 images.",
+                "error"
+            );
+
+            imageInput.value =
+                "";
+
+            return;
+
+        }
+
+
+        if (files.length === 0) {
+
+            return;
+
+        }
+
+
+        files.forEach(
+            function (file) {
+
+                if (
+                    !file.type.startsWith(
+                        "image/"
+                    )
+                ) {
+
+                    return;
+
+                }
+
+
+                const reader =
+                    new FileReader();
+
+
+                reader.onload =
+                    function (event) {
+
+                        const div =
+                            document.createElement(
+                                "div"
+                            );
+
+
+                        div.className =
+                            "preview-item";
+
+
+                        const img =
+                            document.createElement(
+                                "img"
+                            );
+
+
+                        img.src =
+                            event.target.result;
+
+
+                        img.alt =
+                            "Product preview";
+
+
+                        div.appendChild(
+                            img
+                        );
+
+
+                        preview.appendChild(
+                            div
+                        );
+
+                    };
+
+
+                reader.readAsDataURL(
+                    file
+                );
+
+            }
+        );
+
+    }
+);
+
+
+// =====================================================
+// CLEAR FORM
+// =====================================================
+
+clearBtn.addEventListener(
+    "click",
+    function () {
+
+        form.reset();
+
+        preview.innerHTML =
+            "";
+
+        message.style.display =
+            "none";
+
+    }
+);
+
+
+// =====================================================
+// BACK TO DASHBOARD
+// =====================================================
+
+backBtn.addEventListener(
+    "click",
+    function () {
+
+        window.location.href =
+            "/seller-dashboard.html";
+
+    }
+);
+
+
+// =====================================================
+// SUBMIT PRODUCT
+// =====================================================
+
+form.addEventListener(
+    "submit",
+    async function (event) {
+
+        event.preventDefault();
+
+
+        message.style.display =
+            "none";
+
+
+        // ---------------------------------------------
+        // CHECK LOGIN
+        // ---------------------------------------------
+
+        const currentToken =
+            localStorage.getItem(
+                "token"
+            );
+
+
+        if (!currentToken) {
+
+            showMessage(
+                "Your session has expired. Please log in again.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        // ---------------------------------------------
+        // CHECK IMAGES
+        // ---------------------------------------------
+
+        const files =
+            Array.from(
+                imageInput.files
+            );
+
+
+        if (files.length === 0) {
+
+            showMessage(
+                "Please select at least one product image.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        if (files.length > 20) {
+
+            showMessage(
+                "You can upload a maximum of 20 images.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        // ---------------------------------------------
+        // CHECK IMAGE TYPES
+        // ---------------------------------------------
+
+        const invalidFile =
+            files.find(
+                file =>
+                    !file.type.startsWith(
+                        "image/"
+                    )
+            );
+
+
+        if (invalidFile) {
+
+            showMessage(
+                "Only image files are allowed.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        // ---------------------------------------------
+        // DISABLE BUTTON
+        // ---------------------------------------------
+
+        submitBtn.disabled =
+            true;
+
+        submitBtn.textContent =
+            "Uploading...";
+
+
+        try {
+
+            // -----------------------------------------
+            // CREATE FORM DATA
+            // -----------------------------------------
+
+            const formData =
+                new FormData(
+                    form
+                );
+
+
+            // IMPORTANT:
+            // seller_id is NOT sent from the browser.
+            // The backend gets it from the JWT.
+
+
+            console.log(
+                "Uploading product..."
+            );
+
+
+            // -----------------------------------------
+            // SEND TO SERVER
+            // -----------------------------------------
+
+            const response =
+                await fetch(
+                    "/products/upload",
+                    {
+                        method: "POST",
+
+                        headers: {
+                            "Authorization":
+                                "Bearer " +
+                                currentToken
+                        },
+
+                        body:
+                            formData
+                    }
+                );
+
+
+            // -----------------------------------------
+            // READ RESPONSE
+            // -----------------------------------------
+
+            const contentType =
+                response.headers.get(
+                    "content-type"
+                ) || "";
+
+
+            let data;
+
+
+            if (
+                contentType.includes(
+                    "application/json"
+                )
+            ) {
+
+                data =
+                    await response.json();
+
+            } else {
+
+                const text =
+                    await response.text();
+
+                throw new Error(
+                    text ||
+                    "Server returned an invalid response."
+                );
+
+            }
+
+
+            console.log(
+                "UPLOAD RESPONSE:",
+                data
+            );
+
+
+            // -----------------------------------------
+            // CHECK SERVER RESPONSE
+            // -----------------------------------------
+
+            if (
+                !response.ok ||
+                !data.success
+            ) {
+
+                throw new Error(
+                    data.message ||
+                    "Product upload failed."
+                );
+
+            }
+
+
+            // -----------------------------------------
+            // SUCCESS
+            // -----------------------------------------
+
+            showMessage(
+                "Product uploaded successfully!",
+                "success"
+            );
+
+
+            submitBtn.textContent =
+                "Product Added";
+
+
+            // -----------------------------------------
+            // REDIRECT TO SELLER DASHBOARD
+            // -----------------------------------------
+
+            setTimeout(
+                function () {
+
+                    window.location.href =
+                        "/seller-dashboard.html";
+
+                },
+                800
+            );
+
+
+        } catch (error) {
+
+            console.error(
+                "PRODUCT UPLOAD ERROR:",
+                error
+            );
+
+
+            showMessage(
+                error.message ||
+                "Unable to upload product.",
+                "error"
+            );
+
+
+            submitBtn.disabled =
+                false;
+
+            submitBtn.textContent =
+                "Add Product";
+
+        }
+
+    }
+);
+
+</script></body></html>
